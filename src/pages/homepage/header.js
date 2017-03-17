@@ -8,7 +8,7 @@ const styles = {
   textDecoration: 'none',
 };
 
-const header = (props) => (
+const Header = (props) => (
   <Link to="/foo" style={styles}>
     <div className="App-header" >
       <img src={logo} className="App-logo" alt="logo" />
@@ -17,4 +17,4 @@ const header = (props) => (
   </Link>
 );
 
-export default muiThemeable()(header);
+export default muiThemeable()(Header);
