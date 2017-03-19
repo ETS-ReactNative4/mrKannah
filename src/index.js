@@ -26,9 +26,9 @@ const MUI = () => (
   <MuiThemeProvider muiTheme={getMuiTheme(theme)}>
     <Provider store={store}>
       <Router history={history}>
-        <Route path="/" component={() => (<Homepage store={store} />)}/>
+        <Route path="/" component={Homepage}/>
           {/* 404 route */}
-        <Route path='*' component={() => (<Homepage store={store} />)}/>
+        <Route path='*' component={Homepage}/>
       </Router>
     </Provider>
   </MuiThemeProvider>

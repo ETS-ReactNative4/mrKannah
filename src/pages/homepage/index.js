@@ -4,9 +4,9 @@ import Body from './body';
 import muiThemeable from 'material-ui/styles/muiThemeable';
 import Navbar from '../../components/navbar/index';
 
-const HomePage = (props) => (
+const HomePage = () => (
   <div className="App">
-    <Navbar store={props.store}/>
+    <Navbar />
     <Header />
     <Body />
   </div>
