@@ -33,7 +33,7 @@ class AntiGravity extends React.Component {
   }
   
   build() {
-    //setInterval(() => {
+    setInterval(() => {
       let curState = this.state;
       let bounds = document.getElementsByClassName('App-header')[0].getBoundingClientRect();
       console.log(bounds);
@@ -42,11 +42,12 @@ class AntiGravity extends React.Component {
           unmountMe={this.handleChildUnmount}
           id={this.id} svg={data[randomInt(0, data.length)]}
           coordinates={{"x": (Math.random() * window.innerWidth) - 50 , "y": bounds.height}}
+          zeroY={-1 * (bounds.bottom + bounds.top)} 
           friction={(1 + Math.random() * 3)}
         />;
     this.setState(Object.assign({}, curState));
       this.id++;
-   // }, 200)
+   }, 200)
   }
   
   render(){
