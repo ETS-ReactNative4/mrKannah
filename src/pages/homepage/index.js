@@ -7,8 +7,7 @@ import Navbar from '../../components/navbar/index';
 import Footer from '../../components/footer';
 
 const HomePage = () => (
-  <div className="App">
-    <Navbar />
+  <div className="Homepage">
     <Header />
     <About />
     <Showcase />

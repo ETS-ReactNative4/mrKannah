@@ -8,7 +8,7 @@ import { Provider } from 'react-redux'
 import { Router, Route, browserHistory } from 'react-router'
 import { syncHistoryWithStore, routerMiddleware} from 'react-router-redux'
 import injectTapEventPlugin from 'react-tap-event-plugin';
-import Homepage from './pages/homepage/index';
+import App from './pages/index';
 import reducers from './reducers';
 import './index.css';
 
@@ -26,9 +26,7 @@ const MUI = () => (
   <MuiThemeProvider muiTheme={getMuiTheme(theme)}>
     <Provider store={store}>
       <Router history={history}>
-        <Route path="/" component={Homepage}/>
-          {/* 404 route */}
-        <Route path='*' component={Homepage}/>
+        <Route path='*' component={App}/>
       </Router>
     </Provider>
   </MuiThemeProvider>
