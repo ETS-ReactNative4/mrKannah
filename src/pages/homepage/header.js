@@ -12,7 +12,7 @@ const styles = {
 const Header = (props) => (
   <Link to="/foo" style={styles}>
     <div className="App-header" >
-      <AntiGravity />
+      <AntiGravity height="390px"/>
       <img src={logo} className="App-logo" alt="logo" />
       <h2>Welcome to React</h2>
     </div>
