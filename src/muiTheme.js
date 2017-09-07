@@ -25,6 +25,7 @@ export default {
     secondaryTextColor: fade(darkBlack, 0.54),
     alternateTextColor: white,
     canvasColor: white,
+    alternateCanvasColor: fade(darkBlack, 0.8),
     borderColor: grey300,
     disabledColor: fade(darkBlack, 0.3),
     pickerHeaderColor: cyan500,
