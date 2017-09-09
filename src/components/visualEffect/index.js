@@ -6,14 +6,27 @@ import config from './config';
 
 
 class ParticlesBackground extends React.Component {
+  componentWillMount() {
+    this.setState({initialRender: true})
+  }
+  
   render(){
     config.particles.color.value = this.props.muiTheme.palette.accent1Color;
     config.particles.line_linked.color = this.props.muiTheme.palette.accent2Color;
-    // TODO fix the mobile density
-    config.particles.number.value = this.props.mobileView ? 1 : Math.round(Math.sqrt(screen.width * 15));
-    return (
-      <Particles style={this.props.style} height={this.props.height} params={config}/>
-    )
+    config.particles.number.value = this.props.mobileView ? 20 : 100;
+    if (!this.state.initialRender) {
+      return (
+        <Particles style={this.props.style} height={this.props.height} params={config}/>
+      )
+    } else {
+      return (
+        <div style={{height: this.props.height, width: '100%'}}></div>
+      )
+    }
+  }
+  
+  componentDidMount() {
+    this.setState({initialRender: false});
   }
 
 }

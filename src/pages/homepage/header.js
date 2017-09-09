@@ -22,16 +22,16 @@ class Header extends Component {
             padding: '10px'
           }}/>
           <div id="TextHolder" style={{display: 'table-cell', 
-            verticalAlign: 'middle', 
+            verticalAlign: 'middle',
+            position: 'relative',
             fontSize: this.props.mobileView ? '0.8em' : '1em',
             transition: 'all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms',
           }}>
             <h1 style={{fontSize: this.props.mobileView ? '1.5em' : '2em'}}>What am I doing...??</h1>
             <p>Too many thing:</p>
             <ul>
-              <li>Being a CTO for CourseKey</li>
-              <li>Bringing this site to life!</li>
-              <li>Learning all the things!!!</li>
+              <li>CourseKey's CTO by day</li>
+              <li>Developer & gamer by night</li>
             </ul>
           </div>
         </div>

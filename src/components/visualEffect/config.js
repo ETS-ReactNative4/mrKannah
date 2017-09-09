@@ -11,7 +11,7 @@ export default {
     "value": "#ffffff"
   },
   "shape": {
-    "type": "circle",
+    "type": ["circle", "triangle", "polygon"],
       "stroke": {
       "width": 0,
         "color": "#000000"
@@ -36,7 +36,7 @@ export default {
     }
   },
   "size": {
-    "value": 3,
+    "value": 5,
       "random": true,
       "anim": {
       "enable": false,
@@ -54,7 +54,7 @@ export default {
   },
   "move": {
     "enable": true,
-      "speed": 6,
+      "speed": 3,
       "direction": "none",
       "random": false,
       "straight": false,
@@ -71,11 +71,11 @@ export default {
   "detect_on": "canvas",
     "events": {
     "onhover": {
-      "enable": true,
+      "enable": false,
         "mode": "repulse"
     },
     "onclick": {
-      "enable": true,
+      "enable": false,
         "mode": "push"
     },
     "resize": true
