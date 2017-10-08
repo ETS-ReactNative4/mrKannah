@@ -4,11 +4,11 @@ import muiThemeable from 'material-ui/styles/muiThemeable';
 import ParticlesBackground from '../../components/visualEffect/index';
 import ProfilePicture from '../../components/misc/profilePicture';
 
-const height = '350px';
 
 class Header extends Component {
   render() {
     let size = this.props.mobileView ? 100 : 200;
+    let height = this.props.mobileView ? '200px' : '350px';
     return (
       <div className="AppHeader" style={{backgroundColor: this.props.muiTheme.palette.alternateCanvasColor, 
         height, color: this.props.muiTheme.palette.alternateTextColor}}>
