@@ -9,7 +9,7 @@ class ProfilePicture extends Component {
   render() {
     let size = this.props.size;
     return (
-      <div style={this.props.style}>
+      <div id="avatar" style={this.props.style}>
         <Paper style={{width: size  + 'px', height: size + 'px', padding: '5px'}} zDepth={3} circle={true}>
           <Avatar src={picture} size={size - 10} style={{transition: 'all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms'}}/>
         </Paper>

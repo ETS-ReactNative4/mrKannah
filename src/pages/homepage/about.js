@@ -15,7 +15,7 @@ class About extends Component {
     };
     
     return (
-      <div style={styles}>
+      <div style={styles} id="about">
         <p>
           I currently am the Chief Technology Officer at <a href="https://coursekeyeducation.com/" target="_blank">CourseKey Education</a>, which is where my passion for technology, learning,
           and entrepreneurship converge.
