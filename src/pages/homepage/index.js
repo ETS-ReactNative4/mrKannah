@@ -1,6 +1,6 @@
 import React from 'react';
 import Header from './header';
-import Body from './body';
+import About from './about';
 import muiThemeable from 'material-ui/styles/muiThemeable';
 import Navbar from '../../components/navbar/index';
 
@@ -8,7 +8,7 @@ const HomePage = () => (
   <div className="App">
     <Navbar />
     <Header />
-    <Body />
+    <About />
   </div>
 );
 
