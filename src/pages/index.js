@@ -11,7 +11,7 @@ class App extends Component {
       <div className="App">
         <Navbar />
         {
-          this.props.currentRoute === '/contact' ? <Contact /> :
+          /\/[cC]ontact/.test(this.props.currentRoute) ? <Contact /> :
           this.props.currentRoute === '/' ? <Homepage/> : <Homepage/>
         }
       </div>

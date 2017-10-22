@@ -1,61 +1,166 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
+import {Step, Stepper, StepLabel} from 'material-ui/Stepper';
+import {Card, CardText} from 'material-ui/Card';
+import RaisedButton from 'material-ui/RaisedButton';
+import { ValidatorForm } from 'react-form-validator-core';
+import { TextValidator } from 'react-material-ui-form-validator';
+
 import muiThemeable from 'material-ui/styles/muiThemeable';
 
-
 class form extends Component {
-  
-  componentDidMount(){
-    this.init();
+  constructor() {
+    super();
+    this.state = {
+      step: 0,
+      formData: {
+        email: '',
+      },
+      submitted: false,
+    };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleBlur = this.handleBlur.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.nextStep = this.nextStep.bind(this);
+    this.prevStep = this.prevStep.bind(this);
+    this.renderPrevButton = this.renderPrevButton.bind(this);
+  }
+
+  handleChange(event) {
+    const { formData } = this.state;
+    formData[event.target.name] = event.target.value;
+    this.setState({ formData });
+  }
+
+  handleBlur(event) {
+    this.refs[event.target.name].validate(event.target.value);
+  }
+
+  nextStep() {
+    if (this.refs.form.walk(this.refs.form.childs)) {
+      let step = this.state.step;
+      if (step < 3) {
+        step++;
+      }
+      this.setState({ step }, () => this.refs.form.walk(this.refs.form.childs));
+    }
   }
   
-  init() {
-    let js, q, d = document, gi = d.getElementById, ce = d.createElement, gt = d.getElementsByTagName, id = "typef_orm", b = "https://s3-eu-west-1.amazonaws.com/share.typeform.com/";
-    if(!gi.call(d,id)) {
-      js=ce.call(d,"script");
-      js.id=id;
-      js.src=b+"widget.js";
-      q=gt.call(d,"script")[0];
-      q.parentNode.insertBefore(js,q)
+  prevStep() {
+    let step = this.state.step;
+    if (step > 1) {
+      step--;
     }
+    this.setState({ step }, () => this.refs.form.walk(this.refs.form.childs));
+  }
 
-    id = "typef_orm_share";
-    if (!gi.call(d, id)) {
-      js = ce.call(d, "script");
-      js.id = id;
-      js.src = b + "share.js";
-      q = gt.call(d, "script")[0];
-      q.parentNode.insertBefore(js, q)
+
+  handleSubmit() {
+    this.setState({ submitted: true }, () => {
+      setTimeout(() => this.setState({ submitted: false }), 5000);
+    });
+  }
+  
+  renderStep() {
+    const { step, formData, submitted, disabled } = this.state;
+    let content = null;
+    // defaults to welcome message
+    switch (step) {
+      case 1:
+        content = (
+          <Card>
+            <CardText>
+              I think you'll agree, there's nothing better than a message from a complete stranger. It's an opportunity to get to know someone and make a new friend.<br />
+              If you're interested in me and what I do, get in touch.
+            </CardText>
+            <RaisedButton
+              label={'Shoot me a message'}
+              onClick={this.nextStep}
+              secondary
+            />
+          </Card>
+        )
+        content = ( <div><TextValidator
+          ref="email"
+          floatingLabelText="Email"
+          onBlur={this.handleBlur}
+          onChange={this.handleChange}
+          name="email"
+          value={formData.email}
+          validators={['required', 'isEmail']}
+          errorMessages={['this field is required', 'email is not valid']}
+        />
+          <br/>
+        </div>)
+        break;
+      default:
+        content = (
+          <Card>
+            <CardText>
+              I think you'll agree, there's nothing better than a message from a complete stranger. It's an opportunity to get to know someone and make a new friend.<br />
+              If you're interested in me and what I do, get in touch.
+            </CardText>
+          </Card>
+        );
+        break;
+    }
+    if (step > 0 && step < 3) {
+      content = (
+        <div id={`step${step}`}>
+          {content}
+          <Stepper activeStep={step}>
+            <Step>
+              <StepLabel>Introduce your self</StepLabel>
+            </Step>
+            <Step>
+              <StepLabel>Create an ad group</StepLabel>
+            </Step>
+            <Step>
+              <StepLabel>Create an ad</StepLabel>
+            </Step>
+          </Stepper>
+
+        </div>
+      )
+    }
+    return content;
+  }
+
+  renderPrevButton() {
+    const {step, submitted} = this.state;
+    if(step !== 0 && !submitted) {
+      return (<RaisedButton
+        label="previous"
+        onClick={this.prevStep}
+        style={{ marginRight: '16px' }}
+        primary
+        disabled={step === 1}
+      />)
     }
   }
   
   render() {
+    const {step, disabled, submitted} = this.state;
     return (
-      <div>
-          <a className="typeform-share button" href="https://fadeekannah.typeform.com/to/XRASMY" data-mode="popup" 
-             style={{
-               display: this.props.currentRoute !== '/contact' ? 'none' : this.props.mobileView ? 'inline-block' : 'none',
-               textDecoration: 'none',
-               backgroundColor: '#26ddaa',
-               color: 'white',
-               cursor: 'pointer',
-               //font-family:Helvetica, Arial, sans-serif;font-size:23px;line-height:57.5px;text-align:center;
-               margin: 0,
-               height:57.5,
-               padding:'0px 38px',
-               borderRadius:28,
-               maxWidth:'100%',
-               //white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:bold;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;"
-             }} target="_blank" > Launch
-             </a>
-          <div className="typeform-widget" data-url="https://fadeekannah.typeform.com/to/XRASMY" data-transparency="100" data-hide-headers="false" data-hide-footer="false" style={{
-            display: this.props.currentRoute !== '/contact' ? 'none' : this.props.mobileView ? 'none' : 'inline-block',
-            width: '100%',
-            height: 500
-          }}>
-          </div>
-      </div>
-    )
+      <ValidatorForm
+        ref="form"
+        onSubmit={this.handleSubmit}
+        instantValidate={false}
+      >
+        {this.renderStep()}
+        {this.renderPrevButton()}
+        <RaisedButton
+          label={
+            (submitted && 'Your form is submitted!') ||
+            (step === 0 && 'Shoot me a message') ||
+            (step < 3 ? 'Next' : 'Submit')
+          }
+          onClick={step < 3 ? this.nextStep : this.submit}
+          secondary
+          disabled={disabled || submitted}
+        />
+      </ValidatorForm>
+    );
   }
 }
 
