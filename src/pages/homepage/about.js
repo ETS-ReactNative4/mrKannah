@@ -8,7 +8,7 @@ class About extends Component {
     const styles = {
       color: this.props.muiTheme.palette.textColor,
       width: '90%',
-      margin: '0 auto',
+      margin: '1em auto',
       fontSize: this.props.mobileView ? '1.1em' : '1.3em',
       lineHeight: '1.5em',
       maxWidth: '800px',
