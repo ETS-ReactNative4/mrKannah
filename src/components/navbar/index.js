@@ -10,6 +10,7 @@ import {Tabs, Tab} from 'material-ui/Tabs';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
+import MenuIcon from 'material-ui/svg-icons/navigation/menu';
 
 const logoSize = {
   width: 68,
@@ -68,7 +69,7 @@ class Navbar extends Component {
           {this.props.mobileView
             ?
             <div style={{textAlign: 'right'}}>
-              <IconButton iconClassName="material-icons" onTouchTap={this.toggleDrawer}>menu</IconButton>
+              <IconButton onTouchTap={this.toggleDrawer}><MenuIcon/></IconButton>
               <Drawer open={this.props.openDrawer} openSecondary={true} docked={false}
                       onRequestChange={this.toggleDrawer} style={{textAlign: 'center'}}>
                 <MenuItem onTouchTap={() => this.navigate('/', true)}>Home</MenuItem>
