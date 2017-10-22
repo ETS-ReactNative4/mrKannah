@@ -1,6 +1,6 @@
 import {
   teal500, teal700,
-  grey100, grey400, grey500, grey600, grey900,
+  grey100, grey400, grey500, grey600, grey700, grey900,
   white, darkBlack, fullBlack,
 } from 'material-ui/styles/colors';
 import {fade} from 'material-ui/utils/colorManipulator';
@@ -14,12 +14,12 @@ export default {
   fontFamily: 'Roboto, sans-serif',
   borderRadius: 2,
   palette: {
-    primary1Color: teal500,
-    primary2Color: teal700,
-    primary3Color: grey400,
-    accent1Color: grey500,
-    accent2Color: grey100,
-    accent3Color: grey500,
+    primary1Color: grey700,
+    primary2Color: grey500,
+    primary3Color: grey100,
+    accent1Color: teal500,
+    accent2Color: teal700,
+    accent3Color: grey400,
     textColor: grey900,
     secondaryTextColor: grey600,
     alternateTextColor: white,
