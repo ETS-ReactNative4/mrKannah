@@ -16,11 +16,14 @@ class Showcase extends Component {
   change = (index) => this.setState({index});
   start = () => window.open(links[this.state.index], '_newtab');
   render() {
+    const height = this.props.mobileView ? '430px' : '400px';
     return (
       <div id="showcase" style={{background: this.props.muiTheme.palette.accent1Color}}>
-        <div style={{maxWidth: '800px', width: '90%', margin: '0 auto' }}>
-          <AutoRotatingCarousel open style={{width: '100%', height: 400, position: 'relative', background: 'none'}}
-                                label="Learn More" onChange={this.change} onStart={this.start} interval={5000}
+        <div style={{maxWidth: '800px', width: '90%', margin: '0 auto', height}}>
+          <AutoRotatingCarousel open style={{width: '100%', height, position: 'relative', background: 'none'}}
+                                contentStyle={{width: '60%', maxWidth: '700px', height: 'calc(100% - 96px)', margin: '0 auto',
+                                  maxHeight: '600px', position: 'relative', top: '50%', transform: 'translateY(-50%)'}}
+                                label="Learn More" onChange={this.change} onStart={this.start} interval={7500}
           >
             <Slide
               media={<img src={youtubeRedirector} alt="Youtube Redirector logo" />}
