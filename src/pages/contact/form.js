@@ -3,10 +3,18 @@ import { connect } from 'react-redux'
 import {Step, Stepper, StepLabel} from 'material-ui/Stepper';
 import {Card, CardText} from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
-import { ValidatorForm } from 'react-form-validator-core';
-import { TextValidator } from 'react-material-ui-form-validator';
+import MenuItem from 'material-ui/MenuItem';
+import { ValidatorForm, TextValidator, SelectValidator } from 'react-material-ui-form-validator';
 
 import muiThemeable from 'material-ui/styles/muiThemeable';
+
+const topics = [
+  'I\'d like to work with you',
+  'I have some feedback',
+  'I\'m looking for some advice',
+  'I\'d just like to chat',
+  'Other',
+];
 
 class form extends Component {
   constructor() {
@@ -16,6 +24,8 @@ class form extends Component {
       formData: {
         name: '',
         email: '',
+        topics: [],
+        message: '',
       },
       submitted: false,
     };
@@ -25,11 +35,26 @@ class form extends Component {
     this.nextStep = this.nextStep.bind(this);
     this.prevStep = this.prevStep.bind(this);
     this.renderPrevButton = this.renderPrevButton.bind(this);
+    this.handleSelectTopic = this.handleSelectTopic.bind(this);
   }
+  
+  componentWillMount() {
+    // custom rule will have name 'isPasswordMatch'
+    ValidatorForm.addValidationRule('isTopicSelected', (value) => {
+      return value === this.state.formData.topics && value.length !== 0;
+    });
+  }
+
 
   handleChange(event) {
     const { formData } = this.state;
     formData[event.target.name] = event.target.value;
+    this.setState({ formData });
+  }
+  
+  handleSelectTopic(event, key, payload) {
+    const { formData } = this.state;
+    formData.topics = payload;
     this.setState({ formData });
   }
 
@@ -40,7 +65,7 @@ class form extends Component {
   nextStep() {
     if (this.refs.form.walk(this.refs.form.childs)) {
       let step = this.state.step;
-      if (step < 3) {
+      if (step < 4) {
         step++;
       }
       this.setState({ step }, () => this.refs.form.walk(this.refs.form.childs));
@@ -56,11 +81,27 @@ class form extends Component {
   }
   
   handleSubmit() {
-    this.setState({ submitted: true }, () => {
-      setTimeout(() => this.setState({ submitted: false }), 5000);
-    });
+    if (this.state.step < 4) {
+      this.nextStep();
+    } else {
+      this.setState({ submitted: true }, () => {
+        setTimeout(() => this.setState({ submitted: false }), 5000);
+      });
+    }
   }
   
+  menuItems(values) {
+    return topics.map((topic, index) => (
+      <MenuItem
+        key={topic}
+        insetChildren={true}
+        checked={values && values.indexOf(topic) > -1}
+        value={topic}
+        primaryText={topic}
+      />
+    ));
+  }
+
   renderStep() {
     const { step, formData, submitted, disabled } = this.state;
     let content = null;
@@ -106,6 +147,51 @@ class form extends Component {
           </Card>
         );
         break;
+      case 3:
+        content = (
+          <Card>
+            <CardText>
+              What's your message about?<br />
+              Think of this as like the subject field in an email. But already filled in for you.
+            </CardText>
+            <SelectValidator
+              multiple={true}
+              ref="topics"
+              hintText="Select your Topic"
+              onChange={this.handleSelectTopic}
+              name="topics"
+              value={formData.topics}
+              validators={['isTopicSelected']}
+              errorMessages={['a topic must be selected']}
+            >
+              {this.menuItems(formData.topics)}
+            </SelectValidator>
+          </Card>
+        );
+        break;
+      case 4:
+        content = (
+          <Card>
+            <CardText>
+              What's your message?<br />
+              I prefer messages that are to the point. We're both busy people, and it's the best use of our time.
+            </CardText>
+            <TextValidator
+              style={{textAlign: 'left'}}
+              multiLine={true}
+              rows={2}
+              ref="message"
+              floatingLabelText="Your Message"
+              onBlur={this.handleBlur}
+              onChange={this.handleChange}
+              name="message"
+              value={formData.message}
+              validators={['required']}
+              errorMessages={['this field is required']}
+            />
+          </Card>
+        );
+        break;
       default:
         content = (
           <Card>
@@ -117,7 +203,7 @@ class form extends Component {
         );
         break;
     }
-    if (step > 0 && step < 3) {
+    if (step > 0 && step < 4) {
       content = (
         <div id={`step${step}`}>
           {content}
@@ -166,9 +252,9 @@ class form extends Component {
           label={
             (submitted && 'Your form is submitted!') ||
             (step === 0 && 'Shoot me a message') ||
-            (step < 3 ? 'Next' : 'Submit')
+            (step < 4 ? 'Next' : 'Submit')
           }
-          onClick={step < 3 ? this.nextStep : this.submit}
+          onClick={step < 4 ? this.nextStep : this.submit}
           secondary
           disabled={disabled || submitted}
         />
