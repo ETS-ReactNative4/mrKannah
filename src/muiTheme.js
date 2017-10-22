@@ -1,5 +1,5 @@
 import {
-  teal500, teal700,
+  teal500, teal700, teal100,
   grey100, grey400, grey500, grey600, grey700, grey900,
   white, darkBlack, fullBlack,
 } from 'material-ui/styles/colors';
@@ -19,7 +19,7 @@ export default {
     primary3Color: grey100,
     accent1Color: teal500,
     accent2Color: teal700,
-    accent3Color: grey400,
+    accent3Color: teal100,
     textColor: grey900,
     secondaryTextColor: grey600,
     alternateTextColor: white,

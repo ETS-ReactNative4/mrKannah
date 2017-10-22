@@ -119,6 +119,7 @@ class form extends Component {
               floatingLabelText="Your Name"
               onBlur={this.handleBlur}
               onChange={this.handleChange}
+              style={{textAlign: 'left', width: '90%', marginBottom: '10px'}}
               name="name"
               value={formData.name}
               validators={['required']}
@@ -139,6 +140,7 @@ class form extends Component {
               floatingLabelText="Your Email"
               onBlur={this.handleBlur}
               onChange={this.handleChange}
+              style={{textAlign: 'left', width: '90%', marginBottom: '10px'}}
               name="email"
               value={formData.email}
               validators={['required', 'isEmail']}
@@ -159,6 +161,7 @@ class form extends Component {
               ref="topics"
               hintText="Select your Topic"
               onChange={this.handleSelectTopic}
+              style={{textAlign: 'left', width: '90%', marginBottom: '10px'}}
               name="topics"
               value={formData.topics}
               validators={['isTopicSelected']}
@@ -177,13 +180,13 @@ class form extends Component {
               I prefer messages that are to the point. We're both busy people, and it's the best use of our time.
             </CardText>
             <TextValidator
-              style={{textAlign: 'left'}}
               multiLine={true}
               rows={2}
               ref="message"
               floatingLabelText="Your Message"
               onBlur={this.handleBlur}
               onChange={this.handleChange}
+              style={{textAlign: 'left', width: '90%', marginBottom: '10px'}}
               name="message"
               value={formData.message}
               validators={['required']}
@@ -194,28 +197,33 @@ class form extends Component {
         break;
       default:
         content = (
-          <Card>
-            <CardText>
-              I think you'll agree, there's nothing better than a message from a complete stranger. It's an opportunity to get to know someone and make a new friend.<br />
-              If you're interested in me and what I do, get in touch.
-            </CardText>
-          </Card>
+          <div style={{marginBottom: '10px'}}>
+            <Card>
+              <CardText>
+                I think you'll agree, there's nothing better than a message from a complete stranger. It's an opportunity to get to know someone and make a new friend.<br />
+                If you're interested in me and what I do, get in touch.
+              </CardText>
+            </Card>
+          </div>
         );
         break;
     }
-    if (step > 0 && step < 4) {
+    if (step > 0 && step <= 4) {
       content = (
         <div id={`step${step}`}>
           {content}
-          <Stepper activeStep={step}>
+          <Stepper activeStep={step-1} orientation={this.props.mobileView ? 'vertical' : 'horizontal'}>
             <Step>
               <StepLabel>Introduce yourself</StepLabel>
             </Step>
             <Step>
-              <StepLabel>Create an ad group</StepLabel>
+              <StepLabel>Provide contact info</StepLabel>
             </Step>
             <Step>
-              <StepLabel>Create an ad</StepLabel>
+              <StepLabel>Choose a topic</StepLabel>
+            </Step>
+            <Step>
+              <StepLabel>Write your message</StepLabel>
             </Step>
           </Stepper>
 
@@ -240,8 +248,18 @@ class form extends Component {
   
   render() {
     const {step, disabled, submitted} = this.state;
+    const styles = {
+      color: this.props.muiTheme.palette.textColor,
+      width: '90%',
+      margin: '0 auto',
+      padding: '1em 0',
+      fontSize: this.props.mobileView ? '1.1em' : '1.3em',
+      lineHeight: '1.5em',
+      maxWidth: '800px',
+    };
     return (
       <ValidatorForm
+        style={styles}
         ref="form"
         onSubmit={this.handleSubmit}
         instantValidate={false}
