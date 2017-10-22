@@ -26,6 +26,14 @@ class Showcase extends Component {
                                 label="Learn More" onChange={this.change} onStart={this.start} interval={7500}
           >
             <Slide
+              media={<img src={coursekey} alt="CourseKey logo" />}
+              mediaStyle={{padding: '5px', height: '70px'}}
+              mediaBackgroundStyle={{ backgroundColor: green400, height: '80px' }}
+              contentStyle={{ backgroundColor: green600 }}
+              title="Course Key"
+              subtitle="Working with an amazing team to improve the educational experience for students, instructors and administration"
+            />
+            <Slide
               media={<img src={youtubeRedirector} alt="Youtube Redirector logo" />}
               mediaStyle={{padding: '5px', height: '70px'}}
               mediaBackgroundStyle={{ backgroundColor: red200, height: '80px' }}
@@ -40,14 +48,6 @@ class Showcase extends Component {
               contentStyle={{ backgroundColor: grey600 }}
               title="Github Profile"
               subtitle="You can few my latest work for the open source community and side projects on my profile"
-            />
-            <Slide
-              media={<img src={coursekey} alt="CourseKey logo" />}
-              mediaStyle={{padding: '5px', height: '70px'}}
-              mediaBackgroundStyle={{ backgroundColor: green400, height: '80px' }}
-              contentStyle={{ backgroundColor: green600 }}
-              title="Course Key"
-              subtitle="Working with an amazing team to improve the educational experience for students, instructors and administration"
             />
           </AutoRotatingCarousel>
         </div>
