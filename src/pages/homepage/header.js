@@ -37,21 +37,19 @@ class Header extends Component {
             transition: 'all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms',
           }}>
             <h1 style={{fontSize: this.props.mobileView ? '1.5em' : '2em'}}>Hi, I'm Fadee.</h1>
-            <p>
-              <span>I engineer and build </span>
-              {this.state.typing ? 
+            <p style={{display: 'inline'}}>I engineer and build </p>
+            {this.state.typing ? 
                 <Typist onTypingDone={this.restartTyping}>
-                  <span>Software</span>
+                  <span>software</span>
                   <Typist.Backspace count={8} delay={1000}/>
-                  <span>Systems</span>
+                  <span>systems</span>
                   <Typist.Backspace count={7} delay={1000}/>
-                  <span>Teams</span>
+                  <span>teams</span>
                   <Typist.Backspace count={5} delay={1000}/>
                 </Typist> 
                 :
                 <span> </span>
               }
-            </p>
           </div>
         </div>
       </div>
