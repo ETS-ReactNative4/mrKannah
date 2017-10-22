@@ -17,10 +17,10 @@ class About extends Component {
     return (
       <div style={styles} id="about">
         <p>
-          I currently am the Chief Technology Officer at <a href="https://coursekeyeducation.com/" target="_blank">CourseKey Education</a>, which is where my passion for technology, learning,
+          I currently am the Chief Technology Officer at <a href="https://coursekeyeducation.com/" rel="noopener noreferrer" target="_blank">CourseKey Education</a>, which is where my passion for technology, learning,
           and entrepreneurship converge.
           I studied computer engineering and science at San Diego State University, where I co-founded student development
-          firm called <a target="_blank" href="http://hitechedventures.org/">HiTech EdVentures (HTEV)</a>.
+          firm called <a target="_blank" rel="noopener noreferrer" href="http://hitechedventures.org/">HiTech EdVentures (HTEV)</a>.
           Over the years, I developed software and consulted for multiple industries, including Healthcare, House
           Services, Entertainment, Automobile, and Education.
           Additionally, I worked as a consultant and contractor providing my services to different companies and startups
