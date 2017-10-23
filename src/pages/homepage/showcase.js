@@ -30,7 +30,7 @@ class Showcase extends Component {
               mediaStyle={{padding: '5px', height: '70px'}}
               mediaBackgroundStyle={{ backgroundColor: green400, height: '80px' }}
               contentStyle={{ backgroundColor: green600 }}
-              title="Course Key"
+              title="CourseKey"
               subtitle="Working with an amazing team to improve the educational experience for students, instructors and administration"
             />
             <Slide
