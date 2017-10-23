@@ -33,6 +33,20 @@ export function navbarReducer(state, action) {
   }
 }
 
+const routes = [{
+  label: 'Home',
+  value: '/',
+// }, {
+//   label: 'About',
+//   value: '/about',
+// }, {
+//   label: 'Showcase',
+//   value: '/showcase',
+}, {
+  label: 'Contact',
+  value: '/contact',
+}];
+
 class Navbar extends Component {
 
   componentDidMount() {
@@ -73,20 +87,14 @@ class Navbar extends Component {
               <IconButton onTouchTap={this.toggleDrawer}><MenuIcon/></IconButton>
               <Drawer open={this.props.openDrawer} openSecondary={true} docked={false}
                       onRequestChange={this.toggleDrawer} style={{textAlign: 'center'}}>
-                <MenuItem onTouchTap={() => this.navigate('/', true)}>Home</MenuItem>
-                <MenuItem onTouchTap={() => this.navigate('/About', true)}>About</MenuItem>
-                <MenuItem onTouchTap={() => this.navigate('/Showcase', true)}>Showcase</MenuItem>
-                <MenuItem onTouchTap={() => this.navigate('/Contact', true)}>Contact</MenuItem>
+                {routes.map((route) => (<MenuItem onTouchTap={() => this.navigate(route.value, true)}>{route.label}</MenuItem>))}
               </Drawer>
             </div>
             :
             <Tabs value={this.props.currentRoute}
                   onChange={(value) => this.navigate(value)}
                   style={styles}>
-              <Tab label="Home" value="/" />
-              <Tab label="About" value="/About" />
-              <Tab label="Showcase" value="/Showcase" />
-              <Tab label="Contact" value="/Contact" />
+              {routes.map((route) => (<Tab label={route.label} value={route.value}/>))}
             </Tabs>
           }
         </div>
