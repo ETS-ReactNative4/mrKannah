@@ -30,6 +30,10 @@ const store = createStore(
 );
 const history = syncHistoryWithStore(browserHistory, store);
 
+history.listen(function (location) {
+  window.ga('send', 'pageview', location.pathname);
+});
+
 const MUI = () => (
   <MuiThemeProvider muiTheme={getMuiTheme(theme)}>
     <Provider store={store}>
