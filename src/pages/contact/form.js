@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import {Step, Stepper, StepLabel} from 'material-ui/Stepper';
-import {Card, CardText} from 'material-ui/Card';
+import axios from 'axios';
+import {Card, CardText, CardTitle} from 'material-ui/Card';
+import {Dialog, FlatButton} from 'material-ui';
 import RaisedButton from 'material-ui/RaisedButton';
 import MenuItem from 'material-ui/MenuItem';
 import { ValidatorForm, TextValidator, SelectValidator } from 'react-material-ui-form-validator';
@@ -16,6 +18,9 @@ const topics = [
   'Other',
 ];
 
+const formSteps = 4;
+const ThankYouStep = 5;
+
 class form extends Component {
   constructor() {
     super();
@@ -27,11 +32,13 @@ class form extends Component {
         topics: [],
         message: '',
       },
+      submitting: false,
       submitted: false,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleBlur = this.handleBlur.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleClose = this.handleClose.bind(this);
     this.nextStep = this.nextStep.bind(this);
     this.prevStep = this.prevStep.bind(this);
     this.renderPrevButton = this.renderPrevButton.bind(this);
@@ -65,7 +72,7 @@ class form extends Component {
   nextStep() {
     if (this.refs.form.walk(this.refs.form.childs)) {
       let step = this.state.step;
-      if (step < 4) {
+      if (step < formSteps) {
         step++;
       }
       this.setState({ step }, () => this.refs.form.walk(this.refs.form.childs));
@@ -81,13 +88,40 @@ class form extends Component {
   }
   
   handleSubmit() {
-    if (this.state.step < 4) {
+    this.setState({ submitting: false, submitted: false});
+    if (this.state.step < formSteps) {
       this.nextStep();
     } else {
-      this.setState({ submitted: true }, () => {
-        setTimeout(() => this.setState({ submitted: false }), 5000);
+      const self = this;
+      this.setState({ submitting: true }, () => {
+        axios({
+          method: 'post',
+          url: 'https://formspree.io/fadeekannah@gmail.com',
+          data: {
+            name: this.state.formData.name,
+            email: this.state.formData.email,
+            topics: this.state.formData.topics.join(', '),
+            message: this.state.formData.message,
+          },
+          headers: {
+            Accept: 'application/json'
+          }
+        }).then(function (response) {
+          if (response.status === 200 && response.data && response.data.success) {
+            self.setState({ submitting: false, submitted: true, step: ThankYouStep})
+          } else {
+            throw response;
+          }
+        }).catch(function (error) {
+          console.log(error);
+          self.setState({ submitting: false, submitted: true})
+        });
       });
     }
+  }
+
+  handleClose() {
+    this.setState({ submitting: false, submitted: false});
   }
   
   menuItems(values) {
@@ -103,7 +137,7 @@ class form extends Component {
   }
 
   renderStep() {
-    const { step, formData, submitted, disabled } = this.state;
+    const { step, formData} = this.state;
     let content = null;
     // defaults to welcome message
     switch (step) {
@@ -195,6 +229,16 @@ class form extends Component {
           </Card>
         );
         break;
+      case 5:
+        content = (
+          <Card>
+            <CardTitle>Thank You</CardTitle>
+            <CardText>
+              Thank you for reaching out and contacting me. I will contact you as soon as possible.
+            </CardText>
+          </Card>
+        );
+        break;
       default:
         content = (
           <div style={{marginBottom: '10px'}}>
@@ -208,7 +252,7 @@ class form extends Component {
         );
         break;
     }
-    if (step > 0 && step <= 4) {
+    if (step > 0 && step <= formSteps) {
       content = (
         <div id={`step${step}`}>
           {content}
@@ -247,7 +291,7 @@ class form extends Component {
   }
   
   render() {
-    const {step, disabled, submitted} = this.state;
+    const {step, submitted, submitting} = this.state;
     const styles = {
       color: this.props.muiTheme.palette.textColor,
       width: '90%',
@@ -268,13 +312,31 @@ class form extends Component {
         {this.renderPrevButton()}
         <RaisedButton
           label={
-            (submitted && 'Your form is submitted!') ||
+            (submitting && 'Submitting...') ||
             (step === 0 && 'Shoot me a message') ||
-            (step < 4 ? 'Next' : 'Submit')
+            (step < formSteps ? 'Next' : 'Submit')
           }
-          onClick={step < 4 ? this.nextStep : this.submit}
+          onClick={step < formSteps ? this.nextStep : this.handleSubmit}
           secondary
-          disabled={disabled || submitted}
+          style={{display: submitted ? 'none' : 'inline-block'}}
+          disabled={submitting}
+        />
+        <Dialog
+          title="The Submission failed"
+          actions={[<FlatButton
+            label="Quit"
+            primary={true}
+            onClick={this.handleClose}
+          />,
+            <FlatButton
+              label="Retry Again"
+              primary={true}
+              keyboardFocused={true}
+              onClick={this.handleSubmit}
+            />]}
+          modal={true}
+          open={submitted && step !== ThankYouStep}
+          onRequestClose={this.handleClose}
         />
       </ValidatorForm>
     );
