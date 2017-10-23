@@ -3,6 +3,12 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:title" content="Fadee Kannah">
+    <meta property="og:url" content="http://mrkannah.com">
+    <meta property="og:site_name" content="Fadee Kannah's portfolio.">
+    <meta name="author" content="Fadee Kannah">
+    <meta name="description" content="Fadee Kannah's portfolio site. Includes information about me and my accomplishments.">
+    <link rel="canonical" href="http://mrkannah.com">
     <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
     <!--
@@ -14,14 +20,15 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <title>React App</title>
-    <meta name="description" content="Fadee Kannah's portfolio">
+    <title>Mr. kannah</title>
     <script type="text/javascript" src="%PUBLIC_URL%/redirect.js" ></script>
-    <!--TODO 
-     - add GA
-     - updated meta data
-     - set up SEO
-    -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-28181698-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-28181698-1');
+    </script>
   </head>
   <body>
     <div id="root"></div>
