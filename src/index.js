@@ -7,6 +7,7 @@ import { createStore, combineReducers, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
 import { Router, Route, browserHistory } from 'react-router'
 import { syncHistoryWithStore, routerMiddleware} from 'react-router-redux'
+import createRavenMiddleware from "raven-for-redux";
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import App from './pages/index';
 import reducers from './reducers';
@@ -18,7 +19,14 @@ const middleware = routerMiddleware(browserHistory);
 const store = createStore(
   combineReducers(reducers),
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
-  applyMiddleware(middleware)
+  applyMiddleware(middleware),
+  applyMiddleware(
+    createRavenMiddleware(window.Raven, {
+      breadcrumbDataFromAction: action => {
+        return { STRING: action.str };
+      }
+    })
+  )
 );
 const history = syncHistoryWithStore(browserHistory, store);
 
