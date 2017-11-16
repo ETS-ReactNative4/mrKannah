@@ -7,7 +7,7 @@ import youtubeRedirector from '../../components/assests/you.png';
 import github from '../../components/assests/GitHub.png';
 import coursekey from '../../components/assests/ck.png';
 
-const links = ['https://chrome.google.com/webstore/detail/youtube-redirector/fnlklbjlpkkdnelohembgpdahpfpfcbp', 'https://github.com/fadeenk', 'https://coursekeyeducation.com'];
+const links = ['https://coursekeyeducation.com', 'https://chrome.google.com/webstore/detail/youtube-redirector/fnlklbjlpkkdnelohembgpdahpfpfcbp', 'https://github.com/fadeenk'];
 class Showcase extends Component {
   
   componentWillMount() {
