@@ -43,6 +43,9 @@ const routes = [{
 //   label: 'Showcase',
 //   value: '/showcase',
 }, {
+  label: 'Resume',
+  value: '/resume',
+}, {
   label: 'Contact',
   value: '/contact',
 }];
