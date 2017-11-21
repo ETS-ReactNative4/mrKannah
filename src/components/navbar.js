@@ -36,12 +36,9 @@ export function navbarReducer(state, action) {
 const routes = [{
   label: 'Home',
   value: '/',
-// }, {
-//   label: 'About',
-//   value: '/about',
-// }, {
-//   label: 'Showcase',
-//   value: '/showcase',
+}, {
+  label: 'About',
+  value: '/about',
 }, {
   label: 'Resume',
   value: '/resume',
