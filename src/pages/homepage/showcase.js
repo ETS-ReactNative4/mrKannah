@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import muiThemeable from 'material-ui/styles/muiThemeable';
 import { AutoRotatingCarousel, Slide } from 'material-auto-rotating-carousel';
 import { green400, green600, grey400, grey600, red200, red400 } from 'material-ui/styles/colors';
-import youtubeRedirector from '../../components/assests/you.png';
-import github from '../../components/assests/GitHub.png';
-import coursekey from '../../components/assests/ck.png';
+import youtubeRedirector from '../../assests/you.png';
+import github from '../../assests/GitHub.png';
+import coursekey from '../../assests/ck.png';
 
 const links = ['https://coursekeyeducation.com', 'https://chrome.google.com/webstore/detail/youtube-redirector/fnlklbjlpkkdnelohembgpdahpfpfcbp', 'https://github.com/fadeenk'];
 class Showcase extends Component {

@@ -4,8 +4,8 @@ import { connect } from 'react-redux'
 import {Link} from 'react-router';
 import { push } from 'react-router-redux';
 
-import theme from '../../muiTheme';
-import logo from '../../pages/homepage/logo.svg';
+import theme from '../muiTheme';
+import logo from '../pages/homepage/logo.svg';
 
 import {Tabs, Tab} from 'material-ui/Tabs';
 import Drawer from 'material-ui/Drawer';

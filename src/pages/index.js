@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import Homepage from '../pages/homepage/index';
 import Contact from '../pages/contact/index';
 import Resume from '../pages/resume/index';
-import Navbar from '../components/navbar/index';
+import Navbar from '../components/navbar';
 
 class App extends Component {
   
