@@ -5,7 +5,7 @@ import {Link} from 'react-router';
 import { push } from 'react-router-redux';
 
 import theme from '../muiTheme';
-import logo from '../pages/homepage/logo.svg';
+import logo from '../icons/logo.svg';
 
 import {Tabs, Tab} from 'material-ui/Tabs';
 import Drawer from 'material-ui/Drawer';
@@ -14,7 +14,7 @@ import IconButton from 'material-ui/IconButton';
 import MenuIcon from 'material-ui/svg-icons/navigation/menu';
 
 const logoSize = {
-  width: 68,
+  width: 60,
   height: 48
 };
 

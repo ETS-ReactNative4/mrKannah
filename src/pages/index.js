@@ -1,12 +1,11 @@
 import React, { Component }  from 'react';
 import { connect } from 'react-redux'
 import Homepage from '../pages/homepage/index';
-import Contact from '../pages/contact/index';
-import Resume from '../pages/resume/index';
+import Contact from './contact';
+import Resume from './resume';
 import Navbar from '../components/navbar';
 
 class App extends Component {
-  
   render() {
     return (
       <div className="App">
