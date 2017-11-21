@@ -3,14 +3,12 @@ import Header from './header';
 import About from './about';
 import Showcase from './showcase';
 import muiThemeable from 'material-ui/styles/muiThemeable';
-import Footer from '../../components/footer';
 
 const HomePage = () => (
   <div className="Homepage">
     <Header />
     <About />
     <Showcase />
-    <Footer />
   </div>
 );
 

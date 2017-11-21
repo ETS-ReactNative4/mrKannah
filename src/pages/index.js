@@ -4,6 +4,7 @@ import Homepage from '../pages/homepage/index';
 import Contact from './contact';
 import Resume from './resume';
 import Navbar from '../components/navbar';
+import Footer from '../components/footer';
 
 class App extends Component {
   render() {
@@ -15,6 +16,7 @@ class App extends Component {
           /\/[cC]ontact/.test(this.props.currentRoute) ? <Contact /> :
           this.props.currentRoute === '/' ? <Homepage/> : <Homepage/>
         }
+        <Footer />
       </div>
     )
   } 
