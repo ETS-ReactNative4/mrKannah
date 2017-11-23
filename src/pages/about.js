@@ -81,12 +81,55 @@ class About extends Component {
                 </p>
                 <br/>
                 <p>
-                  At fist I used <a href="https://www.autoitscript.com/site/">AutoIt3</a> to create a script that played the game for me.
-                  Soon after I added UI to give me analytics on how many times the script was executed and estimated rewards based on drop rates.
-                  That was when my curiosity peaked about programming. I soon created an application with AutoIt that allowed me to make my scripts easier.
-                  It gave me the ability to capture cursor's position, sample pixel color values and store it for later processing.
-                  After that, my interests about programming peaked. I downloaded visual studio and started making small apps.
+                  The first visual studio app was an app that helped me get free energy to play on OurWorld.
+                  It started as a simple chat spammer (I would get more energy as I participated in conversations).
+                  Another functionality was ability to access all the promotional codes that gave free premium currency within the app.
+                  These codes were distributed across different social media sites, I would aggregate them, add them to the app then release an update.
+                  That required me to add auto updating functionality, using text files on a server.
+                  Playing around with a server, lead me to a whole new world.
                 </p>
+                <br/>
+                <p>
+                  My curiosity spiraled out of control. I started making websites which made forced me to learn how everything worked.
+                  I started getting extremely interested on how computers worked and what happens for a website to work.
+                  I learned the differences between compiled and run-time languages. Understood client-server communication.
+                  Then dove deeper into networking, how TCP works. At this point I was a freshman in the university.
+                  I joined multiple computer science and engineering student organizations ranching from robotics to mobile and game developments.
+                  That exposed me to a lot of different technologies, programing languages and projects.
+                </p>
+                <br/>
+                <p>
+                  I took the knowledge I gained to that point and applied into my classes.
+                  In my intro to C programming class, I used an Arduino Uno for my projects instead of just a simple C program.
+                  For my first project, I wanted to control things from my phone.
+                  I created a Wireless Arduino LED Piano utilizing three different softwares.
+                </p>
+                <br/>
+                <p>
+                  Soon after I realized that my classes, were teaching me things that I already knew but in a more structured way.
+                  All that meant for me that I have more free time to experiment with different things.
+                  I started making apps, ranging from simple ToDo apps to an online shopping store.
+                  I invested in a raspberry pie and created my own super server.
+                  My server turned into a hub for the tools I use.
+                  It had a Git, ownCloud (dropbox like cloud), network file sharing, PHP web server, MySQL database and much more.
+                  I even turned it, into a gaming console, media center, remote admin shell.
+                  Currently I use it as my personal streaming server (similar to twich) to stream my pc to the TV. 
+                </p>
+                <br/>
+                <p>
+                  As you can see, majority of my learning was fueled by passion for problem solving and curiosity.
+                  I created many apps over the years. Some I forgot about, some provided grate value for me and others, some got me in trouble and some that just satisfies my curiosity.
+                  I made an app for WarFrame (video game) that helped players spend less time researching and more time playing the game.
+                  My first app that I started sold to people was Aztec Course Snatcher, which got me in trouble.
+                  It was a chrome packaged app that monitored students' course wish list and helped them register for those courses automatically.
+                </p>
+                <br/>
+                <p>
+                  This is how I transitioned from a curious gamer into a full fledged software developer.
+                  I can not stop writing code and creating things.
+                  Most of which are just exterminations with technology and tools, to expand my knowledge and satisfy my hunger for code.
+                </p>
+
                 {/*Now, I know that I will not let anything hold me back from my dreams. I have overcome the war, the challenges of learning a new language, and have graduated high school in two and a half years. I give everything in my life a hundred and ten percent despite its significance because I know that the only place success comes before work, is in the dictionary.*/}
 
                 {/*To be able to graduate I had to complete a remedial english as a second language program.*/}
