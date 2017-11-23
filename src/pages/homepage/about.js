@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
+import {Card, CardText} from 'material-ui/Card';
 import muiThemeable from 'material-ui/styles/muiThemeable';
 
 
@@ -15,8 +16,9 @@ class About extends Component {
     };
     
     return (
-      <div style={styles} id="about">
-        <p>
+      <div id="about">
+        <Card style={styles}>
+          <CardText>
           I currently am the Chief Technology Officer at <a href="https://coursekeyeducation.com/" rel="noopener noreferrer" target="_blank">CourseKey Education</a>, which is where my passion for technology, learning,
           and entrepreneurship converge.
           I studied computer engineering and science at San Diego State University, where I co-founded student development
@@ -27,7 +29,8 @@ class About extends Component {
           through my personal business.
           Currently I am not accepting freelance work, but I'd love to get coffee and get to know you, so don’t hesitate
           to get in touch.
-        </p>
+          </CardText>
+        </Card>
       </div>
     )
   }

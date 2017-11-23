@@ -4,8 +4,8 @@ import About from './about';
 import Showcase from './showcase';
 import muiThemeable from 'material-ui/styles/muiThemeable';
 
-const HomePage = () => (
-  <div className="Homepage">
+const HomePage = (props) => (
+  <div className="Homepage" style={{background: props.muiTheme.palette.accent3Color}}>
     <Header />
     <About />
     <Showcase />
