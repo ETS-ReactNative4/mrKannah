@@ -141,13 +141,94 @@ class About extends Component {
                 </p>
               </CardText>
             </Card>
-
-            {/*Now, I know that I will not let anything hold me back from my dreams. I have overcome the war, the challenges of learning a new language, and have graduated high school in two and a half years. I give everything in my life a hundred and ten percent despite its significance because I know that the only place success comes before work, is in the dictionary.*/}
-
-            {/*To be able to graduate I had to complete a remedial english as a second language program.*/}
-
-            {/*To be able to graduate, I needed to complete the ESL program, which was two years long, in addition to the four years of regular english classes.*/}
-
+          </Tab>
+          <Tab label="Education" style = {{backgroundColor: this.props.muiTheme.palette.accent1Color}}>
+            <Card>
+              <CardText>
+                <p>
+                  For me education is an ongoing process. Since early on, I always was interested in learning.
+                  Learning about everything, from how history shaped our current societies to how atoms work.
+                  From sneaking out of classes to spend time in the library, to reading my dad's college books when I was in middle school.
+                  My passion for learning led to where I am, from learning programming to co-founding CourseKey to wherever it will lead me. 
+                </p>
+                <br/>
+                <p>
+                  My education journey has been a unique one. For fifteen years, I attended school in Iraq which made things more interesting. 
+                  My elementary school was nothing special, however my passion for learning and efforts did not go unnoticed.
+                  I was ranked top of my school which gave me the opportunity to apply and attend <a href="https://en.wikipedia.org/wiki/Al_Mutamayizeen_Secondary">Al Mutamayizeen Secondary</a>.
+                  To be able to attend it, I had not to only pass multiple comprehensive academic and IQ tests but also score in the top 100 of the applicants.
+                  Which was not easy! It was the hardest thing I had do, I spend my entire summer studying and preparing for it. 
+                  These tests spanned multiple days, eight hours each and were comprehensive tests in science, math and language.                   
+                </p>
+                <br />
+                <p>
+                  Sadly, because of the war, I had to move from Baghdad to Bartella. This meant I was not able to continue my education there.
+                  However, my passion for learning never stopped. I continued teaching myself and learning more and more about computers and technology.
+                  Nonetheless, my stay in the new secondary school was short because I ended up leaving the country.
+                </p>
+                <br />
+                <p>
+                  When I arrived to the US, I was a sophomore. That meant that I had missed on a year and a half of acadmic progress.
+                  That didn't stop me or slow me down. After I took the placement exams, I was placed in the lowest level of the english as a second language program (ESL).
+                  That meant that I had to go through the entire program (4 years long) before I could take freshman english.
+                  The counselors and teachers expected me spend the two and a half years, left in my high school, just to finish the ESL program. 
+                </p>
+                <br />
+                <p>
+                  I did not like that plan! After couple weeks, in the entry class of the ESL program, I became a translator and a teacher assistant for my peers.
+                  My teacher noticed my efforts and helped me change the class to the next level of the ESL program (beginners level).
+                  From there, I spent only couple more months in the ESL program. 
+                  While I was in the beginner level, I was still unsatisfied. 
+                  I knew I could easily be in a higher level and spending years to get there was not an option for me.
+                </p>
+                <br />
+                <p>
+                  I spent majority of those months in front of the counseling office trying to convince them to move me up.
+                  Because of my performance in the beginner ESL class, the teacher helped me skip not one but two classes.
+                  I made a deal with the counseling & advising office. During summer, I will take the regular freshman english class.
+                  If I pass, I can continue progressing normally from there. However, if I failed, I would stop bothering them and have to take every single class in the ESL program.
+                </p>
+                <br />
+                <p>
+                  In the end, I ended up not only passing but ranking the top of the class with A+.
+                  I managed within half of a year to finish the entire ESL program and freshman english.
+                  At that point, I started setting my goals higher. It was no longer satisfying to catch up to my peers.
+                  I wanted to get into university directly from high. That still was no easy feat, I had to make up for almost two years that I was not attending school.
+                </p>
+                <br />
+                <p>
+                  To reach my goal, I just did what I always do use my passion.
+                  I never missed a summer school session, I took every opportunity to take a class.
+                  I did online classes, I took after school classes and even took college classes.
+                  All of this was still not a challenging enough for me.
+                  I didn't stop at taking regular classes, I took honors and AP classes.
+                </p>
+                <br />
+                <p>
+                  At the same time I was volunteering at the local library. There I read all sort of books that helped me grow my skills.
+                  To be able to graduate, I needed to complete the ESL program, in addition to the four years of regular classes.
+                  I achieved that within two and a half years while passing majority of my peers and ranking top of my graduating class.
+                </p>
+                <br />
+                <p>
+                  I got accepted into San Diego State University (SDSU) as a computer engineer. Soon after starting my university journey, I realized that it was still not challenging for me.
+                  I added a computer science minor, joined multiple student organizations, started my own student organizations, managed computer labs and worked for the university.
+                  While doing all of that, I learned a lot. Taking all of this knowledge and the knowledge gained from personal learning on the internet, I was able to run my own personal development business as well as manage another.
+                </p>
+                <br />
+                <p>
+                  All of that, was still not enough to satisfy my knowledge hunger. Classes were starting to get slow and boring because I already knew the material before even taking the class.
+                  I needed an environment where I was always learning. The solution was building CourseKey. At CourseKey every day has been a day where I would learn something new.
+                  Soon, I realized that school was no longer benefiting me or my knowledge hunger, so I ended up taking a break.
+                  I would have never taken a break from school if it wasn't for the environment that CourseKey is. Not only I am in an environment that forces me to always learn, but also surrounded by great people who want to achieve more.
+                </p>
+                <br />
+                <p>
+                  Education has always been a part of my life and it will always be. I can't see myself stop learning. To me if I stop learning that is when I die. 
+                  Learning and education are my passions, and I will always give everything I do a hundred and twenty (as long as I am able to). 
+                </p>
+              </CardText>
+            </Card>
           </Tab>
         </Tabs>
       </div>
