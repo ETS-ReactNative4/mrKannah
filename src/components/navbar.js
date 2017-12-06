@@ -9,8 +9,11 @@ import logo from '../icons/logo.svg';
 
 import {Tabs, Tab} from 'material-ui/Tabs';
 import Drawer from 'material-ui/Drawer';
+import DropDownMenu from 'material-ui/DropDownMenu';
+import {List, ListItem} from 'material-ui/List';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
+import {fade} from 'material-ui/utils/colorManipulator';
 import MenuIcon from 'material-ui/svg-icons/navigation/menu';
 
 const logoSize = {
@@ -39,6 +42,10 @@ const routes = [{
 }, {
   label: 'About',
   value: '/about',
+  nested: [{
+    label: 'Education',
+    value: '/about/education',
+  }]
 }, {
   label: 'Resume',
   value: '/resume',
@@ -49,6 +56,8 @@ const routes = [{
 
 class Navbar extends Component {
 
+  lastToggled = 0;
+  
   componentDidMount() {
     this.handleResizeTabs();
     window.addEventListener('resize', this.handleResizeTabs, false);
@@ -73,7 +82,73 @@ class Navbar extends Component {
   };
   
   toggleDrawer = () => {
-    this.props.dispatch({type: '@navigation/ToggleDrawer', payload: !this.props.openDrawer})
+    let now = Date.now();
+    if (now - this.lastToggled > 500) {
+      this.lastToggled = now;
+      this.props.dispatch({type: '@navigation/ToggleDrawer', payload: !this.props.openDrawer})
+    }
+  };
+  
+  getRouteFromString = (routeString) => {
+    // route[0] is root route '/'
+    return routes.filter((route) => routeString.startsWith(route.value))[1];
+  };
+  
+  handleTabNavigation = (routeString) => {
+    let route = this.getRouteFromString(routeString);
+    if (!route || !route.nested) {
+      this.navigate(routeString);
+    }
+  };
+  
+  handleActiveTab = () => {
+    let route = this.getRouteFromString(this.props.currentRoute);
+    if (!route || !route.nested) {
+      return this.props.currentRoute;
+    } else {
+      return route.value;
+    }
+  };
+  
+  getDropdownStyles = (dropdownRoute) => {
+    let route = this.getRouteFromString(this.props.currentRoute);
+    let styles = {
+      color: fade(theme.palette.alternateTextColor, 0.7),
+      fill: fade(theme.palette.alternateTextColor, 0.7),
+      height: logoSize.height + 'px', 
+      lineHeight: logoSize.height + 'px',
+    };
+    let routeValue = '';
+    if (!route || !route.nested) {
+      routeValue = this.props.currentRoute;
+    } else if (route) {
+      routeValue = route.value;
+    }
+    if (dropdownRoute.startsWith(routeValue) && routeValue !== '/') {
+      styles.color = theme.palette.alternateTextColor;
+      styles.fill = theme.palette.alternateTextColor;
+    }
+    return styles;
+  };
+  
+  getNestedRoutes = (route, tabs) => {
+    if (route.nested) {
+      if (!tabs) {
+        return route.nested.map((nestedRoutes) => {
+          return (<ListItem onTouchTap={() => this.navigate(nestedRoutes.value, true)}>{nestedRoutes.label}</ListItem>)
+        });
+      } else {
+        return route.nested.map((nestedRoutes) => {
+          return (<MenuItem
+            value={nestedRoutes.value} 
+            onTouchTap={() => this.navigate(nestedRoutes.value, true)}
+            primaryText={nestedRoutes.label}
+          />)
+        })
+      }
+    } else {
+      return []
+    }
   };
   
   render() {
@@ -86,15 +161,40 @@ class Navbar extends Component {
             <div style={{textAlign: 'right'}}>
               <IconButton onTouchTap={this.toggleDrawer}><MenuIcon/></IconButton>
               <Drawer open={this.props.openDrawer} openSecondary={true} docked={false}
-                      onRequestChange={this.toggleDrawer} style={{textAlign: 'center'}}>
-                {routes.map((route) => (<MenuItem onTouchTap={() => this.navigate(route.value, true)}>{route.label}</MenuItem>))}
+                      onRequestChange={this.toggleDrawer} style={{textAlign: 'left'}}>
+                <List>
+                  {routes.map((route) => {
+                    let nestedRoutes = this.getNestedRoutes(route, false);
+                    return <ListItem onClick={() => this.navigate(route.value, true)}
+                                     nestedItems={nestedRoutes}
+                    >{route.label}</ListItem>;
+                  })}
+                </List>
               </Drawer>
             </div>
             :
-            <Tabs value={this.props.currentRoute}
-                  onChange={(value) => this.navigate(value)}
+            <Tabs value={this.handleActiveTab()}
+                  onChange={(value) => this.handleTabNavigation(value)}
                   style={styles}>
-              {routes.map((route) => (<Tab label={route.label} value={route.value}/>))}
+              {routes.map((route) => {
+                if (Array.isArray(route.nested)) {
+                  let dropdownStyles = this.getDropdownStyles(route.value);
+                  return (
+                    <Tab label={
+                      <DropDownMenu value={route.value} 
+                                    underlineStyle={{display: 'none'}} 
+                                    labelStyle={dropdownStyles}
+                                    iconStyle={Object.assign({top: '0px'}, dropdownStyles)}
+                      >
+                        <MenuItem value={route.value} primaryText={route.label} onTouchTap={() => this.navigate(route.value, true)} />
+                        {this.getNestedRoutes(route, true)}
+                      </DropDownMenu>
+                    } value={route.value}/>
+                  )
+                } else {
+                  return (<Tab label={route.label} value={route.value}/>);
+                }
+              })}
             </Tabs>
           }
         </div>

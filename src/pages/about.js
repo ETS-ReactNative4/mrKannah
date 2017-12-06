@@ -2,10 +2,15 @@ import React, { Component } from 'react';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import {Card, CardText} from 'material-ui/Card';
 import muiThemeable from 'material-ui/styles/muiThemeable';
-
-
+import {connect} from "react-redux";
+import {push} from "react-router-redux";
 
 class About extends Component {
+  
+  navigate = (value) => {
+    this.props.dispatch(push(value));
+  };
+  
   render() {
     const styles = {
       color: this.props.muiTheme.palette.textColor,
@@ -17,9 +22,12 @@ class About extends Component {
       maxWidth: '800px',
     };
     return (
-      <div id="about" style={{background: this.props.muiTheme.palette.accent3Color, padding: '10px'}}>
-        <Tabs style={styles} inkBarStyle={{backgroundColor: this.props.muiTheme.palette.primary1Color}}>
-          <Tab label="Summary" style = {{backgroundColor: this.props.muiTheme.palette.accent1Color}}>
+      <div id="about" style={{background: this.props.muiTheme.palette.accent3Color, padding: '10px'}}>        
+        <Tabs style={styles} 
+              inkBarStyle={{backgroundColor: this.props.muiTheme.palette.primary1Color}} 
+              onChange={(value) => this.navigate(value)}
+              value={this.props.currentRoute}>
+          <Tab label="Summary" value={'/about'} style = {{backgroundColor: this.props.muiTheme.palette.accent1Color}}>
             <Card>
               <CardText>
                 <p>
@@ -142,7 +150,7 @@ class About extends Component {
               {/*</CardText>*/}
             {/*</Card>*/}
           {/*</Tab>*/}
-          <Tab label="Education" style = {{backgroundColor: this.props.muiTheme.palette.accent1Color}}>
+          <Tab label="Education" value={'/about/education'} style = {{backgroundColor: this.props.muiTheme.palette.accent1Color}}>
             <Card>
               <CardText>
                 <p>
@@ -231,4 +239,12 @@ class About extends Component {
   }
 }
 
-export default muiThemeable()(About);
+function mapStateToProps(state) {
+  return {
+    mobileView: state.navigation.mobileView,
+    openDrawer: state.navigation.openDrawer,
+    currentRoute: state.routing.locationBeforeTransitions.pathname,
+  }
+}
+
+export default connect(mapStateToProps)(muiThemeable()(About));
