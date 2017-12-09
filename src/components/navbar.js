@@ -86,7 +86,7 @@ class Navbar extends Component {
   
   toggleDrawer = () => {
     let now = Date.now();
-    if (now - this.lastToggled > 500) {
+    if (now - this.lastToggled > 500 && this.props.mobileView) {
       this.lastToggled = now;
       this.props.dispatch({type: '@navigation/ToggleDrawer', payload: !this.props.openDrawer})
     }
