@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux'
-import {Link} from 'react-router';
+import { Link } from 'react-router-dom';
 import { push } from 'react-router-redux';
 
 import theme from '../muiTheme';
@@ -138,11 +138,12 @@ class Navbar extends Component {
     if (route.nested) {
       if (!tabs) {
         return route.nested.map((nestedRoutes) => {
-          return (<ListItem onTouchTap={() => this.navigate(nestedRoutes.value, true)}>{nestedRoutes.label}</ListItem>)
+          return (<ListItem key={route.value} onTouchTap={() => this.navigate(nestedRoutes.value, true)}>{nestedRoutes.label}</ListItem>)
         });
       } else {
         return route.nested.map((nestedRoutes) => {
           return (<MenuItem
+            key={nestedRoutes.value}
             value={nestedRoutes.value} 
             onTouchTap={() => this.navigate(nestedRoutes.value, true)}
             primaryText={nestedRoutes.label}
@@ -170,6 +171,7 @@ class Navbar extends Component {
                     let nestedRoutes = this.getNestedRoutes(route, false);
                     return <ListItem onClick={() => this.navigate(route.value, true)}
                                      nestedItems={nestedRoutes}
+                                     key={route.value}
                     >{route.label}</ListItem>;
                   })}
                 </List>
@@ -183,7 +185,7 @@ class Navbar extends Component {
                 if (Array.isArray(route.nested)) {
                   let dropdownStyles = this.getDropdownStyles(route.value);
                   return (
-                    <Tab label={
+                    <Tab key={route.value} label={
                       <DropDownMenu value={route.value} 
                                     underlineStyle={{display: 'none'}} 
                                     labelStyle={dropdownStyles}
@@ -195,7 +197,7 @@ class Navbar extends Component {
                     } value={route.value}/>
                   )
                 } else {
-                  return (<Tab label={route.label} value={route.value}/>);
+                  return (<Tab key={route.value} label={route.label} value={route.value}/>);
                 }
               })}
             </Tabs>
@@ -220,7 +222,7 @@ function mapStateToProps(state) {
   return {
     mobileView: state.navigation.mobileView,
     openDrawer: state.navigation.openDrawer,
-    currentRoute: state.routing.locationBeforeTransitions.pathname,
+    currentRoute: state.routing.location.pathname.toLowerCase(),
   }
 }
 

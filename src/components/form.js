@@ -346,7 +346,7 @@ class form extends Component {
 function mapStateToProps(state) {
   return {
     mobileView: state.navigation.mobileView,
-    currentRoute: state.routing.locationBeforeTransitions.pathname.toLowerCase(),
+    currentRoute: state.routing.location.pathname.toLowerCase(),
   }
 }
 

@@ -237,7 +237,7 @@ function mapStateToProps(state) {
   return {
     mobileView: state.navigation.mobileView,
     openDrawer: state.navigation.openDrawer,
-    currentRoute: state.routing.locationBeforeTransitions.pathname,
+    currentRoute: state.routing.location.pathname,
   }
 }
 

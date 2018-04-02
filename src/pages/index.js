@@ -1,5 +1,6 @@
 import React, { Component }  from 'react';
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
 import Homepage from '../pages/homepage/index';
 import About from './about';
 import Contact from './contact';
@@ -27,8 +28,8 @@ class App extends Component {
 
 function mapStateToProps(state) {
   return {
-    currentRoute: state.routing.locationBeforeTransitions.pathname.toLowerCase(),
+    currentRoute:  state.routing.location.pathname.toLowerCase(),
   }
 }
 
-export default connect(mapStateToProps)(App);
+export default withRouter(connect(mapStateToProps)(App));

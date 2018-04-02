@@ -6,8 +6,9 @@ import theme from './muiTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import { createStore, combineReducers, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
-import { Router, Route, browserHistory } from 'react-router'
-import { syncHistoryWithStore, routerMiddleware} from 'react-router-redux'
+import { ConnectedRouter, routerReducer, routerMiddleware } from 'react-router-redux'
+import { Route } from 'react-router'
+import createHistory from 'history/createBrowserHistory'
 import createRavenMiddleware from "raven-for-redux";
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import App from './pages/index';
@@ -16,9 +17,13 @@ import './index.css';
 
 injectTapEventPlugin();
 
-const middleware = routerMiddleware(browserHistory);
+const history = createHistory()
+const middleware = routerMiddleware(history)
 const store = createStore(
-  combineReducers(reducers),
+  combineReducers({
+    ...reducers,
+    router: routerReducer
+  }),
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
   applyMiddleware(middleware),
   applyMiddleware(
@@ -29,7 +34,6 @@ const store = createStore(
     })
   )
 );
-const history = syncHistoryWithStore(browserHistory, store);
 
 history.listen(function (location) {
   window.ga('send', 'pageview', location.pathname);
@@ -38,9 +42,9 @@ history.listen(function (location) {
 const MUI = () => (
   <MuiThemeProvider muiTheme={getMuiTheme(theme)}>
     <Provider store={store}>
-      <Router history={history}>
+      <ConnectedRouter history={history}>
         <Route path='*' component={App}/>
-      </Router>
+      </ConnectedRouter>
     </Provider>
   </MuiThemeProvider>
 );
