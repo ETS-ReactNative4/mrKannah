@@ -138,14 +138,14 @@ class Navbar extends Component {
     if (route.nested) {
       if (!tabs) {
         return route.nested.map((nestedRoutes) => {
-          return (<ListItem key={route.value} onTouchTap={() => this.navigate(nestedRoutes.value, true)}>{nestedRoutes.label}</ListItem>)
+          return (<ListItem key={route.value} onClick={() => this.navigate(nestedRoutes.value, true)}>{nestedRoutes.label}</ListItem>)
         });
       } else {
         return route.nested.map((nestedRoutes) => {
           return (<MenuItem
             key={nestedRoutes.value}
             value={nestedRoutes.value} 
-            onTouchTap={() => this.navigate(nestedRoutes.value, true)}
+            onClick={() => this.navigate(nestedRoutes.value, true)}
             primaryText={nestedRoutes.label}
           />)
         })
@@ -163,7 +163,7 @@ class Navbar extends Component {
           {this.props.mobileView
             ?
             <div style={{textAlign: 'right'}}>
-              <IconButton onTouchTap={this.toggleDrawer}><MenuIcon/></IconButton>
+              <IconButton onClick={this.toggleDrawer}><MenuIcon/></IconButton>
               <Drawer open={this.props.openDrawer} openSecondary={true} docked={false}
                       onRequestChange={this.toggleDrawer} style={{textAlign: 'left'}}>
                 <List>
@@ -191,7 +191,7 @@ class Navbar extends Component {
                                     labelStyle={dropdownStyles}
                                     iconStyle={Object.assign({top: '0px'}, dropdownStyles)}
                       >
-                        <MenuItem value={route.value} primaryText={route.label} onTouchTap={() => this.navigate(route.value, true)} />
+                        <MenuItem value={route.value} primaryText={route.label} onClick={() => this.navigate(route.value, true)} />
                         {this.getNestedRoutes(route, true)}
                       </DropDownMenu>
                     } value={route.value}/>
