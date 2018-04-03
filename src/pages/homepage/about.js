@@ -19,16 +19,16 @@ class About extends Component {
       <div id="about">
         <Card style={styles}>
           <CardText>
-          I currently am the Chief Technology Officer at <a href="https://coursekeyeducation.com/" rel="noopener noreferrer" target="_blank">CourseKey Education</a>, which is where my passion for technology, learning,
-          and entrepreneurship converge.
-          I studied computer engineering and science at San Diego State University, where I co-founded student development
-          firm called <a target="_blank" rel="noopener noreferrer" href="http://hitechedventures.org/">HiTech EdVentures (HTEV)</a>.
-          Over the years, I developed software and consulted for multiple industries, including Healthcare, House
-          Services, Entertainment, Automobile, and Education.
-          Additionally, I worked as a consultant and contractor providing my services to different companies and startups
-          through my personal business.
-          Currently I am not accepting freelance work, but I'd love to get coffee and get to know you, so don’t hesitate
-          to get in touch.
+            <p>I currently am the Chief Technology Officer at <a href="https://coursekeyeducation.com/" rel="noopener noreferrer" target="_blank">CourseKey Education</a>, which is where my passion for technology, learning,
+              and entrepreneurship converge.</p>
+            <p>I studied computer engineering and science at San Diego State University, where I co-founded student software development
+              firm called <a target="_blank" rel="noopener noreferrer" href="http://hitechedventures.org/">HiTech EdVentures (HTEV)</a>.
+              Over the years, I developed software and consulted for multiple industries, including Healthcare, House
+              Services, Entertainment, Automobile, and Education.</p>
+            <p>Additionally, I worked as a consultant and contractor providing my services to different companies and start ups
+              through my personal business.</p>
+            <p>Currently I am accepting freelance work, I'd love to get coffee and get to know you, so don’t hesitate
+              to get in touch.</p>
           </CardText>
         </Card>
       </div>
