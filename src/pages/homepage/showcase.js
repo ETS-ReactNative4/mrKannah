@@ -31,7 +31,7 @@ class Showcase extends Component {
               mediaBackgroundStyle={{ backgroundColor: green400, height: '80px' }}
               contentStyle={{ backgroundColor: green600 }}
               title="CourseKey"
-              subtitle="Working with an amazing team to improve the educational experience for students, instructors and administration"
+              subtitle="Working with an amazing team to improve the educational experience for students, instructors and administrators"
             />
             <Slide
               media={<img src={youtubeRedirector} alt="Youtube Redirector logo" />}
@@ -39,7 +39,7 @@ class Showcase extends Component {
               mediaBackgroundStyle={{ backgroundColor: red200, height: '80px' }}
               contentStyle={{ backgroundColor: red400 }}
               title="YouTube Redirector"
-              subtitle="A new revamped and upgraded version of my chrome extension for YouTube"
+              subtitle="A new revamped and upgraded version of my chrome extension for YouTube redirect to subscriptions page"
             />
             <Slide
               media={<img src={github} alt="Github logo" />}
