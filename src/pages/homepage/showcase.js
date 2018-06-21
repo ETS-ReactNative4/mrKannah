@@ -47,7 +47,7 @@ class Showcase extends Component {
               mediaBackgroundStyle={{ backgroundColor: grey400, height: '80px' }}
               contentStyle={{ backgroundColor: grey600 }}
               title="Github Profile"
-              subtitle="You can few my latest work for the open source community and side projects on my profile"
+              subtitle="You can view my latest work for the open source community and side projects on my profile"
             />
           </AutoRotatingCarousel>
         </div>
