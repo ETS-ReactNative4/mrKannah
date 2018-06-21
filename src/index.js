@@ -10,12 +10,9 @@ import { ConnectedRouter, routerReducer, routerMiddleware } from 'react-router-r
 import { Route } from 'react-router'
 import createHistory from 'history/createBrowserHistory'
 import createRavenMiddleware from "raven-for-redux";
-import injectTapEventPlugin from 'react-tap-event-plugin';
 import App from './pages/index';
 import reducers from './reducers';
 import './index.css';
-
-injectTapEventPlugin();
 
 const history = createHistory()
 const middleware = routerMiddleware(history)
