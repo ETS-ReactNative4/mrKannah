@@ -21,17 +21,17 @@ class Showcase extends Component {
     const height = this.props.mobileView ? '430px' : '400px';
     return (
       <div id="showcase" style={{background: this.props.muiTheme.palette.accent1Color}}>
-        <div style={{maxWidth: '800px', width: '90%', margin: '0 auto', height}}>
-          <AutoRotatingCarousel open style={{width: '100%', height, position: 'relative', background: 'none'}}
-                                contentStyle={{width: '60%', maxWidth: '700px', height: 'calc(100% - 96px)', margin: '0 auto',
-                                  maxHeight: '600px', position: 'relative', top: '50%', transform: 'translateY(-50%)'}}
+        <div id="showcaseContainer" style={{maxWidth: '800px', width: '90%', margin: '0 auto', height}}>
+          {/* TODO fix random 17px added*/}
+          <AutoRotatingCarousel open hideBackdrop={true} mobile={this.props.mobileView}
+                                container={() => document.getElementById('showcaseContainer')}
                                 label="Learn More" onChange={this.change} onStart={this.start} interval={7500}
           >
             <Slide
               media={<img src={coursekey} alt="CourseKey logo" />}
               mediaStyle={{padding: '5px', height: '70px'}}
               mediaBackgroundStyle={{ backgroundColor: green['400'], height: '80px' }}
-              contentStyle={{ backgroundColor: green['600'] }}
+              style={{ backgroundColor: green['600'] }}
               title="CourseKey"
               subtitle="Working with an amazing team to improve the educational experience for students, instructors and administrators"
             />
@@ -39,7 +39,7 @@ class Showcase extends Component {
               media={<img src={youtubeRedirector} alt="Youtube Redirector logo" />}
               mediaStyle={{padding: '5px', height: '70px'}}
               mediaBackgroundStyle={{ backgroundColor: red['200'], height: '80px' }}
-              contentStyle={{ backgroundColor: red['400'] }}
+              style={{ backgroundColor: red['400'] }}
               title="YouTube Redirector"
               subtitle="A new revamped and upgraded version of my chrome extension for YouTube redirect to subscriptions page"
             />
@@ -47,7 +47,7 @@ class Showcase extends Component {
               media={<img src={github} alt="Github logo" />}
               mediaStyle={{padding: '5px', height: '70px'}}
               mediaBackgroundStyle={{ backgroundColor: grey['400'], height: '80px' }}
-              contentStyle={{ backgroundColor: grey['600'] }}
+              style={{ backgroundColor: grey['600'] }}
               title="Github Profile"
               subtitle="You can view my latest work for the open source community and side projects on my profile"
             />
