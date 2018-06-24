@@ -11,8 +11,13 @@ class ProfilePicture extends Component {
     let size = this.props.size;
     return (
       <div id="avatar" style={this.props.style}>
-        <Paper style={{width: size  + 'px', height: size + 'px', padding: '5px'}} zdepth={3} square={false}>
-          <Avatar src={picture} size={size - 10} style={{transition: 'all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms'}}/>
+        <Paper zdepth={3} style={{width: `${size}px`, height: `${size}px`, padding: '5px', borderRadius: '50%'}}>
+          <Avatar src={picture}
+                  style={{
+                    height: `${size}px`,
+                    width: `${size}px`,
+                    transition: 'all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms'
+                  }} />
         </Paper>
       </div>
     )
