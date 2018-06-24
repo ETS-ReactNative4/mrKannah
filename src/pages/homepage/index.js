@@ -8,7 +8,7 @@ const HomePage = (props) => (
   <div className="Homepage" style={{background: props.theme.palette.accent3Color}}>
     <Header />
     {/*<About />*/}
-    <Showcase />
+    {/*<Showcase />*/}
   </div>
 );
 
