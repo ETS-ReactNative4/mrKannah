@@ -13,7 +13,7 @@ class About extends Component {
   
   render() {
     const styles = {
-      color: this.props.muiTheme.palette.textColor,
+      color: this.props.theme.palette.textColor,
       width: '90%',
       margin: '0 auto',
       padding: 0,
@@ -22,12 +22,12 @@ class About extends Component {
       maxWidth: '800px',
     };
     return (
-      <div id="about" style={{background: this.props.muiTheme.palette.accent3Color, padding: '10px'}}>        
+      <div id="about" style={{background: this.props.theme.palette.accent3Color, padding: '10px'}}>        
         <Tabs style={styles} 
-              inkBarStyle={{backgroundColor: this.props.muiTheme.palette.primary1Color}} 
+              inkBarStyle={{backgroundColor: this.props.theme.palette.primary1Color}} 
               onChange={(value) => this.navigate(value)}
               value={this.props.currentRoute}>
-          <Tab label="Summary" value={'/about'} style = {{backgroundColor: this.props.muiTheme.palette.accent1Color}}>
+          <Tab label="Summary" value={'/about'} style = {{backgroundColor: this.props.theme.palette.accent1Color}}>
             <Card>
               <CardText>
                 <p>
@@ -61,7 +61,7 @@ class About extends Component {
               </CardText>
             </Card>
           </Tab>
-          <Tab label="Software Development" value={'/about/softwareDevelopment'} style = {{backgroundColor: this.props.muiTheme.palette.accent1Color}}>
+          <Tab label="Software Development" value={'/about/softwareDevelopment'} style = {{backgroundColor: this.props.theme.palette.accent1Color}}>
             <Card>
               <CardText>
                 <p>
@@ -144,7 +144,7 @@ class About extends Component {
               </CardText>
             </Card>
           </Tab>
-          <Tab label="Education" value={'/about/education'} style = {{backgroundColor: this.props.muiTheme.palette.accent1Color}}>
+          <Tab label="Education" value={'/about/education'} style = {{backgroundColor: this.props.theme.palette.accent1Color}}>
             <Card>
               <CardText>
                 <p>

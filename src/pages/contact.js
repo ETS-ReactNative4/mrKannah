@@ -3,7 +3,7 @@ import Form from '../components/form';
 import { withTheme } from '@material-ui/core/styles';
 
 const Contact = (props) => (
-  <div id="contact" style={{textAlign: 'center', background: props.muiTheme.palette.accent3Color}}>
+  <div id="contact" style={{textAlign: 'center', background: props.theme.palette.accent3Color}}>
     <Form/>
   </div>
 );

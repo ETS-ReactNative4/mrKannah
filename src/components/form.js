@@ -292,7 +292,7 @@ class form extends Component {
   render() {
     const {step, submitted, submitting} = this.state;
     const styles = {
-      color: this.props.muiTheme.palette.textColor,
+      color: this.props.theme.palette.textColor,
       width: '90%',
       margin: '0 auto',
       padding: '1em 0',

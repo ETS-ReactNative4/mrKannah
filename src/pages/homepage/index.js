@@ -5,9 +5,9 @@ import Showcase from './showcase';
 import { withTheme } from '@material-ui/core/styles';
 
 const HomePage = (props) => (
-  <div className="Homepage" style={{background: props.muiTheme.palette.accent3Color}}>
+  <div className="Homepage" style={{background: props.theme.palette.accent3Color}}>
     <Header />
-    <About />
+    {/*<About />*/}
     <Showcase />
   </div>
 );

@@ -7,7 +7,7 @@ import { withTheme } from '@material-ui/core/styles';
 class About extends Component {
   render() {
     const styles = {
-      color: this.props.muiTheme.palette.textColor,
+      color: this.props.theme.palette.textColor,
       width: '90%',
       margin: '1em auto',
       fontSize: this.props.mobileView ? '1.1em' : '1.3em',
