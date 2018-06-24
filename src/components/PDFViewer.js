@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import muiThemeable from '@material-ui/core/styles/muiThemeable';
+import { withTheme } from '@material-ui/core/styles';
 import { Document, Page } from 'react-pdf';
 
 class PDFViewer extends React.Component {
@@ -21,4 +21,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default muiThemeable()(connect(mapStateToProps)(PDFViewer));
+export default withTheme()(connect(mapStateToProps)(PDFViewer));

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import muiThemeable from '@material-ui/core/styles/muiThemeable';
+import { withTheme } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import GithubIcon from '../icons/github';
 import LinkedInIcon from '../icons/linkedin';
@@ -59,4 +59,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default muiThemeable()(connect(mapStateToProps)(Footer));
+export default withTheme()(connect(mapStateToProps)(Footer));

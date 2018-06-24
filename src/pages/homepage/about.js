@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import {Card, CardText} from '@material-ui/core/Card';
-import muiThemeable from '@material-ui/core/styles/muiThemeable';
+import { withTheme } from '@material-ui/core/styles';
 
 
 class About extends Component {
@@ -40,4 +40,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default muiThemeable()(connect(mapStateToProps)(About));
+export default withTheme()(connect(mapStateToProps)(About));

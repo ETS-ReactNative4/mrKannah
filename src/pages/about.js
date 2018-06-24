@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {Tabs, Tab} from '@material-ui/core/Tabs';
 import {Card, CardText} from '@material-ui/core/Card';
-import muiThemeable from '@material-ui/core/styles/muiThemeable';
+import { withTheme } from '@material-ui/core/styles';
 import {connect} from "react-redux";
 import {push} from "react-router-redux";
 
@@ -241,4 +241,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps)(muiThemeable()(About));
+export default connect(mapStateToProps)(withTheme()(About));

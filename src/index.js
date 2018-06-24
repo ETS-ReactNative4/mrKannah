@@ -1,9 +1,8 @@
 import 'babel-polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 import theme from './muiTheme';
-import getMuiTheme from '@material-ui/core/styles/getMuiTheme';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'; // v1.x
 import { createStore, combineReducers, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
 import { ConnectedRouter, routerReducer, routerMiddleware } from 'react-router-redux'
@@ -37,7 +36,7 @@ history.listen(function (location) {
 });
 
 const MUI = () => (
-  <MuiThemeProvider muiTheme={getMuiTheme(theme)}>
+  <MuiThemeProvider theme={createMuiTheme(theme)}>
     <Provider store={store}>
       <ConnectedRouter history={history}>
         <Route path='*' component={App}/>

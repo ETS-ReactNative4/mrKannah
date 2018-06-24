@@ -3,12 +3,11 @@ import { connect } from 'react-redux'
 import {Step, Stepper, StepLabel} from '@material-ui/core/Stepper';
 import axios from 'axios';
 import {Card, CardText, CardTitle} from '@material-ui/core/Card';
-import {Dialog, FlatButton} from 'material-ui';
-import RaisedButton from '@material-ui/core/RaisedButton';
+import {Dialog} from '@material-ui/core';
+import Button from '@material-ui/core/Button';
 import MenuItem from '@material-ui/core/MenuItem';
 import { ValidatorForm, TextValidator, SelectValidator } from 'react-material-ui-form-validator';
-
-import muiThemeable from '@material-ui/core/styles/muiThemeable';
+import { withTheme } from '@material-ui/core/styles';
 
 const topics = [
   'I\'d like to work with you',
@@ -280,7 +279,7 @@ class form extends Component {
   renderPrevButton() {
     const {step, submitted} = this.state;
     if(step !== 0 && !submitted) {
-      return (<RaisedButton
+      return (<Button variant="contained"
         label="previous"
         onClick={this.prevStep}
         style={{ marginRight: '16px' }}
@@ -310,7 +309,8 @@ class form extends Component {
       >
         {this.renderStep()}
         {this.renderPrevButton()}
-        <RaisedButton
+        <Button
+          variant="contained"
           label={
             (submitting && 'Submitting...') ||
             (step === 0 && 'Shoot me a message') ||
@@ -323,12 +323,12 @@ class form extends Component {
         />
         <Dialog
           title="The Submission failed"
-          actions={[<FlatButton
+          actions={[<Button
             label="Quit"
             primary={true}
             onClick={this.handleClose}
           />,
-            <FlatButton
+            <Button
               label="Retry Again"
               primary={true}
               keyboardFocused={true}
@@ -350,4 +350,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps)(muiThemeable()(form));
+export default connect(mapStateToProps)(withTheme()(form));

@@ -1,7 +1,7 @@
-import teal from '@material-ui/core/core/colors/teal';
-import grey from '@material-ui/core/core/colors/grey';
-import common from '@material-ui/core/core/colors/common';
-import {fade} from '@material-ui/core/utils/colorManipulator';
+import teal from '@material-ui/core/colors/teal';
+import grey from '@material-ui/core/colors/grey';
+import common from '@material-ui/core/colors/common';
+import {fade} from '@material-ui/core/styles/colorManipulator';
 import spacing from '@material-ui/core/styles/spacing';
 
 // All the theme components styles

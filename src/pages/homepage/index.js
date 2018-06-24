@@ -2,7 +2,7 @@ import React from 'react';
 import Header from './header';
 import About from './about';
 import Showcase from './showcase';
-import muiThemeable from '@material-ui/core/styles/muiThemeable';
+import { withTheme } from '@material-ui/core/styles';
 
 const HomePage = (props) => (
   <div className="Homepage" style={{background: props.muiTheme.palette.accent3Color}}>
@@ -12,4 +12,4 @@ const HomePage = (props) => (
   </div>
 );
 
-export default muiThemeable()(HomePage);
+export default withTheme()(HomePage);

@@ -1,6 +1,6 @@
 import React from 'react';
 import Form from '../components/form';
-import muiThemeable from '@material-ui/core/styles/muiThemeable';
+import { withTheme } from '@material-ui/core/styles';
 
 const Contact = (props) => (
   <div id="contact" style={{textAlign: 'center', background: props.muiTheme.palette.accent3Color}}>
@@ -8,4 +8,4 @@ const Contact = (props) => (
   </div>
 );
 
-export default muiThemeable()(Contact);
+export default withTheme()(Contact);

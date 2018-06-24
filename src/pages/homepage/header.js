@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import muiThemeable from '@material-ui/core/styles/muiThemeable';
+import { withTheme } from '@material-ui/core/styles';
 import ParticlesBackground from '../../components/visualEffect/index';
 import ProfilePicture from '../../components/profilePicture';
 import Typist from 'react-typist';
@@ -63,4 +63,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default muiThemeable()(connect(mapStateToProps)(Header));
+export default withTheme()(connect(mapStateToProps)(Header));

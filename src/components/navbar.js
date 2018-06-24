@@ -9,12 +9,12 @@ import logo from '../icons/logo.svg';
 
 import {Tabs, Tab} from '@material-ui/core/Tabs';
 import Drawer from '@material-ui/core/Drawer';
-import DropDownMenu from '@material-ui/core/DropDownMenu';
+import DropDownMenu from '@material-ui/core/Menu';
 import {List, ListItem} from '@material-ui/core/List';
 import MenuItem from '@material-ui/core/MenuItem';
 import IconButton from '@material-ui/core/IconButton';
-import {fade} from '@material-ui/core/utils/colorManipulator';
-import MenuIcon from '@material-ui/core/icons/Menu';
+import {fade} from '@material-ui/core/styles/colorManipulator';
+import MenuIcon from '@material-ui/icons/Menu';
 
 const logoSize = {
   width: 60,

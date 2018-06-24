@@ -1,7 +1,7 @@
 import React from 'react';
 import Particles from 'react-particles-js';
 import {connect} from 'react-redux';
-import muiThemeable from '@material-ui/core/styles/muiThemeable';
+import { withTheme } from '@material-ui/core/styles';
 import config from './config';
 
 
@@ -37,4 +37,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default muiThemeable()(connect(mapStateToProps)(ParticlesBackground));
+export default withTheme()(connect(mapStateToProps)(ParticlesBackground));

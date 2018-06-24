@@ -1,6 +1,6 @@
 import React from 'react';
 import PDFViewer from '../components/PDFViewer';
-import muiThemeable from '@material-ui/core/styles/muiThemeable';
+import { withTheme } from '@material-ui/core/styles';
 
 
 const ResumePage = (props) => (
@@ -9,4 +9,4 @@ const ResumePage = (props) => (
   </div>
 );
 
-export default muiThemeable()(ResumePage);
+export default withTheme()(ResumePage);

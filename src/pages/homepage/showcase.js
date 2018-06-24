@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import muiThemeable from '@material-ui/core/styles/muiThemeable';
+import { withTheme } from '@material-ui/core/styles';
 import { AutoRotatingCarousel, Slide } from 'material-auto-rotating-carousel';
-import green from '@material-ui/core/core/colors/green';
-import grey from '@material-ui/core/core/colors/grey';
-import red from '@material-ui/core/core/colors/red';
+import green from '@material-ui/core/colors/green';
+import grey from '@material-ui/core/colors/grey';
+import red from '@material-ui/core/colors/red';
 import youtubeRedirector from '../../assests/you.png';
 import github from '../../assests/GitHub.png';
 import coursekey from '../../assests/ck.png';
@@ -64,4 +64,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default muiThemeable()(connect(mapStateToProps)(Showcase));
+export default withTheme()(connect(mapStateToProps)(Showcase));
