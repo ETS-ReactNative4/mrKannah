@@ -29,7 +29,7 @@ class Showcase extends Component {
           >
             <Slide
               media={<img src={coursekey} alt="CourseKey logo" />}
-              mediaStyle={{padding: '5px', height: '70px'}}
+              mediastyle={{padding: '5px', height: '70px'}}
               mediaBackgroundStyle={{ backgroundColor: green['400'], height: '80px' }}
               style={{ backgroundColor: green['600'] }}
               title="CourseKey"
@@ -37,7 +37,7 @@ class Showcase extends Component {
             />
             <Slide
               media={<img src={youtubeRedirector} alt="Youtube Redirector logo" />}
-              mediaStyle={{padding: '5px', height: '70px'}}
+              mediastyle={{padding: '5px', height: '70px'}}
               mediaBackgroundStyle={{ backgroundColor: red['200'], height: '80px' }}
               style={{ backgroundColor: red['400'] }}
               title="YouTube Redirector"
@@ -45,7 +45,7 @@ class Showcase extends Component {
             />
             <Slide
               media={<img src={github} alt="Github logo" />}
-              mediaStyle={{padding: '5px', height: '70px'}}
+              mediastyle={{padding: '5px', height: '70px'}}
               mediaBackgroundStyle={{ backgroundColor: grey['400'], height: '80px' }}
               style={{ backgroundColor: grey['600'] }}
               title="Github Profile"
