@@ -14,7 +14,7 @@ import {List, ListItem} from 'material-ui/List';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
 import {fade} from 'material-ui/utils/colorManipulator';
-import MenuIcon from 'material-ui/svg-icons/navigation/menu';
+import MenuIcon from '@material-ui/icons/Menu';
 
 const logoSize = {
   width: 60,

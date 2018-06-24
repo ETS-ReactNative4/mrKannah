@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import muiThemeable from 'material-ui/styles/muiThemeable';
+import muiThemeable from '@material-ui/core/styles/muiThemeable';
 import { AutoRotatingCarousel, Slide } from 'material-auto-rotating-carousel';
-import { green400, green600, grey400, grey600, red200, red400 } from 'material-ui/styles/colors';
+import green from '@material-ui/core/core/colors/green';
+import grey from '@material-ui/core/core/colors/grey';
+import red from '@material-ui/core/core/colors/red';
 import youtubeRedirector from '../../assests/you.png';
 import github from '../../assests/GitHub.png';
 import coursekey from '../../assests/ck.png';
@@ -28,24 +30,24 @@ class Showcase extends Component {
             <Slide
               media={<img src={coursekey} alt="CourseKey logo" />}
               mediaStyle={{padding: '5px', height: '70px'}}
-              mediaBackgroundStyle={{ backgroundColor: green400, height: '80px' }}
-              contentStyle={{ backgroundColor: green600 }}
+              mediaBackgroundStyle={{ backgroundColor: green['400'], height: '80px' }}
+              contentStyle={{ backgroundColor: green['600'] }}
               title="CourseKey"
               subtitle="Working with an amazing team to improve the educational experience for students, instructors and administrators"
             />
             <Slide
               media={<img src={youtubeRedirector} alt="Youtube Redirector logo" />}
               mediaStyle={{padding: '5px', height: '70px'}}
-              mediaBackgroundStyle={{ backgroundColor: red200, height: '80px' }}
-              contentStyle={{ backgroundColor: red400 }}
+              mediaBackgroundStyle={{ backgroundColor: red['200'], height: '80px' }}
+              contentStyle={{ backgroundColor: red['400'] }}
               title="YouTube Redirector"
               subtitle="A new revamped and upgraded version of my chrome extension for YouTube redirect to subscriptions page"
             />
             <Slide
               media={<img src={github} alt="Github logo" />}
               mediaStyle={{padding: '5px', height: '70px'}}
-              mediaBackgroundStyle={{ backgroundColor: grey400, height: '80px' }}
-              contentStyle={{ backgroundColor: grey600 }}
+              mediaBackgroundStyle={{ backgroundColor: grey['400'], height: '80px' }}
+              contentStyle={{ backgroundColor: grey['600'] }}
               title="Github Profile"
               subtitle="You can view my latest work for the open source community and side projects on my profile"
             />
