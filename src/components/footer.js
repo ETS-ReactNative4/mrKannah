@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import muiThemeable from 'material-ui/styles/muiThemeable';
-import IconButton from 'material-ui/IconButton';
+import muiThemeable from '@material-ui/core/styles/muiThemeable';
+import IconButton from '@material-ui/core/IconButton';
 import GithubIcon from '../icons/github';
 import LinkedInIcon from '../icons/linkedin';
 import TwitterIcon from '../icons/twitter';

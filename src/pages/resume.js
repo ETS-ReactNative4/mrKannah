@@ -1,6 +1,6 @@
 import React from 'react';
 import PDFViewer from '../components/PDFViewer';
-import muiThemeable from 'material-ui/styles/muiThemeable';
+import muiThemeable from '@material-ui/core/styles/muiThemeable';
 
 
 const ResumePage = (props) => (

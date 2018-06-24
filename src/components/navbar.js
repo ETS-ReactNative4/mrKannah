@@ -7,14 +7,14 @@ import { push } from 'react-router-redux';
 import theme from '../muiTheme';
 import logo from '../icons/logo.svg';
 
-import {Tabs, Tab} from 'material-ui/Tabs';
-import Drawer from 'material-ui/Drawer';
-import DropDownMenu from 'material-ui/DropDownMenu';
-import {List, ListItem} from 'material-ui/List';
-import MenuItem from 'material-ui/MenuItem';
-import IconButton from 'material-ui/IconButton';
-import {fade} from 'material-ui/utils/colorManipulator';
-import MenuIcon from '@material-ui/icons/Menu';
+import {Tabs, Tab} from '@material-ui/core/Tabs';
+import Drawer from '@material-ui/core/Drawer';
+import DropDownMenu from '@material-ui/core/DropDownMenu';
+import {List, ListItem} from '@material-ui/core/List';
+import MenuItem from '@material-ui/core/MenuItem';
+import IconButton from '@material-ui/core/IconButton';
+import {fade} from '@material-ui/core/utils/colorManipulator';
+import MenuIcon from '@material-ui/core/icons/Menu';
 
 const logoSize = {
   width: 60,

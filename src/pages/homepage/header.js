@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import muiThemeable from 'material-ui/styles/muiThemeable';
+import muiThemeable from '@material-ui/core/styles/muiThemeable';
 import ParticlesBackground from '../../components/visualEffect/index';
 import ProfilePicture from '../../components/profilePicture';
 import Typist from 'react-typist';

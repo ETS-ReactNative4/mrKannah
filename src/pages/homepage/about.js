@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import {Card, CardText} from 'material-ui/Card';
-import muiThemeable from 'material-ui/styles/muiThemeable';
+import {Card, CardText} from '@material-ui/core/Card';
+import muiThemeable from '@material-ui/core/styles/muiThemeable';
 
 
 class About extends Component {

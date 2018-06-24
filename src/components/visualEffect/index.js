@@ -1,7 +1,7 @@
 import React from 'react';
 import Particles from 'react-particles-js';
 import {connect} from 'react-redux';
-import muiThemeable from 'material-ui/styles/muiThemeable';
+import muiThemeable from '@material-ui/core/styles/muiThemeable';
 import config from './config';
 
 

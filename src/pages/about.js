@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import {Tabs, Tab} from 'material-ui/Tabs';
-import {Card, CardText} from 'material-ui/Card';
-import muiThemeable from 'material-ui/styles/muiThemeable';
+import {Tabs, Tab} from '@material-ui/core/Tabs';
+import {Card, CardText} from '@material-ui/core/Card';
+import muiThemeable from '@material-ui/core/styles/muiThemeable';
 import {connect} from "react-redux";
 import {push} from "react-router-redux";
 

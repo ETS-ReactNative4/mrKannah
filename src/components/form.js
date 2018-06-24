@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import {Step, Stepper, StepLabel} from 'material-ui/Stepper';
+import {Step, Stepper, StepLabel} from '@material-ui/core/Stepper';
 import axios from 'axios';
-import {Card, CardText, CardTitle} from 'material-ui/Card';
+import {Card, CardText, CardTitle} from '@material-ui/core/Card';
 import {Dialog, FlatButton} from 'material-ui';
-import RaisedButton from 'material-ui/RaisedButton';
-import MenuItem from 'material-ui/MenuItem';
+import RaisedButton from '@material-ui/core/RaisedButton';
+import MenuItem from '@material-ui/core/MenuItem';
 import { ValidatorForm, TextValidator, SelectValidator } from 'react-material-ui-form-validator';
 
-import muiThemeable from 'material-ui/styles/muiThemeable';
+import muiThemeable from '@material-ui/core/styles/muiThemeable';
 
 const topics = [
   'I\'d like to work with you',

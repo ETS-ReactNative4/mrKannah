@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import muiThemeable from 'material-ui/styles/muiThemeable';
+import muiThemeable from '@material-ui/core/styles/muiThemeable';
 import { Document, Page } from 'react-pdf';
 
 class PDFViewer extends React.Component {
