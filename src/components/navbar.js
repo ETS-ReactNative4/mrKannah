@@ -7,14 +7,21 @@ import { push } from 'react-router-redux';
 import theme from '../muiTheme';
 import logo from '../icons/logo.svg';
 
-import {Tabs, Tab} from '@material-ui/core/Tabs';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
 import Drawer from '@material-ui/core/Drawer';
+import Collapse from '@material-ui/core/Collapse';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
 import DropDownMenu from '@material-ui/core/Menu';
-import {List, ListItem} from '@material-ui/core/List';
 import MenuItem from '@material-ui/core/MenuItem';
 import IconButton from '@material-ui/core/IconButton';
 import {fade} from '@material-ui/core/styles/colorManipulator';
 import MenuIcon from '@material-ui/icons/Menu';
+import ExpandLess from '@material-ui/icons/ExpandLess';
+import ExpandMore from '@material-ui/icons/ExpandMore';
+import {withTheme} from "@material-ui/core/styles/index";
 
 const logoSize = {
   width: 60,
@@ -60,6 +67,10 @@ const routes = [{
 class Navbar extends Component {
 
   lastToggled = 0;
+  state = {
+    nestedTab: {},
+    drawerNestedItemsExpanded: true,
+  };
   
   componentDidMount() {
     this.handleResizeTabs();
@@ -112,6 +123,12 @@ class Navbar extends Component {
       return route.value;
     }
   };
+
+  handleTabNestedMenu = (event, value) => {
+    let nestedTab = {};
+    nestedTab[value] = event.currentTarget;
+    this.setState({nestedTab});
+  }
   
   getDropdownStyles = (dropdownRoute) => {
     let route = this.getRouteFromString(this.props.currentRoute);
@@ -133,21 +150,25 @@ class Navbar extends Component {
     }
     return styles;
   };
-  
+  // TODO fix navbar coloring and nested flag
   getNestedRoutes = (route, tabs) => {
     if (route.nested) {
       if (!tabs) {
         return route.nested.map((nestedRoutes) => {
-          return (<ListItem key={route.value} onClick={() => this.navigate(nestedRoutes.value, true)}>{nestedRoutes.label}</ListItem>)
+          return (
+            <ListItem button key={nestedRoutes.value} onClick={() => this.navigate(nestedRoutes.value, true)}>
+              <ListItemText style={{marginLeft: '18px'}} primary={nestedRoutes.label} />
+            </ListItem>
+          )
         });
       } else {
         return route.nested.map((nestedRoutes) => {
-          return (<MenuItem
-            key={nestedRoutes.value}
-            value={nestedRoutes.value} 
-            onClick={() => this.navigate(nestedRoutes.value, true)}
-            primaryText={nestedRoutes.label}
-          />)
+          return (<MenuItem key={nestedRoutes.value}
+                            value={nestedRoutes.value}
+                            onClick={() => this.navigate(nestedRoutes.value, true)}
+          >
+            {nestedRoutes.label}
+          </MenuItem>)
         })
       }
     } else {
@@ -156,6 +177,28 @@ class Navbar extends Component {
   };
   
   render() {
+    let items = [];
+    routes.forEach((route) => {
+      let nestedRoutes = this.getNestedRoutes(route, false);
+      items.push(
+        <ListItem button key={route.value}>
+          <ListItemText primary={route.label} onClick={() => this.navigate(route.value, true)} />
+          {nestedRoutes.length > 0 ? 
+            <IconButton onClick={() => this.setState({drawerNestedItemsExpanded: !this.state.drawerNestedItemsExpanded})} 
+                        style={{width: '32px', height: '32px', zIndex: 1000}}> 
+              {this.state.drawerNestedItemsExpanded ? <ExpandLess /> : <ExpandMore />}
+            </IconButton> :
+            null
+          }
+        </ListItem>
+      );
+      if (nestedRoutes.length > 0) {
+        items.push(<Collapse key={route.label} in={this.state.drawerNestedItemsExpanded} timeout="auto" unmountOnExit>
+            <List component="div" disablePadding>{nestedRoutes}</List>
+          </Collapse>
+        );
+      }
+    });
     return (
       <div id="navbar" style={{background: theme.palette.primary1Color}}>
         <div style={{maxWidth: '800px', margin: '0 auto'}}>
@@ -164,36 +207,40 @@ class Navbar extends Component {
             ?
             <div style={{textAlign: 'right'}}>
               <IconButton onClick={this.toggleDrawer}><MenuIcon/></IconButton>
-              <Drawer open={this.props.openDrawer} openSecondary={true} docked={false}
-                      onRequestChange={this.toggleDrawer} style={{textAlign: 'left'}}>
+              <Drawer open={this.props.openDrawer} anchor="right"
+                      onClose={this.toggleDrawer} style={{textAlign: 'left'}}>
                 <List>
-                  {routes.map((route) => {
-                    let nestedRoutes = this.getNestedRoutes(route, false);
-                    return <ListItem onClick={() => this.navigate(route.value, true)}
-                                     nestedItems={nestedRoutes}
-                                     key={route.value}
-                    >{route.label}</ListItem>;
-                  })}
+                  {items}
                 </List>
               </Drawer>
             </div>
             :
-            <Tabs value={this.handleActiveTab()}
-                  onChange={(value) => this.handleTabNavigation(value)}
+            <Tabs value={this.handleActiveTab()} centered fullWidth
+                  onChange={(event, value) => this.handleTabNavigation(value)}
                   style={styles}>
               {routes.map((route) => {
                 if (Array.isArray(route.nested)) {
                   let dropdownStyles = this.getDropdownStyles(route.value);
                   return (
-                    <Tab key={route.value} label={
-                      <DropDownMenu value={route.value} 
-                                    underlineStyle={{display: 'none'}} 
-                                    labelStyle={dropdownStyles}
-                                    iconStyle={Object.assign({top: '0px'}, dropdownStyles)}
-                      >
-                        <MenuItem value={route.value} primaryText={route.label} onClick={() => this.navigate(route.value, true)} />
-                        {this.getNestedRoutes(route, true)}
-                      </DropDownMenu>
+                    <Tab key={route.value}
+                     onClick={(event) => this.handleTabNestedMenu(event, route.value)} 
+                     label={
+                      <div>
+                        <span style={{fontSize: '14px'}}>{route.label}</span>
+                        <DropDownMenu open={Boolean(this.state.nestedTab[route.value])}
+                                      value={route.value}
+                                      anchorEl={this.state.nestedTab[route.value]}
+                                      onClose={(event) => {
+                                        event.stopPropagation();
+                                        this.setState({nestedTab: {}})
+                                      }}
+                        >
+                          <MenuItem value={route.value} onClick={() => this.navigate(route.value, true)}>
+                            {route.label}
+                          </MenuItem>
+                          {this.getNestedRoutes(route, true)}
+                        </DropDownMenu>
+                      </div>
                     } value={route.value}/>
                   )
                 } else {
@@ -226,4 +273,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps)(Navbar);
+export default connect(mapStateToProps)(withTheme()(Navbar));

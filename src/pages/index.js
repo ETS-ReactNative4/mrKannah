@@ -12,10 +12,10 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        {/*<Navbar />*/}
+        <Navbar />
         {
           /\/[rR]esume/.test(this.props.currentRoute) ? <Resume /> : 
-          // /\/[aA]bout/.test(this.props.currentRoute) ? <About /> :
+          /\/[aA]bout/.test(this.props.currentRoute) ? <About /> :
           /\/[cC]ontact/.test(this.props.currentRoute) ? <Contact /> :
           this.props.currentRoute === '/' ? <Homepage/> : <Homepage/>
         }
