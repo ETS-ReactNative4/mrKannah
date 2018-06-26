@@ -50,7 +50,7 @@ class About extends Component {
           <Tab label="Software Development" value={'/about/softwareDevelopment'} style = {{backgroundColor: this.props.theme.palette.secondary['500']}} />
           <Tab label="Education" value={'/about/education'} style = {{backgroundColor: this.props.theme.palette.secondary['500']}} />
         </Tabs>
-        {this.state.value === '/about' && <Card style={this.cardStyle}>
+        {this.props.currentRoute === '/about' && <Card style={this.cardStyle}>
           <CardContent>
             <p>
               Originally from Iraq. I was born in <a href="https://en.wikipedia.org/wiki/Bartella">Bartella</a>, a small town located east of Mosul.
@@ -82,7 +82,7 @@ class About extends Component {
             </p>
           </CardContent>
         </Card>}
-        {this.state.value === '/about/softwareDevelopment' && <Card style={this.cardStyle}>
+        {this.props.currentRoute === '/about/softwareDevelopment' && <Card style={this.cardStyle}>
           <CardContent>
             <p>
               Since I was a kid, I always liked problem solving, breaking things and putting them back together.
@@ -163,7 +163,7 @@ class About extends Component {
             </p>
           </CardContent>
         </Card>}
-        {this.state.value === '/about/education' && <Card style={this.cardStyle}>
+        {this.props.currentRoute === '/about/education' && <Card style={this.cardStyle}>
           <CardContent>
             <p>
               For me education is an ongoing process. Since early on, I always was interested in learning.
