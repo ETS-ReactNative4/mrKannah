@@ -20,7 +20,7 @@ class Showcase extends Component {
   render() {
     const height = this.props.mobileView ? '430px' : '400px';
     return (
-      <div id="showcase" style={{background: this.props.theme.palette.accent1Color}}>
+      <div id="showcase" style={{background: this.props.theme.palette.secondary['500']}}>
         <div id="showcaseContainer" style={{maxWidth: '800px', width: '90%', margin: '0 auto', height}}>
           {/* TODO fix random 17px added*/}
           <AutoRotatingCarousel open hideBackdrop={true} mobile={this.props.mobileView}

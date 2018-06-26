@@ -10,7 +10,7 @@ import TwitterIcon from '../icons/twitter';
 class Footer extends Component {
   render() {
     const styles = {
-      color: this.props.theme.palette.alternateTextColor,
+      color: this.props.theme.palette.text.alternate,
       textAlign: 'center',
       width: '90%',
       margin: '0 auto',
@@ -31,9 +31,9 @@ class Footer extends Component {
       padding: 0,
       margin: '0 10px',
     };
-    const iconColor = this.props.theme.palette.alternateTextColor;
+    const iconColor = this.props.theme.palette.text.alternate;
     return (
-      <div style={{background: this.props.theme.palette.accent2Color, padding: '10px 0'}}>
+      <div style={{background: this.props.theme.palette.secondary['700'], padding: '10px 0'}}>
         <div style={styles} id="footer">
           <p>Handmade by me © 2017</p>
           <div>

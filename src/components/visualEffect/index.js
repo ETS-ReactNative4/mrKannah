@@ -11,8 +11,8 @@ class ParticlesBackground extends React.Component {
   }
   
   render(){
-    config.particles.color.value = this.props.theme.palette.accent1Color;
-    config.particles.line_linked.color = this.props.theme.palette.accent2Color;
+    config.particles.color.value = this.props.theme.palette.secondary.main;
+    config.particles.line_linked.color = this.props.theme.palette.secondary.light;
     config.particles.number.value = this.props.mobileView ? 20 : 100;
     if (!this.state.initialRender) {
       return (

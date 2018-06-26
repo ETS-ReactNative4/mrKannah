@@ -20,7 +20,7 @@ class Header extends Component {
     let height = this.props.mobileView ? '200px' : '350px';
     return (
       <div id="header" style={{backgroundColor: this.props.theme.palette.alternateCanvasColor, 
-        height, color: this.props.theme.palette.alternateTextColor}}>
+        height, color: this.props.theme.palette.text.alternate}}>
         <ParticlesBackground style={{position: 'absolute', left: 0}} height={height}/>
         <div style={{display: 'table', width: '80vw', maxWidth: '600px', height: '100%', margin: '0 auto'}}>
           <ProfilePicture size={size} style={{

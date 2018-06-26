@@ -15,7 +15,7 @@ class About extends Component {
   
   render() {
     const styles = {
-      color: this.props.theme.palette.textColor,
+      color: this.props.theme.palette.text.primary,
       width: '90%',
       margin: '0 auto',
       padding: 0,
@@ -24,17 +24,17 @@ class About extends Component {
       maxWidth: '800px',
     };
     return (
-      <div id="about" style={{background: this.props.theme.palette.accent3Color, padding: '10px'}}>        
+      <div id="about" style={{background: this.props.theme.palette.secondary['100'], padding: '10px'}}>        
         <Tabs style={styles}
-              inkbarstyle={{backgroundColor: this.props.theme.palette.primary1Color}} 
+              inkbarstyle={{backgroundColor: this.props.theme.palette.primary['700']}} 
               onChange={(value) => this.navigate(value)}
               value={this.props.currentRoute}
               scrollable
               scrollButtons="auto"
         >
-          <Tab label="Summary" value={'/about'} style = {{backgroundColor: this.props.theme.palette.accent1Color}} />
-          <Tab label="Software Development" value={'/about/softwareDevelopment'} style = {{backgroundColor: this.props.theme.palette.accent1Color}} />
-          <Tab label="Education" value={'/about/education'} style = {{backgroundColor: this.props.theme.palette.accent1Color}} />
+          <Tab label="Summary" value={'/about'} style = {{backgroundColor: this.props.theme.palette.secondary['500']}} />
+          <Tab label="Software Development" value={'/about/softwareDevelopment'} style = {{backgroundColor: this.props.theme.palette.secondary['500']}} />
+          <Tab label="Education" value={'/about/education'} style = {{backgroundColor: this.props.theme.palette.secondary['500']}} />
         </Tabs>
         {this.props.value === '/about' && <Card>
           <CardContent>

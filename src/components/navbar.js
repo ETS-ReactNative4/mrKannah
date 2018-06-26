@@ -133,8 +133,8 @@ class Navbar extends Component {
   getDropdownStyles = (dropdownRoute) => {
     let route = this.getRouteFromString(this.props.currentRoute);
     let styles = {
-      color: fade(theme.palette.alternateTextColor, 0.7),
-      fill: fade(theme.palette.alternateTextColor, 0.7),
+      color: fade(theme.palette.text.alternate, 0.7),
+      fill: fade(theme.palette.text.alternate, 0.7),
       height: logoSize.height + 'px', 
       lineHeight: logoSize.height + 'px',
     };
@@ -145,8 +145,8 @@ class Navbar extends Component {
       routeValue = route.value;
     }
     if (dropdownRoute.startsWith(routeValue) && routeValue !== '/') {
-      styles.color = theme.palette.alternateTextColor;
-      styles.fill = theme.palette.alternateTextColor;
+      styles.color = theme.palette.text.alternate;
+      styles.fill = theme.palette.text.alternate;
     }
     return styles;
   };
@@ -200,7 +200,7 @@ class Navbar extends Component {
       }
     });
     return (
-      <div id="navbar" style={{background: theme.palette.primary1Color}}>
+      <div id="navbar" style={{background: theme.palette.primary['700']}}>
         <div style={{maxWidth: '800px', margin: '0 auto'}}>
           <Link to="/"><img className="App-logo" src={logo} alt="logo" style={{height: logoSize.height, float: 'left'}}/></Link>
           {this.props.mobileView
