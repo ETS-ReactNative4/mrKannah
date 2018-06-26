@@ -28,10 +28,6 @@ const logoSize = {
   height: 48
 };
 
-const styles = {
-  marginLeft: logoSize.width
-};
-
 export function navbarReducer(state, action) {
   switch (action.type) {
     case '@navigation/ToggleViewMode':
@@ -217,7 +213,7 @@ class Navbar extends Component {
             :
             <Tabs value={this.handleActiveTab()} centered fullWidth
                   onChange={(event, value) => this.handleTabNavigation(value)}
-                  style={styles}>
+                  style={{marginLeft: logoSize.width}}>
               {routes.map((route) => {
                 if (Array.isArray(route.nested)) {
                   let dropdownStyles = this.getDropdownStyles(route.value);

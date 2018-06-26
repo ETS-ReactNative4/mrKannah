@@ -6,37 +6,51 @@ import CardContent from '@material-ui/core/CardContent';
 import { withTheme } from '@material-ui/core/styles';
 import {connect} from "react-redux";
 import {push} from "react-router-redux";
+import { withStyles } from '@material-ui/core/styles';
+
+const styles = (theme) => ({
+  indicator: {
+    backgroundColor: theme.palette.primary['700']
+  },
+});
 
 class About extends Component {
+  state = {};
   
   navigate = (value) => {
+    this.setState({value});
     this.props.dispatch(push(value));
   };
   
+  componentWillMount() {
+    this.setState({value: this.props.currentRoute})
+  }
+  
+  cardStyle = {
+    fontSize: '14px',
+    lineHeight: '2em',
+    margin: '0 auto',
+    maxWidth: '790px',
+  };
   render() {
-    const styles = {
-      color: this.props.theme.palette.text.primary,
-      width: '90%',
-      margin: '0 auto',
-      padding: 0,
-      fontSize: this.props.mobileView ? '1.1em' : '1.3em',
-      lineHeight: '1.5em',
-      maxWidth: '800px',
-    };
     return (
       <div id="about" style={{background: this.props.theme.palette.secondary['100'], padding: '10px'}}>        
-        <Tabs style={styles}
-              inkbarstyle={{backgroundColor: this.props.theme.palette.primary['700']}} 
-              onChange={(value) => this.navigate(value)}
+        <Tabs style={{
+                margin: '0 auto',
+                fontSize: this.props.mobileView ? '1.1em' : '1.3em',
+                lineHeight: '1.5em',
+                maxWidth: '800px',
+              }}
+              classes={{indicator: this.props.classes.indicator}}
+              onChange={(event, value) => this.navigate(value)}
               value={this.props.currentRoute}
-              scrollable
-              scrollButtons="auto"
+              centered fullWidth
         >
           <Tab label="Summary" value={'/about'} style = {{backgroundColor: this.props.theme.palette.secondary['500']}} />
           <Tab label="Software Development" value={'/about/softwareDevelopment'} style = {{backgroundColor: this.props.theme.palette.secondary['500']}} />
           <Tab label="Education" value={'/about/education'} style = {{backgroundColor: this.props.theme.palette.secondary['500']}} />
         </Tabs>
-        {this.props.value === '/about' && <Card>
+        {this.state.value === '/about' && <Card style={this.cardStyle}>
           <CardContent>
             <p>
               Originally from Iraq. I was born in <a href="https://en.wikipedia.org/wiki/Bartella">Bartella</a>, a small town located east of Mosul.
@@ -68,7 +82,7 @@ class About extends Component {
             </p>
           </CardContent>
         </Card>}
-        {this.props.value === '/about/softwareDevelopment' && <Card>
+        {this.state.value === '/about/softwareDevelopment' && <Card style={this.cardStyle}>
           <CardContent>
             <p>
               Since I was a kid, I always liked problem solving, breaking things and putting them back together.
@@ -149,7 +163,7 @@ class About extends Component {
             </p>
           </CardContent>
         </Card>}
-        {this.props.value === '/about/education' && <Card>
+        {this.state.value === '/about/education' && <Card style={this.cardStyle}>
           <CardContent>
             <p>
               For me education is an ongoing process. Since early on, I always was interested in learning.
@@ -243,4 +257,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps)(withTheme()(About));
+export default connect(mapStateToProps)(withTheme()(withStyles(styles)(About)));

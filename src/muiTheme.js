@@ -8,6 +8,13 @@ export default {
   spacing: spacing,
   fontFamily: 'Roboto, sans-serif',
   borderRadius: 2,
+  overrides: {
+    MuiTabs: {
+      root: {
+        color: common.white,
+      },
+    },
+  },
   palette: {
     primary: grey,
     secondary: teal,
