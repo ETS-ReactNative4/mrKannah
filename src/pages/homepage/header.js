@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { withTheme } from '@material-ui/core/styles';
 import ParticlesBackground from '../../components/visualEffect/index';
 import ProfilePicture from '../../components/profilePicture';
-import Typist from 'react-typist';
+import MyTypist from '../../components/myTypist';
 
 
 class Header extends Component {
@@ -38,18 +38,7 @@ class Header extends Component {
           }}>
             <h1 style={{fontSize: this.props.mobileView ? '1.5em' : '2em'}}>Hi, I'm Fadee.</h1>
             <p style={{display: 'inline'}}>I engineer and build </p>
-            {this.state.typing ? 
-                <Typist onTypingDone={this.restartTyping}>
-                  <span>software</span>
-                  <Typist.Backspace count={8} delay={1000}/>
-                  <span>systems</span>
-                  <Typist.Backspace count={7} delay={1000}/>
-                  <span>teams</span>
-                  <Typist.Backspace count={5} delay={1000}/>
-                </Typist> 
-                :
-                <span> </span>
-              }
+            <MyTypist/>
           </div>
         </div>
       </div>
