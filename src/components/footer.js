@@ -38,13 +38,13 @@ class Footer extends Component {
           <p>Handmade by me © 2017</p>
           <div>
             <a href="https://github.com/fadeenk" rel="noopener noreferrer" target="_blank">
-              <IconButton style={iconButtonStyle} iconstyle={iconStyle}><GithubIcon nativeColor={iconColor} /></IconButton>
+              <IconButton style={iconButtonStyle}><GithubIcon nativeColor={iconColor} style={iconStyle}/></IconButton>
             </a>
             <a href="https://twitter.com/fadeenk" rel="noopener noreferrer" target="_blank">
-              <IconButton style={iconButtonStyle} iconstyle={iconStyle}><TwitterIcon nativeColor={iconColor} /></IconButton>
+              <IconButton style={iconButtonStyle}><TwitterIcon nativeColor={iconColor} style={iconStyle}/></IconButton>
             </a>
             <a href="https://www.linkedin.com/in/fadeek/" rel="noopener noreferrer" target="_blank">
-              <IconButton style={iconButtonStyle} iconstyle={iconStyle}><LinkedInIcon nativeColor={iconColor} /></IconButton>
+              <IconButton style={iconButtonStyle}><LinkedInIcon nativeColor={iconColor} style={iconStyle}/></IconButton>
             </a>
           </div>
         </div>
