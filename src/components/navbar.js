@@ -2,20 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom';
-import { push } from 'react-router-redux';
-
 import theme from '../muiTheme';
 import logo from '../icons/logo.svg';
-import Drawer from '@material-ui/core/Drawer';
-import Collapse from '@material-ui/core/Collapse';
-import List from '@material-ui/core/List';
-import MenuItem from '@material-ui/core/MenuItem';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
-import ExpandLess from '@material-ui/icons/ExpandLess';
-import ExpandMore from '@material-ui/icons/ExpandMore';
 import {withTheme} from "@material-ui/core/styles/index";
 import TabNavigation from './navBar/tabNavigation';
+import DrawerNavigation from './navBar/drawerNavigation';
 
 const logoSize = {
   width: 60,
@@ -26,10 +17,8 @@ export function navbarReducer(state, action) {
   switch (action.type) {
     case '@navigation/ToggleViewMode':
       return Object.assign({}, state, {mobileView: action.payload});
-    case '@navigation/ToggleDrawer':
-      return Object.assign({}, state, {openDrawer: action.payload});
     default:
-      return state ? state : {mobileView: false, openDrawer: false}
+      return state ? state : {mobileView: false}
   }
 }
 
@@ -55,11 +44,6 @@ const routes = [{
 }];
 
 class Navbar extends Component {
-
-  lastToggled = 0;
-  state = {
-    drawerNestedItemsExpanded: true,
-  };
   
   componentDidMount() {
     this.handleResizeTabs();
@@ -79,92 +63,13 @@ class Navbar extends Component {
     }
   };
   
-  navigate = (value, dismissDrawer) => {
-    this.props.dispatch(push(value));
-    if (dismissDrawer) this.toggleDrawer();
-  };
-  
-  toggleDrawer = () => {
-    let now = Date.now();
-    if (now - this.lastToggled > 500 && this.props.mobileView) {
-      this.lastToggled = now;
-      this.props.dispatch({type: '@navigation/ToggleDrawer', payload: !this.props.openDrawer})
-    }
-  };
-  
-  getNestedRoutes = (route, tabs) => {
-    if (route.nested) {
-      if (!tabs) {
-        return route.nested.map((nestedRoutes) => {
-          let color = nestedRoutes.value.toLowerCase() === this.props.currentRoute ?
-            this.props.theme.palette.secondary.dark :
-            this.props.theme.palette.text.primary;
-          return (
-            <MenuItem key={nestedRoutes.value}
-                      value={nestedRoutes.value}
-                      style={{color}}
-                      onClick={() => this.navigate(nestedRoutes.value, true)}
-            >
-              <span style={{paddingLeft: '18px'}}>{nestedRoutes.label}</span>
-            </MenuItem>
-          )
-        });
-      }
-    } else {
-      return []
-    }
-  };
-  
   render() {
-    let items = [];
-    routes.forEach((route) => {
-      let nestedRoutes = this.getNestedRoutes(route, false);
-      let color = route.value.toLowerCase() === this.props.currentRoute ?
-        this.props.theme.palette.secondary.dark :
-        this.props.theme.palette.text.primary;
-      let hasNested = nestedRoutes.length > 0;
-      items.push(
-        <MenuItem key={route.value}
-                  value={route.value}
-                  style={{color, marginRight: hasNested ? '40px' : '0px'}}
-                  onClick={() => this.navigate(route.value, true)}
-        >
-          {route.label} {hasNested ?
-            <IconButton onClick={(event) => {
-                                  event.stopPropagation();
-                                  this.setState({drawerNestedItemsExpanded: !this.state.drawerNestedItemsExpanded});
-                                }}
-                        style={{width: '32px', height: '32px', zIndex: 1000, color, position: 'fixed', right: '5px'}}
-            > 
-                {this.state.drawerNestedItemsExpanded ? <ExpandLess /> : <ExpandMore />}
-            </IconButton> :
-            null
-          }
-        </MenuItem>
-      );
-      if (nestedRoutes.length > 0) {
-        items.push(<Collapse key={route.label} in={this.state.drawerNestedItemsExpanded} timeout="auto" unmountOnExit>
-            <List component="div" disablePadding>{nestedRoutes}</List>
-          </Collapse>
-        );
-      }
-    });
     return (
       <div id="navbar" style={{background: theme.palette.primary['700']}}>
         <div style={{maxWidth: '800px', margin: '0 auto'}}>
           <Link to="/"><img className="App-logo" src={logo} alt="logo" style={{height: logoSize.height, float: 'left'}}/></Link>
-          {this.props.mobileView
-            ?
-            <div style={{textAlign: 'right'}}>
-              <IconButton onClick={this.toggleDrawer}><MenuIcon/></IconButton>
-              <Drawer open={this.props.openDrawer} anchor="right"
-                      onClose={this.toggleDrawer} style={{textAlign: 'left'}}>
-                <List>
-                  {items}
-                </List>
-              </Drawer>
-            </div>
-            :
+          {this.props.mobileView ?
+            <DrawerNavigation routes={routes}/> :
             <TabNavigation routes={routes}/>
           }
         </div>
@@ -180,7 +85,6 @@ Navbar.contextTypes = {
 function mapStateToProps(state) {
   return {
     mobileView: state.navigation.mobileView,
-    openDrawer: state.navigation.openDrawer,
     currentRoute: state.routing.location.pathname.toLowerCase(),
   }
 }
