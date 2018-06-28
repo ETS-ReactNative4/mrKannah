@@ -5,7 +5,7 @@ import Homepage from '../pages/homepage/index';
 import About from './about';
 import Contact from './contact';
 import Resume from './resume';
-import Navbar from '../components/navbar';
+import Navbar from '../components/navBar/index';
 import Footer from '../components/footer';
 
 class App extends Component {

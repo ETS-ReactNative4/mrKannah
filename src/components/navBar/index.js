@@ -1,26 +1,17 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux'
-import { Link } from 'react-router-dom';
-import theme from '../muiTheme';
-import logo from '../icons/logo.svg';
+import {connect} from 'react-redux'
+import {Link} from 'react-router-dom';
+import theme from '../../muiTheme';
+import logo from '../../icons/logo.svg';
 import {withTheme} from "@material-ui/core/styles/index";
-import TabNavigation from './navBar/tabNavigation';
-import DrawerNavigation from './navBar/drawerNavigation';
+import TabNavigation from './tabNavigation';
+import DrawerNavigation from './drawerNavigation';
 
 const logoSize = {
   width: 60,
   height: 48
 };
-
-export function navbarReducer(state, action) {
-  switch (action.type) {
-    case '@navigation/ToggleViewMode':
-      return Object.assign({}, state, {mobileView: action.payload});
-    default:
-      return state ? state : {mobileView: false}
-  }
-}
 
 const routes = [{
   label: 'Home',
@@ -43,7 +34,7 @@ const routes = [{
   value: '/contact',
 }];
 
-class Navbar extends Component {
+class Index extends Component {
   
   componentDidMount() {
     this.handleResizeTabs();
@@ -78,7 +69,7 @@ class Navbar extends Component {
   }
 }
 
-Navbar.contextTypes = {
+Index.contextTypes = {
   store: PropTypes.object
 };
 
@@ -89,4 +80,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps)(withTheme()(Navbar));
+export default connect(mapStateToProps)(withTheme()(Index));
