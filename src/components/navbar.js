@@ -6,22 +6,16 @@ import { push } from 'react-router-redux';
 
 import theme from '../muiTheme';
 import logo from '../icons/logo.svg';
-
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
 import Drawer from '@material-ui/core/Drawer';
 import Collapse from '@material-ui/core/Collapse';
 import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import DropDownMenu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import IconButton from '@material-ui/core/IconButton';
-import {fade} from '@material-ui/core/styles/colorManipulator';
 import MenuIcon from '@material-ui/icons/Menu';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import {withTheme} from "@material-ui/core/styles/index";
+import TabNavigation from './navBar/tabNavigation';
 
 const logoSize = {
   width: 60,
@@ -64,7 +58,6 @@ class Navbar extends Component {
 
   lastToggled = 0;
   state = {
-    nestedTab: {},
     drawerNestedItemsExpanded: true,
   };
   
@@ -99,33 +92,6 @@ class Navbar extends Component {
     }
   };
   
-  getRouteFromString = (routeString) => {
-    // route[0] is root route '/'
-    return routes.filter((route) => routeString.startsWith(route.value))[1];
-  };
-  
-  handleTabNavigation = (routeString) => {
-    let route = this.getRouteFromString(routeString);
-    if (!route || !route.nested) {
-      this.navigate(routeString);
-    }
-  };
-  
-  handleActiveTab = () => {
-    let route = this.getRouteFromString(this.props.currentRoute);
-    if (!route || !route.nested) {
-      return this.props.currentRoute;
-    } else {
-      return route.value;
-    }
-  };
-
-  handleTabNestedMenu = (event, value) => {
-    let nestedTab = {};
-    nestedTab[value] = event.currentTarget;
-    this.setState({nestedTab});
-  }
-  
   getNestedRoutes = (route, tabs) => {
     if (route.nested) {
       if (!tabs) {
@@ -143,19 +109,6 @@ class Navbar extends Component {
             </MenuItem>
           )
         });
-      } else {
-        return route.nested.map((nestedRoutes) => {
-          let color = nestedRoutes.value.toLowerCase() === this.props.currentRoute ?
-            this.props.theme.palette.secondary.dark :
-            this.props.theme.palette.text.primary;
-          return (<MenuItem key={nestedRoutes.value}
-                            value={nestedRoutes.value}
-                            style={{color}}
-                            onClick={() => this.navigate(nestedRoutes.value, true)}
-          >
-            {nestedRoutes.label}
-          </MenuItem>)
-        })
       }
     } else {
       return []
@@ -212,53 +165,13 @@ class Navbar extends Component {
               </Drawer>
             </div>
             :
-            <Tabs value={this.handleActiveTab()} centered fullWidth
-                  onChange={(event, value) => this.handleTabNavigation(value)}
-                  style={{marginLeft: logoSize.width}}>
-              {routes.map((route) => {
-                if (Array.isArray(route.nested)) {
-                  let color = route.value.toLowerCase() === this.props.currentRoute ?
-                    this.props.theme.palette.secondary.dark :
-                    this.props.theme.palette.text.primary;
-                  return (
-                    <Tab key={route.value}
-                     onClick={(event) => this.handleTabNestedMenu(event, route.value)} 
-                     label={
-                      <div>
-                        <span style={{fontSize: '14px'}}>{route.label} ▼</span>
-                        <DropDownMenu open={Boolean(this.state.nestedTab[route.value])}
-                                      value={route.value}
-                                      anchorEl={this.state.nestedTab[route.value]}
-                                      onClose={(event) => {
-                                        event.stopPropagation();
-                                        this.setState({nestedTab: {}})
-                                      }}
-                        >
-                          <MenuItem value={route.value} style={{color}} onClick={() => this.navigate(route.value, true)}>
-                            {route.label}
-                          </MenuItem>
-                          {this.getNestedRoutes(route, true)}
-                        </DropDownMenu>
-                      </div>
-                    } value={route.value}/>
-                  )
-                } else {
-                  return (<Tab key={route.value} label={route.label} value={route.value}/>);
-                }
-              })}
-            </Tabs>
+            <TabNavigation routes={routes}/>
           }
         </div>
       </div>
     )
   }
 }
-
-Navbar.propTypes = {
-  mobileView: PropTypes.bool.isRequired,
-  openDrawer: PropTypes.bool.isRequired,
-  currentRoute: PropTypes.string.isRequired,
-};
 
 Navbar.contextTypes = {
   store: PropTypes.object
