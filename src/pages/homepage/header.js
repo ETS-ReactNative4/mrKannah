@@ -7,13 +7,6 @@ import MyTypist from '../../components/myTypist';
 
 
 class Header extends Component {
-  state = {typing: true};
-  
-  restartTyping = () => {
-    this.setState({ typing: false }, () => {
-      setTimeout(() => this.setState({ typing: true }), 0);
-    });
-  };
 
   render() {
     let size = this.props.mobileView ? 100 : 200;
