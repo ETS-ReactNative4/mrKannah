@@ -1,13 +1,35 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import {Step, Stepper, StepLabel} from '@material-ui/core/Stepper';
+import Stepper from '@material-ui/core/Stepper';
+import Step from '@material-ui/core/Step';
+import StepLabel from '@material-ui/core/StepLabel';
 import axios from 'axios';
-import {Card, CardText, CardTitle} from '@material-ui/core/Card';
-import {Dialog} from '@material-ui/core';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import CardHeader from '@material-ui/core/CardHeader';
+import Dialog from '@material-ui/core/Dialog';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
 import MenuItem from '@material-ui/core/MenuItem';
 import { ValidatorForm, TextValidator, SelectValidator } from 'react-material-ui-form-validator';
 import { withTheme } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
+
+// TODO Fix resize message textfield
+// TODO Fix Multiselect issues with validation
+// TODO Set up mail service
+
+const styles = (theme) => ({
+  activeButton: {
+    backgroundColor: theme.palette.secondary['700'],
+    '&:hover': {
+      backgroundColor: theme.palette.primary.dark,
+    },
+    color: theme.palette.text.alternate,
+    
+  },
+});
 
 const topics = [
   'I\'d like to work with you',
@@ -58,9 +80,9 @@ class form extends Component {
     this.setState({ formData });
   }
   
-  handleSelectTopic(event, key, payload) {
+  handleSelectTopic(event) {
     const { formData } = this.state;
-    formData.topics = payload;
+    formData.topics = event.target.value;
     this.setState({ formData });
   }
 
@@ -99,7 +121,7 @@ class form extends Component {
           data: {
             name: this.state.formData.name,
             email: this.state.formData.email,
-            topics: this.state.formData.topics.join(', '),
+            topics: this.state.formData.topics,
             message: this.state.formData.message,
           },
           headers: {
@@ -127,11 +149,9 @@ class form extends Component {
     return topics.map((topic, index) => (
       <MenuItem
         key={topic}
-        insetChildren={true}
-        checked={values && values.indexOf(topic) > -1}
+        selected={values && values.indexOf(topic) > -1}
         value={topic}
-        primaryText={topic}
-      />
+      >{topic}</MenuItem>
     ));
   }
 
@@ -143,13 +163,13 @@ class form extends Component {
       case 1:
         content = (
           <Card>
-            <CardText>
+            <CardContent>
               What's your name, stranger?<br />
               Mine's Fadee. Let's not be strangers for much longer.
-            </CardText>
+            </CardContent>
             <TextValidator
               ref="name"
-              floatingLabelText="Your Name"
+              label="Your Name"
               onBlur={this.handleBlur}
               onChange={this.handleChange}
               style={{textAlign: 'left', width: '90%', marginBottom: '10px'}}
@@ -164,13 +184,13 @@ class form extends Component {
       case 2:
         content = (
           <Card>
-            <CardText>
+            <CardContent>
               What's the best email address for you, {formData.name}?<br />
               I'll use this to get back to you. No spam or unexpected newsletters here.
-            </CardText>
+            </CardContent>
             <TextValidator
               ref="email"
-              floatingLabelText="Your Email"
+              label="Your Email"
               onBlur={this.handleBlur}
               onChange={this.handleChange}
               style={{textAlign: 'left', width: '90%', marginBottom: '10px'}}
@@ -185,14 +205,14 @@ class form extends Component {
       case 3:
         content = (
           <Card>
-            <CardText>
+            <CardContent>
               What's your message about?<br />
               Think of this as like the subject field in an email. But already filled in for you.
-            </CardText>
+            </CardContent>
             <SelectValidator
               multiple={true}
               ref="topics"
-              hintText="Select your Topic"
+              label="Select your Topic"
               onChange={this.handleSelectTopic}
               style={{textAlign: 'left', width: '90%', marginBottom: '10px'}}
               name="topics"
@@ -208,15 +228,15 @@ class form extends Component {
       case 4:
         content = (
           <Card>
-            <CardText>
+            <CardContent>
               What's your message?<br />
               I prefer messages that are to the point. We're both busy people, and it's the best use of our time.
-            </CardText>
+            </CardContent>
             <TextValidator
-              multiLine={true}
+              multiline={true}
               rows={2}
               ref="message"
-              floatingLabelText="Your Message"
+              label="Your Message"
               onBlur={this.handleBlur}
               onChange={this.handleChange}
               style={{textAlign: 'left', width: '90%', marginBottom: '10px'}}
@@ -231,10 +251,10 @@ class form extends Component {
       case 5:
         content = (
           <Card>
-            <CardTitle>Thank You</CardTitle>
-            <CardText>
+            <CardHeader>Thank You</CardHeader>
+            <CardContent>
               Thank you for reaching out and contacting me. I will contact you as soon as possible.
-            </CardText>
+            </CardContent>
           </Card>
         );
         break;
@@ -242,10 +262,10 @@ class form extends Component {
         content = (
           <div style={{marginBottom: '10px'}}>
             <Card>
-              <CardText>
+              <CardContent>
                 I think you'll agree, there's nothing better than a message from a complete stranger. It's an opportunity to get to know someone and make a new friend.<br />
                 If you're interested in me and what I do, get in touch.
-              </CardText>
+              </CardContent>
             </Card>
           </div>
         );
@@ -255,7 +275,10 @@ class form extends Component {
       content = (
         <div id={`step${step}`}>
           {content}
-          <Stepper activeStep={step-1} orientation={this.props.mobileView ? 'vertical' : 'horizontal'}>
+          <Stepper activeStep={step-1} 
+                   orientation={this.props.mobileView ? 'vertical' : 'horizontal'}
+                   style={{background: 'none'}}
+          >
             <Step>
               <StepLabel>Introduce yourself</StepLabel>
             </Step>
@@ -280,12 +303,10 @@ class form extends Component {
     const {step, submitted} = this.state;
     if(step !== 0 && !submitted) {
       return (<Button variant="contained"
-        label="previous"
         onClick={this.prevStep}
         style={{ marginRight: '16px' }}
-        primary
         disabled={step === 1}
-      />)
+      >previous</Button>)
     }
   }
   
@@ -311,33 +332,25 @@ class form extends Component {
         {this.renderPrevButton()}
         <Button
           variant="contained"
-          label={
-            (submitting && 'Submitting...') ||
-            (step === 0 && 'Shoot me a message') ||
-            (step < formSteps ? 'Next' : 'Submit')
-          }
           onClick={step < formSteps ? this.nextStep : this.handleSubmit}
-          secondary
           style={{display: submitted ? 'none' : 'inline-block'}}
+          classes={{contained: this.props.classes.activeButton}}
           disabled={submitting}
-        />
+        >{
+          (submitting && 'Submitting...') ||
+          (step === 0 && 'Shoot me a message') ||
+          (step < formSteps ? 'Next' : 'Submit')
+        }</Button>
         <Dialog
-          title="The Submission failed"
-          actions={[<Button
-            label="Quit"
-            primary={true}
-            onClick={this.handleClose}
-          />,
-            <Button
-              label="Retry Again"
-              primary={true}
-              keyboardFocused={true}
-              onClick={this.handleSubmit}
-            />]}
-          modal={true}
           open={submitted && step !== ThankYouStep}
-          onRequestClose={this.handleClose}
-        />
+          onExit={this.handleClose}
+        >
+          <DialogTitle>The Submission failed</DialogTitle>
+          <DialogActions>
+            <Button onClick={this.handleClose}>Quit</Button>
+            <Button onClick={this.handleSubmit}>Retry Again</Button>
+          </DialogActions>
+        </Dialog>
       </ValidatorForm>
     );
   }
@@ -350,4 +363,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps)(withTheme()(form));
+export default connect(mapStateToProps)(withTheme()(withStyles(styles)(form)));
