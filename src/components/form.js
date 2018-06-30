@@ -106,6 +106,7 @@ class form extends Component {
       return false;
     }
     if (step === 2) {
+      // eslint-disable-next-line no-useless-escape
       const emailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
       if (field !== null && !field.match(emailFormat)) {
         formData.errors[step] = 'Must be a valid email';
@@ -167,6 +168,7 @@ class form extends Component {
           }
         }).catch(function (error) {
           console.log(error);
+          window.Raven.captureException(error, { submittionData: self.formData});
           self.setState({ submitting: false, submitted: true})
         });
       });
