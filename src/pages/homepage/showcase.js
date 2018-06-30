@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { withTheme } from '@material-ui/core/styles';
-import { AutoRotatingCarousel, Slide } from 'material-auto-rotating-carousel';
+import { AutoRotatingCarousel, Slide } from 'material-auto-rotating-carousel/lib';
 import green from '@material-ui/core/colors/green';
 import grey from '@material-ui/core/colors/grey';
 import red from '@material-ui/core/colors/red';
@@ -18,11 +18,10 @@ class Showcase extends Component {
   change = (index) => this.setState({index});
   start = () => window.open(links[this.state.index], '_newtab');
   render() {
-    const height = this.props.mobileView ? '430px' : '400px';
+    const height = this.props.mobileView ? '350px' : '400px';
     return (
       <div id="showcase" style={{background: this.props.theme.palette.secondary['500']}}>
-        <div id="showcaseContainer" style={{maxWidth: '800px', width: '90%', margin: '0 auto', height}}>
-          {/* TODO fix random 17px added*/}
+        <div id="showcaseContainer" style={{maxWidth: '800px', width: '90%', margin: '0 auto', height, padding: '17px 0px 17px 17px'}}>
           <AutoRotatingCarousel open hideBackdrop={true} mobile={this.props.mobileView}
                                 container={() => document.getElementById('showcaseContainer')}
                                 label="Learn More" onChange={this.change} onStart={this.start} interval={7500}
