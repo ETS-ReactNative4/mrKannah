@@ -21,7 +21,6 @@ import FormControl from '@material-ui/core/FormControl';
 import { withTheme } from '@material-ui/core/styles';
 import { withStyles } from '@material-ui/core/styles';
 
-// TODO Fix resize message textfield
 // TODO Fix Multiselect items to have a checkbox instead of just background highlighting
 // TODO Set up mail service
 
@@ -86,16 +85,16 @@ class form extends Component {
     let field;
     switch (step) {
       case 1:
-        field = formData.name;
+        field = formData.name.trim();
         break;
       case 2:
-        field = formData.email;
+        field = formData.email.trim();
         break;
       case 3:
         field = formData.topics;
         break;
       case 4:
-        field = formData.message;
+        field = formData.message.trim();
         break;
       default:
         field = null;
@@ -269,6 +268,7 @@ class form extends Component {
             <TextField
               multiline={true}
               rows={2}
+              rowsMax={this.props.mobileView ? 10 : 25}
               label="Your Message"
               onChange={this.handleChange}
               style={{textAlign: 'left', width: '90%', marginBottom: '10px'}}
