@@ -12,6 +12,8 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
 import MenuItem from '@material-ui/core/MenuItem';
+import Checkbox from '@material-ui/core/Checkbox';
+import Chip from '@material-ui/core/Chip';
 import TextField from '@material-ui/core/TextField';
 import Select from '@material-ui/core/Select';
 import Input from '@material-ui/core/Input';
@@ -21,7 +23,6 @@ import FormControl from '@material-ui/core/FormControl';
 import { withTheme } from '@material-ui/core/styles';
 import { withStyles } from '@material-ui/core/styles';
 
-// TODO Fix Multiselect items to have a checkbox instead of just background highlighting
 // TODO Set up mail service
 
 const styles = (theme) => ({
@@ -31,7 +32,12 @@ const styles = (theme) => ({
       backgroundColor: theme.palette.primary.dark,
     },
     color: theme.palette.text.alternate,
-    
+  },
+  topicCheckboxRoot: {
+    color: theme.palette.secondary[700],
+    '&$checked': {
+      color: theme.palette.secondary[300],
+    },
   },
 });
 
@@ -179,12 +185,13 @@ class form extends Component {
   }
   
   menuItems(values) {
-    return topics.map((topic, index) => (
-      <MenuItem
-        key={topic}
-        selected={values && values.indexOf(topic) > -1}
-        value={topic}
-      >{topic}</MenuItem>
+    return topics.map((topic) => (
+      <MenuItem key={topic} value={topic}>
+        <Checkbox checked={values && values.indexOf(topic) > -1} color='default' classes={{
+          root: this.props.classes.topicCheckboxRoot,
+        }}/>
+        {topic}
+      </MenuItem>
     ));
   }
 
@@ -249,6 +256,11 @@ class form extends Component {
                 onChange={this.handleChange}
                 name="topics"
                 value={formData.topics}
+                renderValue={selected => (
+                  <div style={{display: 'flex', flexWrap: 'wrap'}}>
+                    {selected.map(value => <Chip key={value} label={value} style={{margin: '4px'}}/>)}
+                  </div>
+                )}
                 input={<Input id="topics" />}
               >
                 {this.menuItems(formData.topics)}
