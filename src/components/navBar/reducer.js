@@ -3,6 +3,6 @@ export function navbarReducer(state, action) {
     case '@navigation/ToggleViewMode':
       return Object.assign({}, state, {mobileView: action.payload});
     default:
-      return state ? state : {mobileView: false}
+      return state ? state : {mobileView: window.innerWidth < 600}
   }
 }
