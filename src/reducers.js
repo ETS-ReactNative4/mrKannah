@@ -1,5 +1,5 @@
 import {routerReducer} from 'react-router-redux'
-import {navbarReducer} from './components/navbar'
+import {navbarReducer} from './components/navBar/reducer'
 
 const reducers = {};
 reducers.routing = routerReducer;

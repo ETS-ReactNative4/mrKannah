@@ -1,7 +1,7 @@
 import React from 'react';
 import Particles from 'react-particles-js';
 import {connect} from 'react-redux';
-import muiThemeable from 'material-ui/styles/muiThemeable';
+import { withTheme } from '@material-ui/core/styles';
 import config from './config';
 
 
@@ -11,8 +11,8 @@ class ParticlesBackground extends React.Component {
   }
   
   render(){
-    config.particles.color.value = this.props.muiTheme.palette.accent1Color;
-    config.particles.line_linked.color = this.props.muiTheme.palette.accent2Color;
+    config.particles.color.value = this.props.theme.palette.secondary.main;
+    config.particles.line_linked.color = this.props.theme.palette.secondary.light;
     config.particles.number.value = this.props.mobileView ? 20 : 100;
     if (!this.state.initialRender) {
       return (
@@ -37,4 +37,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default muiThemeable()(connect(mapStateToProps)(ParticlesBackground));
+export default withTheme()(connect(mapStateToProps)(ParticlesBackground));

@@ -1,18 +1,17 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Paper from 'material-ui/Paper';
-import Avatar from 'material-ui/Avatar';
-
+import Paper from '@material-ui/core/Paper';
+import Avatar from '@material-ui/core/Avatar';
 import picture from '../assests/fadee.jpg';
 
 class ProfilePicture extends Component {
   render() {
-    let size = this.props.size;
+    const {size, style} = this.props;
     return (
-      <div id="avatar" style={this.props.style}>
-        <Paper style={{width: size  + 'px', height: size + 'px', padding: '5px'}} zDepth={3} circle={true}>
-          <Avatar src={picture} size={size - 10} style={{transition: 'all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms'}}/>
+      <div id="avatar" style={style}>
+        <Paper zdepth={3} style={{width: `${size}px`, height: `${size}px`, padding: '5px', borderRadius: '50%', transition: style.transition}}>
+          <Avatar src={picture} style={{height: `${size}px`, width: `${size}px`, transition: style.transition}} />
         </Paper>
       </div>
     )

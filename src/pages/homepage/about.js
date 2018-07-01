@@ -1,24 +1,25 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import {Card, CardText} from 'material-ui/Card';
-import muiThemeable from 'material-ui/styles/muiThemeable';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import { withTheme } from '@material-ui/core/styles';
 
 
 class About extends Component {
   render() {
     const styles = {
-      color: this.props.muiTheme.palette.textColor,
+      color: this.props.theme.palette.text.primary,
       width: '90%',
-      margin: '1em auto',
-      fontSize: this.props.mobileView ? '1.1em' : '1.3em',
+      margin: '0 auto',
+      fontSize: this.props.mobileView ? '14px' : '16px',
       lineHeight: '1.5em',
       maxWidth: '800px',
     };
     
     return (
-      <div id="about">
+      <div id="about" style={{padding: '1em 0'}}>
         <Card style={styles}>
-          <CardText>
+          <CardContent>
             <p>I currently am the Chief Technology Officer at <a href="https://coursekeyeducation.com/" rel="noopener noreferrer" target="_blank">CourseKey Education</a>, which is where my passion for technology, learning,
               and entrepreneurship converge. Additionally, I am the owner of Kannah Consulting and Software Services (licensed in city of El Cajon) which allows me to work with different companies and startups.</p>
             <p>I studied computer engineering and science at San Diego State University, where I co-founded student software development
@@ -27,7 +28,7 @@ class About extends Component {
               Services, Entertainment, Automobile, and Education.</p>
             <p>Currently I am accepting freelance work, I'd love to get coffee and get to know you, so don’t hesitate
               to get in touch.</p>
-          </CardText>
+          </CardContent>
         </Card>
       </div>
     )
@@ -40,4 +41,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default muiThemeable()(connect(mapStateToProps)(About));
+export default connect(mapStateToProps)(withTheme()(About));

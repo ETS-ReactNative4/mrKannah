@@ -1,26 +1,21 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import muiThemeable from 'material-ui/styles/muiThemeable';
+import { withTheme } from '@material-ui/core/styles';
 import ParticlesBackground from '../../components/visualEffect/index';
 import ProfilePicture from '../../components/profilePicture';
-import Typist from 'react-typist';
+import MyTypist from '../../components/myTypist';
 
 
 class Header extends Component {
-  state = {typing: true};
-  
-  restartTyping = () => {
-    this.setState({ typing: false }, () => {
-      setTimeout(() => this.setState({ typing: true }), 0);
-    });
-  };
 
   render() {
     let size = this.props.mobileView ? 100 : 200;
     let height = this.props.mobileView ? '200px' : '350px';
+    let transition = 'all 750ms';
     return (
-      <div id="header" style={{backgroundColor: this.props.muiTheme.palette.alternateCanvasColor, 
-        height, color: this.props.muiTheme.palette.alternateTextColor}}>
+      <div id="header" style={{backgroundColor: this.props.theme.palette.alternateCanvasColor, 
+        height, color: this.props.theme.palette.text.alternate, transition
+      }}>
         <ParticlesBackground style={{position: 'absolute', left: 0}} height={height}/>
         <div style={{display: 'table', width: '80vw', maxWidth: '600px', height: '100%', margin: '0 auto'}}>
           <ProfilePicture size={size} style={{
@@ -28,28 +23,18 @@ class Header extends Component {
             display: 'table-cell',
             verticalAlign: 'middle',
             position: 'relative',
-            padding: '10px'
+            padding: '10px',
+            transition
           }}/>
           <div id="TextHolder" style={{display: 'table-cell', 
             verticalAlign: 'middle',
             position: 'relative',
             fontSize: this.props.mobileView ? '1em' : '1.2em',
-            transition: 'all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms',
+            transition,
           }}>
             <h1 style={{fontSize: this.props.mobileView ? '1.5em' : '2em'}}>Hi, I'm Fadee.</h1>
             <p style={{display: 'inline'}}>I engineer and build </p>
-            {this.state.typing ? 
-                <Typist onTypingDone={this.restartTyping}>
-                  <span>software</span>
-                  <Typist.Backspace count={8} delay={1000}/>
-                  <span>systems</span>
-                  <Typist.Backspace count={7} delay={1000}/>
-                  <span>teams</span>
-                  <Typist.Backspace count={5} delay={1000}/>
-                </Typist> 
-                :
-                <span> </span>
-              }
+            <MyTypist/>
           </div>
         </div>
       </div>
@@ -63,4 +48,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default muiThemeable()(connect(mapStateToProps)(Header));
+export default withTheme()(connect(mapStateToProps)(Header));
