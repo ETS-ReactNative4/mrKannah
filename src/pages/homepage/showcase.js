@@ -22,6 +22,7 @@ const paragraphBody = {
   fontSize: '16px',
   lineHeight: '1.5em',
 };
+const transition = 'all 750ms';
 
 class Showcase extends Component {
   
@@ -52,7 +53,7 @@ class Showcase extends Component {
     return (
       <div id="showcase" style={{background: this.props.theme.palette.secondary['500'], padding: '1em 0', overflow: 'hidden'}}>
         <div id='container' style={{maxWidth: '800px', width: '90%', margin: '0 auto'}}>
-          <div id='carousel' style={{width: this.props.mobileView ? '100%' : '80%', margin: '0 auto'}}>
+          <div id='carousel' style={{width: this.props.mobileView ? '100%' : '80%', margin: '0 auto', transition}}>
             <AutoPlaySwipeableViews animateHeight={true} style={{borderRadius: '10px'}} interval={7000}
                                     index={this.state.index} onChangeIndex={this.change}
             >
@@ -86,28 +87,30 @@ class Showcase extends Component {
               />
             </AutoPlaySwipeableViews>
           </div>
-          {!this.props.mobileView && (
-            <div id='arrows' style={{
-              height: 0,
-              position: 'relative',
-              top: `calc((-${slideHeight}px - 48px) / 2)`,
-            }}>
-              <Button
-                variant='fab'
-                style={{width: 48, height: 48}}
-                onClick={() => this.decreaseIndex()}
-              >
-                <ArrowBackIcon style={{color: this.props.theme.palette.primary}} />
-              </Button>
-              <Button
-                variant='fab'
-                style={{width: 48, height: 48, left: 'calc((100% - 96px))'}}
-                onClick={() => this.increaseIndex()}
-              >
-                <ArrowForwardIcon style={{color: this.props.theme.palette.primary}} />
-              </Button>
-            </div>
-          )}
+          <div id='arrows' style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            transition,
+            height: 0,
+            opacity: this.props.mobileView ? 0 : 1,
+            position: 'relative',
+            top: `calc((-${slideHeight}px - 48px) / 2)`,
+          }}>
+            <Button
+              variant='fab'
+              style={{width: this.props.mobileView ? 0 : 48, height: this.props.mobileView ? 0 : 48, transition}}
+              onClick={() => this.decreaseIndex()}
+            >
+              <ArrowBackIcon style={{color: this.props.theme.palette.primary, width: this.props.mobileView ? 0 : 24, height: this.props.mobileView ? 0 : 24, transition}} />
+            </Button>
+            <Button
+              variant='fab'
+              style={{width: this.props.mobileView ? 0 : 48, height: this.props.mobileView ? 0 : 48, transition}}
+              onClick={() => this.increaseIndex()}
+            >
+              <ArrowForwardIcon style={{color: this.props.theme.palette.primary, width: this.props.mobileView ? 0 : 24, height: this.props.mobileView ? 0 : 24, transition}} />
+            </Button>
+          </div>
           <Dots id='dots' style={{margin: '5px auto 0px'}}
             index={this.state.index}
             count={this.slideCount}
