@@ -89,6 +89,7 @@ class form extends Component {
   isValid() {
     const { formData, step } = this.state;
     let field;
+    // get field data
     switch (step) {
       case 1:
         field = formData.name.trim();
@@ -105,11 +106,13 @@ class form extends Component {
       default:
         field = null;
     }
+    // check field has data and is not being submitted empty
     if (field !== null && field.length === 0) {
       formData.errors[step] = step === 3 ? 'Must select at least one topic' : 'Field is required';
       this.setState({formData});
       return false;
     }
+    // if the field is teh email field check the email format
     if (step === 2) {
       // eslint-disable-next-line no-useless-escape
       const emailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -119,6 +122,7 @@ class form extends Component {
         return false;
       }
     }
+    // else clear the error if there is one
     return this.clearStepError();
   }
   
