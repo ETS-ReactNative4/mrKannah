@@ -11,9 +11,11 @@ class Header extends Component {
   render() {
     let size = this.props.mobileView ? 100 : 200;
     let height = this.props.mobileView ? '200px' : '350px';
+    let transition = 'all 750ms';
     return (
       <div id="header" style={{backgroundColor: this.props.theme.palette.alternateCanvasColor, 
-        height, color: this.props.theme.palette.text.alternate}}>
+        height, color: this.props.theme.palette.text.alternate, transition
+      }}>
         <ParticlesBackground style={{position: 'absolute', left: 0}} height={height}/>
         <div style={{display: 'table', width: '80vw', maxWidth: '600px', height: '100%', margin: '0 auto'}}>
           <ProfilePicture size={size} style={{
@@ -21,13 +23,14 @@ class Header extends Component {
             display: 'table-cell',
             verticalAlign: 'middle',
             position: 'relative',
-            padding: '10px'
+            padding: '10px',
+            transition
           }}/>
           <div id="TextHolder" style={{display: 'table-cell', 
             verticalAlign: 'middle',
             position: 'relative',
             fontSize: this.props.mobileView ? '1em' : '1.2em',
-            transition: 'all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms',
+            transition,
           }}>
             <h1 style={{fontSize: this.props.mobileView ? '1.5em' : '2em'}}>Hi, I'm Fadee.</h1>
             <p style={{display: 'inline'}}>I engineer and build </p>
