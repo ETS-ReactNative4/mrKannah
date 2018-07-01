@@ -37,10 +37,6 @@ p {
   display: inline-block;
 }
 
-div[class*=' AutoRotatingCarousel-root'] {
-  position: relative;
-}
-
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg); }
