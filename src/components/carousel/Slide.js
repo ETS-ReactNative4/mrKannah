@@ -2,9 +2,17 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Button from "@material-ui/core/Button";
 
+const titleStyles = {
+  fontSize: '24px',
+  fontWeight: 'bold',
+  color: 'white',
+  textAlign: 'center'
+};
+
 function Slide (props) {
   const {
     id,
+    title,
     content,
     header,
     headerBackColor,
@@ -18,11 +26,12 @@ function Slide (props) {
     <div id={slideID} style={style}>
       <div style={{height: '80px', backgroundColor: headerBackColor}}>{header}</div>
       <div style={{padding: '10px'}}>
+        <p style={titleStyles}>{title}</p>
         {content}
         {link && 
         <div style={{marginTop: '10px', textAlign: 'center'}}><Button
           variant='raised'
-          onClick={() => window.open(link, '_newtab')}
+          onClick={() => window.open(link, '_blank')}
         >
           {label || 'Learn more'}
         </Button></div>}

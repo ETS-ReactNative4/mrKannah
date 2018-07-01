@@ -60,10 +60,7 @@ class Dots extends Component {
             <div
               key={i}
               className={classes.dotOuter}
-              style={{
-                // left: i * 16,
-                cursor: onDotClick != null ? 'pointer' : 'inherit'
-              }}
+              style={{cursor: onDotClick != null ? 'pointer' : 'inherit'}}
               onClick={(event) => this.handleDotClick(i, event)}
             >
               <Paper

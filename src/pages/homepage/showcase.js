@@ -17,12 +17,6 @@ import coursekey from '../../assests/ck.png';
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 const imgStyles = {padding: '5px', height: '70px', margin: '0 auto', display: 'block'};
-const titleStyles = {
-  fontSize: '24px',
-  fontWeight: 'bold',
-  color: 'white',
-  textAlign: 'center'
-};
 const paragraphBody = {
   color: 'white',
   fontSize: '16px',
@@ -66,29 +60,29 @@ class Showcase extends Component {
                      header={<img src={coursekey} alt="CourseKey logo" style={imgStyles} />}
                      headerBackColor={green['400']}
                      link='https://coursekeyeducation.com'
-                     content={<div>
-                       <p style={titleStyles}>CourseKey</p>
-                       <p style={paragraphBody}>Working with an amazing team to improve the educational experience for students, instructors and administrators</p>
-                     </div>}
+                     title='CourseKey'
+                     content={<p style={paragraphBody}>
+                       Working with an amazing team to improve the educational experience for students, instructors and administrators
+                     </p>}
               />
               <Slide style={{ backgroundColor: red['400'] }}
                      id={1}
                      header={<img src={youtubeRedirector} alt="Youtube Redirector logo" style={imgStyles} />}
                      headerBackColor={red['200']}
                      link='https://chrome.google.com/webstore/detail/youtube-redirector/fnlklbjlpkkdnelohembgpdahpfpfcbp'
-                     content={<div>
-                       <p style={titleStyles}>YouTube Redirector</p>
-                       <p style={paragraphBody}>A new revamped and upgraded version of my chrome extension for YouTube redirect to subscriptions page</p>
-                     </div>}
+                     title='YouTube Redirector'
+                     content={<p style={paragraphBody}>
+                       A new revamped and upgraded version of my chrome extension for YouTube redirect to subscriptions page
+                     </p>}
               />
               <Slide id={2} style={{ backgroundColor: grey['600'] }}
                      header={<img src={github} alt="Github logo" style={imgStyles} />}
                      headerBackColor={grey['400']}
                      link='https://github.com/fadeenk'
-                     content={<div>
-                       <p style={titleStyles}>Github Profile</p>
-                       <p style={paragraphBody}>You can view my latest work for the open source community and side projects on my profile</p>
-                     </div>}
+                     title='Github Profile'
+                     content={<p style={paragraphBody}>
+                       You can view my latest work for the open source community and side projects on my profile
+                     </p>}
               />
             </AutoPlaySwipeableViews>
           </div>
