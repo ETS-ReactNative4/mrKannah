@@ -23,8 +23,6 @@ import FormControl from '@material-ui/core/FormControl';
 import { withTheme } from '@material-ui/core/styles';
 import { withStyles } from '@material-ui/core/styles';
 
-// TODO Set up mail service
-
 const styles = (theme) => ({
   activeButton: {
     backgroundColor: theme.palette.secondary['700'],
@@ -156,21 +154,25 @@ class form extends Component {
       this.nextStep();
     } else if (this.isValid()) {
       const self = this;
+      const {formData} = this.state;
       this.setState({ submitting: true }, () => {
+        const url = 'https://8rwjvhixyb.execute-api.us-west-2.amazonaws.com/development/sendMail';
+        const myEmail = 'fadeekannah@gmail.com';
         axios({
           method: 'post',
-          url: 'https://formspree.io/fadeekannah@gmail.com',
+          url,
           data: {
-            name: this.state.formData.name,
-            email: this.state.formData.email,
-            topics: this.state.formData.topics,
-            message: this.state.formData.message,
+            to: [myEmail],
+            from: myEmail,
+            body: `New message from ${formData.name}, \n${formData.message}\n`,
+            replyTo: formData.email,
+            subject: formData.topics.join(', '),
           },
           headers: {
             Accept: 'application/json'
           }
         }).then(function (response) {
-          if (response.status === 200 && response.data && response.data.success) {
+          if (response.status === 200 && response.data && response.data.body && response.data.body.success) {
             self.setState({ submitting: false, submitted: true, step: ThankYouStep})
           } else {
             throw response;
@@ -300,7 +302,8 @@ class form extends Component {
       case 5:
         content = (
           <Card>
-            <CardHeader>Thank You</CardHeader>
+            <CardHeader title="Thank You" />
+            <hr />
             <CardContent>
               Thank you for reaching out and contacting me. I will contact you as soon as possible.
             </CardContent>
