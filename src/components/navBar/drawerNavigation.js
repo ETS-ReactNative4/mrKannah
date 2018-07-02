@@ -97,7 +97,9 @@ class DrawerNavigation extends Component {
     });
     return (
       <div style={{textAlign: 'right'}}>
-        <IconButton onClick={this.toggleDrawer}><MenuIcon/></IconButton>
+        <IconButton onClick={this.toggleDrawer}>
+          <MenuIcon style={{color: this.props.theme.palette.text.alternate, opacity: 0.7}}/>
+        </IconButton>
         <Drawer open={this.state.openDrawer} anchor="right"
                 onClose={this.toggleDrawer} style={{textAlign: 'left'}}>
           <List>
