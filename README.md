@@ -1,4 +1,5 @@
-[![Greenkeeper badge](https://badges.greenkeeper.io/fadeenk/fadeenk.github.io.svg)](https://greenkeeper.io/) 
+[![Greenkeeper badge](https://badges.greenkeeper.io/fadeenk/mrKannah.svg)](https://greenkeeper.io/) 
+[![Build Status](https://travis-ci.org/fadeenk/mrKannah.svg?branch=master)](https://travis-ci.org/fadeenk/mrKannah)
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
