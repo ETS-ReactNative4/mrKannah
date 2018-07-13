@@ -1,8 +1,0 @@
-sudo: false
-language: node_js
-script:
-  - if [ "$TRAVIS_BRANCH" != "master" ]; then npm run eslint; fi
-node_js:
-  - "6"
-  - "8"
-  - "10"
