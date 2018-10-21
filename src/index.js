@@ -3,15 +3,18 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import theme from './muiTheme';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'; // v1.x
-import { createStore, combineReducers, applyMiddleware } from 'redux'
-import { Provider } from 'react-redux'
-import { ConnectedRouter, routerReducer, routerMiddleware } from 'react-router-redux'
-import { Route } from 'react-router'
-import createHistory from 'history/createBrowserHistory'
+import { createStore, combineReducers, applyMiddleware } from 'redux';
+import { Provider } from 'react-redux';
+import { ConnectedRouter, routerReducer, routerMiddleware } from 'react-router-redux';
+import { Route } from 'react-router';
+import createHistory from 'history/createBrowserHistory';
 import createRavenMiddleware from "raven-for-redux";
 import App from './pages/index';
 import reducers from './reducers';
 import './index.css';
+import { pdfjs } from 'react-pdf';
+pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
+
 
 const history = createHistory()
 const middleware = routerMiddleware(history)
