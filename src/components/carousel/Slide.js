@@ -30,7 +30,7 @@ function Slide (props) {
         {content}
         {link && 
         <div style={{marginTop: '10px', textAlign: 'center'}}><Button
-          variant='raised'
+          variant='contained'
           onClick={() => window.open(link, '_blank')}
         >
           {label || 'Learn more'}
