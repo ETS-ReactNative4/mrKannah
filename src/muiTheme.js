@@ -25,4 +25,7 @@ export default {
     },
     alternateCanvasColor: fade(common.black, 0.8),
   },
+  typography: {
+    useNextVariants: true,
+  },
 };
