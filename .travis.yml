@@ -1,7 +1,6 @@
 sudo: false
 language: node_js
 script:
-  - npm run eslint
   - unset CI
   - npm run build
   - CI=true
