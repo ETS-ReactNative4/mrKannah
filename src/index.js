@@ -3,11 +3,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import theme from './muiTheme';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'; // v1.x
-import { createStore, combineReducers, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
-import { ConnectedRouter, routerReducer, routerMiddleware } from 'react-router-redux';
+import { routerMiddleware, ConnectedRouter } from 'connected-react-router';
 import { Route } from 'react-router';
-import createHistory from 'history/createBrowserHistory';
+import { createBrowserHistory } from 'history'
 import createRavenMiddleware from "raven-for-redux";
 import App from './pages/index';
 import reducers from './reducers';
@@ -16,21 +16,19 @@ import { pdfjs } from 'react-pdf';
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 
-const history = createHistory()
-const middleware = routerMiddleware(history)
+const history = createBrowserHistory()
 const store = createStore(
-  combineReducers({
-    ...reducers,
-    router: routerReducer
-  }),
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
-  applyMiddleware(middleware),
-  applyMiddleware(
-    createRavenMiddleware(window.Raven, {
-      breadcrumbDataFromAction: action => {
-        return { STRING: action.str };
-      }
-    })
+  reducers(history),
+  compose(
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+    applyMiddleware(
+      routerMiddleware(history),
+      createRavenMiddleware(window.Raven, {
+        breadcrumbDataFromAction: action => {
+          return { STRING: action.str };
+        }
+      })
+    )
   )
 );
 
@@ -42,7 +40,9 @@ const MUI = () => (
   <MuiThemeProvider theme={createMuiTheme(theme)}>
     <Provider store={store}>
       <ConnectedRouter history={history}>
-        <Route path='*' component={App}/>
+        <div>
+          <Route path='*' component={App}/>
+        </div>
       </ConnectedRouter>
     </Provider>
   </MuiThemeProvider>

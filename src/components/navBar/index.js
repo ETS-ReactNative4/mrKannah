@@ -76,7 +76,7 @@ Index.contextTypes = {
 function mapStateToProps(state) {
   return {
     mobileView: state.navigation.mobileView,
-    currentRoute: state.routing.location.pathname.toLowerCase(),
+    currentRoute: state.router.location.pathname,
   }
 }
 

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux'
-import { push } from 'react-router-redux';
+import { LOCATION_CHANGE } from 'connected-react-router';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import DropDownMenu from '@material-ui/core/Menu';
@@ -12,7 +12,15 @@ class TabNavigation extends Component {
   state = {};
   
   navigate = (value) => {
-    this.props.dispatch(push(value));
+    this.props.dispatch({
+      type: LOCATION_CHANGE,
+      payload: {
+        location: {
+          pathname: value,
+        },
+        action: 'PUSH'
+      }
+    });
   };
   
   getParentRouteValue = (value = this.props.currentRoute) => {
@@ -108,7 +116,7 @@ TabNavigation.contextTypes = {
 
 function mapStateToProps(state) {
   return {
-    currentRoute: state.routing.location.pathname.toLowerCase(),
+    currentRoute: state.router.location.pathname,
   }
 }
 

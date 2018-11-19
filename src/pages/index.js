@@ -1,5 +1,6 @@
 import React, { Component }  from 'react';
 import { connect } from 'react-redux'
+import { Route, Switch } from 'react-router';
 import { withRouter } from 'react-router-dom'
 import Homepage from '../pages/homepage/index';
 import About from './about';
@@ -13,12 +14,12 @@ class App extends Component {
     return (
       <div className="App">
         <Navbar />
-        {
-          /\/[rR]esume/.test(this.props.currentRoute) ? <Resume /> : 
-          /\/[aA]bout/.test(this.props.currentRoute) ? <About /> :
-          /\/[cC]ontact/.test(this.props.currentRoute) ? <Contact /> :
-          this.props.currentRoute === '/' ? <Homepage/> : <Homepage/>
-        }
+        <Switch>
+          <Route path="/resume" component={Resume} />
+          <Route path="/About" component={About} />
+          <Route path="/Contact" component={Contact} />
+          <Route path="/" component={Homepage} />
+        </Switch>
         <Footer />
       </div>
     )
@@ -28,7 +29,7 @@ class App extends Component {
 
 function mapStateToProps(state) {
   return {
-    currentRoute:  state.routing.location.pathname.toLowerCase(),
+    currentRoute:  state.router.location.pathname,
   }
 }
 

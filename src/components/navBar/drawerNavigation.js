@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux'
-import { push } from 'react-router-redux';
+import {LOCATION_CHANGE, push} from 'connected-react-router';
 import Drawer from '@material-ui/core/Drawer';
 import Collapse from '@material-ui/core/Collapse';
 import List from '@material-ui/core/List';
@@ -27,7 +27,15 @@ class DrawerNavigation extends Component {
     this.setState(updateState);
   }
   navigate = (value) => {
-    this.props.dispatch(push(value));
+    this.props.dispatch({
+      type: LOCATION_CHANGE,
+      payload: {
+        location: {
+          pathname: value,
+        },
+        action: 'PUSH'
+      }
+    });
     this.toggleDrawer();
   };
 
@@ -121,7 +129,7 @@ DrawerNavigation.contextTypes = {
 
 function mapStateToProps(state) {
   return {
-    currentRoute: state.routing.location.pathname.toLowerCase(),
+    currentRoute: state.router.location.pathname,
   }
 }
 

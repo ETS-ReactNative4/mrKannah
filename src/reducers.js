@@ -1,8 +1,8 @@
-import {routerReducer} from 'react-router-redux'
+import { combineReducers } from 'redux'
+import { connectRouter } from 'connected-react-router'
 import {navbarReducer} from './components/navBar/reducer'
 
-const reducers = {};
-reducers.routing = routerReducer;
-reducers.navigation = navbarReducer;
-
-export default reducers;
+export default (history) => combineReducers({
+  router: connectRouter(history),
+  navigation: navbarReducer,
+})

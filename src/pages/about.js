@@ -5,7 +5,7 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import { withTheme } from '@material-ui/core/styles';
 import {connect} from "react-redux";
-import {push} from "react-router-redux";
+import {LOCATION_CHANGE} from "connected-react-router";
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = (theme) => ({
@@ -19,7 +19,15 @@ class About extends Component {
   
   navigate = (value) => {
     this.setState({value});
-    this.props.dispatch(push(value));
+    this.props.dispatch({
+      type: LOCATION_CHANGE,
+      payload: {
+        location: {
+          pathname: value,
+        },
+        action: 'PUSH'
+      }
+    });
   };
   
   componentWillMount() {
@@ -50,7 +58,7 @@ class About extends Component {
           <Tab label="Software Development" value={'/about/softwareDevelopment'} style = {{backgroundColor: this.props.theme.palette.secondary['500']}} />
           <Tab label="Education" value={'/about/education'} style = {{backgroundColor: this.props.theme.palette.secondary['500']}} />
         </Tabs>
-        {this.props.currentRoute === '/about' && <Card style={this.cardStyle}>
+        {/\/[aA]bout$/.test(this.props.currentRoute) && <Card style={this.cardStyle}>
           <CardContent>
             <p>
               Originally from Iraq. I was born in <a href="https://en.wikipedia.org/wiki/Bartella">Bartella</a>, a small town located east of Mosul.
@@ -82,7 +90,7 @@ class About extends Component {
             </p>
           </CardContent>
         </Card>}
-        {this.props.currentRoute === '/about/softwareDevelopment' && <Card style={this.cardStyle}>
+        {/\/[aA]bout\/[sS]oftwareDevelopment/.test(this.props.currentRoute) && <Card style={this.cardStyle}>
           <CardContent>
             <p>
               Since I was a kid, I always liked problem solving, breaking things and putting them back together.
@@ -163,7 +171,7 @@ class About extends Component {
             </p>
           </CardContent>
         </Card>}
-        {this.props.currentRoute === '/about/education' && <Card style={this.cardStyle}>
+        {/\/[aA]bout\/[eE]ducation/.test(this.props.currentRoute)  && <Card style={this.cardStyle}>
           <CardContent>
             <p>
               For me education is an ongoing process. Since early on, I always was interested in learning.
@@ -253,7 +261,7 @@ function mapStateToProps(state) {
   return {
     mobileView: state.navigation.mobileView,
     openDrawer: state.navigation.openDrawer,
-    currentRoute: state.routing.location.pathname,
+    currentRoute: state.router.location.pathname,
   }
 }
 
