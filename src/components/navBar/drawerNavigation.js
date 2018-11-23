@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux'
-import {LOCATION_CHANGE, push} from 'connected-react-router';
+import {LOCATION_CHANGE} from 'connected-react-router';
 import Drawer from '@material-ui/core/Drawer';
 import Collapse from '@material-ui/core/Collapse';
 import List from '@material-ui/core/List';
