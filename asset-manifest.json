@@ -1,15 +1,15 @@
 {
-  "main.css": "/static/css/main.db35d81b.chunk.css",
-  "main.js": "/static/js/main.2b9ab773.chunk.js",
-  "main.js.map": "/static/js/main.2b9ab773.chunk.js.map",
-  "static/js/1.649f1ab5.chunk.js": "/static/js/1.649f1ab5.chunk.js",
-  "static/js/1.649f1ab5.chunk.js.map": "/static/js/1.649f1ab5.chunk.js.map",
+  "main.css": "/static/css/main.ccaaa81f.chunk.css",
+  "main.js": "/static/js/main.43e3c6b6.chunk.js",
+  "main.js.map": "/static/js/main.43e3c6b6.chunk.js.map",
+  "static/js/1.261a142b.chunk.js": "/static/js/1.261a142b.chunk.js",
+  "static/js/1.261a142b.chunk.js.map": "/static/js/1.261a142b.chunk.js.map",
   "runtime~main.js": "/static/js/runtime~main.229c360f.js",
   "runtime~main.js.map": "/static/js/runtime~main.229c360f.js.map",
-  "static/css/main.db35d81b.chunk.css.map": "/static/css/main.db35d81b.chunk.css.map",
+  "static/css/main.ccaaa81f.chunk.css.map": "/static/css/main.ccaaa81f.chunk.css.map",
   "static/media/fadee.jpg": "/static/media/fadee.4973f52d.jpg",
   "static/media/logo.svg": "/static/media/logo.224b5728.svg",
   "index.html": "/index.html",
-  "precache-manifest.4025d3983262062e4129d1231342cc2e.js": "/precache-manifest.4025d3983262062e4129d1231342cc2e.js",
+  "precache-manifest.7b1e5f8f85cde8a662f754ee98beab65.js": "/precache-manifest.7b1e5f8f85cde8a662f754ee98beab65.js",
   "service-worker.js": "/service-worker.js"
 }
