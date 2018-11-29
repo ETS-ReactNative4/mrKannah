@@ -10,12 +10,14 @@
     }
   </style>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAmjI8t-x5OZdt1JbGA76oyGWyCIqI42KA"></script>
+  <script src="./fulltilt.min.js"></script>
 </head>
 <body>
 <input type="text" placeholder="Enter destination" name="search">
 <button onclick="calcRoute();">Navigate</button>
 <div style="height: 8px"></div>
 <div id="map"></div>
+<div style="text-align: center"><span style="font-size:100px">11</span></div>
 <script>
   var map, marker, pos;
   var watcher;
@@ -97,9 +99,27 @@
         console.error(err);
       });
     } else {
-      console.error('Browser doesn\'t support Geolocation');
+      alert('Browser doesn\'t support Geolocation');
     }
   }
+</script>
+<script>
+  function initAccel() {
+    FULLTILT.getDeviceMotion()
+      .then(
+        function(deviceMotion) {
+          setInterval(() => {
+            console.log(deviceMotion.getScreenAdjustedAcceleration())
+          }, 500)
+        }
+      ).catch(
+      function(message) {
+        alert(message)
+      }
+    );
+
+  }
+  initAccel();
 </script>
 </body>
 </html>
