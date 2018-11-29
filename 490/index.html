@@ -10,12 +10,14 @@
     }
   </style>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAmjI8t-x5OZdt1JbGA76oyGWyCIqI42KA"></script>
+  <script src="./fulltilt.min.js"></script>
 </head>
 <body>
 <input type="text" placeholder="Enter destination" name="search">
 <button onclick="calcRoute();">Navigate</button>
 <div style="height: 8px"></div>
 <div id="map"></div>
+<div style="text-align: center"><span style="font-size:20px" id="speed">11</span></div>
 <script>
   var map, marker, pos;
   var watcher;
@@ -97,9 +99,41 @@
         console.error(err);
       });
     } else {
-      console.error('Browser doesn\'t support Geolocation');
+      alert('Browser doesn\'t support Geolocation');
     }
   }
+</script>
+<script>
+  let lastValues = {x:0, y:0, z:0};
+  let text = document.getElementById('speed');
+  function integrate(oldValue, newValue) {
+    return newValue * newValue /2 - oldValue * oldValue /2
+  }
+  function getAreaUnderTheCurve(newValues) {
+    let x = integrate(lastValues.x, newValues.x);
+    let y = integrate(lastValues.y, newValues.y);
+    let z = integrate(lastValues.z, newValues.z);
+    lastValues = newValues;
+    let speed = Math.abs(x+y+z).toFixed(2);
+    text.innerHTML = `${speed} meters <br />${(0.000621371 * speed).toFixed(2)} miles`
+  }
+  
+  function initAccel() {
+    FULLTILT.getDeviceMotion()
+      .then(
+        function(deviceMotion) {
+          setInterval(() => {
+            getAreaUnderTheCurve(deviceMotion.getScreenAdjustedAcceleration());
+          }, 500)
+        }
+      ).catch(
+      function(message) {
+        alert(message)
+      }
+    );
+
+  }
+  initAccel();
 </script>
 </body>
 </html>
