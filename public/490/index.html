@@ -113,7 +113,7 @@
     let x = integrate(lastValues.x, newValues.x);
     let y = integrate(lastValues.y, newValues.y);
     let z = integrate(lastValues.z, newValues.z);
-    lastValues = newValues;
+    // lastValues = newValues;
     let speed = Math.abs(x+y+z).toFixed(2);
     text.innerHTML = `${speed} meters <br />${(0.000621371 * speed).toFixed(2)} miles`
   }
