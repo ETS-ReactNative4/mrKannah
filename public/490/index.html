@@ -105,6 +105,7 @@
 </script>
 <script>
   let lastValues = {x:0, y:0, z:0};
+  let speed = 0;
   let text = document.getElementById('speed');
   function integrate(oldValue, newValue) {
     return newValue * newValue /2 - oldValue * oldValue /2
@@ -113,9 +114,9 @@
     let x = integrate(lastValues.x, newValues.x);
     let y = integrate(lastValues.y, newValues.y);
     let z = integrate(lastValues.z, newValues.z);
-    // lastValues = newValues;
-    let speed = Math.abs(x+y+z).toFixed(2);
-    text.innerHTML = `${speed} meters <br />${(0.000621371 * speed).toFixed(2)} miles`
+    speed += x+y+z;
+    text.innerHTML = `${speed.toFixed(2)} meters <br />${(0.000621371 * speed).toFixed(2)} miles`;
+    lastValues = newValues;
   }
   
   function initAccel() {
@@ -124,7 +125,7 @@
         function(deviceMotion) {
           setInterval(() => {
             getAreaUnderTheCurve(deviceMotion.getScreenAdjustedAcceleration());
-          }, 500)
+          }, 100)
         }
       ).catch(
       function(message) {
