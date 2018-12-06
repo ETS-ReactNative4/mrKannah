@@ -105,7 +105,7 @@
 </script>
 <script>
   let lastValues = {x:0, y:0, z:0};
-  let speed = 0;
+  let speeds = [0,0,0,0];
   let text = document.getElementById('speed');
   function integrate(oldValue, newValue) {
     return newValue * newValue /2 - oldValue * oldValue /2
@@ -114,9 +114,16 @@
     let x = integrate(lastValues.x, newValues.x);
     let y = integrate(lastValues.y, newValues.y);
     let z = integrate(lastValues.z, newValues.z);
-    speed += x+y+z;
-    text.innerHTML = `${speed.toFixed(2)} meters <br />${(0.000621371 * speed).toFixed(2)} miles`;
+    speeds[0] += x+y+z;
+    speeds[1] += Math.abs(x+y+z);
+    text.innerHTML = `${speeds[0].toFixed(2)} meters <br />${speeds[1].toFixed(2)} meters<br /> <br />`;
     lastValues = newValues;
+    x = integrate(0, newValues.x);
+    y = integrate(0, newValues.y);
+    z = integrate(0, newValues.z);
+    speeds[2] += x+y+z;
+    speeds[3] += Math.abs(x+y+z);
+    text.innerHTML += `${speeds[2].toFixed(2)} meters <br />${speeds[3].toFixed(2)} meters`;
   }
   
   function initAccel() {
