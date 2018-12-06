@@ -127,18 +127,35 @@
   }
   
   function initAccel() {
-    FULLTILT.getDeviceMotion()
-      .then(
-        function(deviceMotion) {
-          setInterval(() => {
-            getAreaUnderTheCurve(deviceMotion.getScreenAdjustedAcceleration());
-          }, 100)
-        }
-      ).catch(
-      function(message) {
-        alert(message)
+    var speedX = 0, speedY = 0, speedZ = 0;
+    let lastTimestamp;
+    window.addEventListener('devicemotion', function(event) {
+      var currentTime = new Date().getTime();
+      if (lastTimestamp === undefined) {
+        lastTimestamp = new Date().getTime();
+        return; //ignore first call, we need a reference time
       }
-    );
+      //  m/s² * (miliseconds - miliseconds)/1000
+      speedX += event.acceleration.x * ((currentTime - lastTimestamp)/1000);
+      speedY += event.acceleration.y * ((currentTime - lastTimestamp)/1000);
+      speedZ += event.acceleration.z * ((currentTime - lastTimestamp)/1000);
+      let speed = Math.sqrt(speedX * speedX + speedY * speedY + speedZ * speedZ);
+      text.innerHTML = `${speedX.toFixed(2)} ${speedY.toFixed(2)} ${speedZ.toFixed(2)}<br />${speed.toFixed(2)} meters per sec`;
+
+      lastTimestamp = currentTime;
+    }, false);
+    // FULLTILT.getDeviceMotion()
+    //   .then(
+    //     function(deviceMotion) {
+    //       setInterval(() => {
+    //         getAreaUnderTheCurve(deviceMotion.getScreenAdjustedAcceleration());
+    //       }, 100)
+    //     }
+    //   ).catch(
+    //   function(message) {
+    //     alert(message)
+    //   }
+    // );
 
   }
   initAccel();
