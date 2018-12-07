@@ -146,7 +146,7 @@
       absVelocity1[i] +=  Math.abs(speeds[0] + speeds[1] + speeds[2]);
       absVelocity2[i] +=  Math.abs(speeds[0]) + Math.abs(speeds[1]) + Math.abs(speeds[2]);
       text += `${speeds[0].toFixed(2)}, ${speeds[1].toFixed(2)}, ${speeds[2].toFixed(2)} <br />
-${normalized[i].toFixed(2)}, ${normalizedAcc[i].toFixed(2)}, ${velocity[i].toFixed(2)}, ${absVelocity1[i].toFixed(2)}, ${absVelocity2[i].toFixed(2)} m/s <br />`;
+${normalized[i].toFixed(2)} m/s ${(normalized[i] * 2.23694).toFixed()} mile/h <br />`;
     }
     // TODO update speeds to reset instead of summation
     function firstApproach(event) {
