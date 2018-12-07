@@ -105,7 +105,7 @@
 </script>
 <script>
   let lastValues = {x:0, y:0, z:0};
-  let text = document.getElementById('speed');
+  let container = document.getElementById('speed');
   function integrate(oldValue, newValue) {
     return newValue * newValue /2 - oldValue * oldValue /2
   }
@@ -127,12 +127,13 @@
       if (currentTime - lastTimestamp < 200) {
         return;
       }
-      text.innerHTML = '';
+      text = '';
       firstApproach(event);
       secondApproach(event);
       thirdApproach(event);
       lastValues = event.acceleration;
       lastTimestamp = currentTime;
+      container.innerHTML = text;
     }, false);
     
     function getOutput(i) {
@@ -142,7 +143,7 @@
       velocity[i] += speeds[0] + speeds[1] + speeds[2];
       absVelocity1[i] +=  Math.abs(speeds[0] + speeds[1] + speeds[2]);
       absVelocity2[i] +=  Math.abs(speeds[0]) + Math.abs(speeds[1]) + Math.abs(speeds[2]);
-      text.innerHTML += `${speeds[0].toFixed(2)} ${speeds[1].toFixed(2)} ${speeds[2].toFixed(2)} <br />
+      text += `${speeds[0].toFixed(2)} ${speeds[1].toFixed(2)} ${speeds[2].toFixed(2)} <br />
 ${normalized[0].toFixed(2)} ${normalizedAcc[0].toFixed(2)} ${velocity[0].toFixed(2)} ${absVelocity[0].toFixed(2)} m/s `;
     }
     // TODO update speeds to reset instead of summation
