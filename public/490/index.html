@@ -105,45 +105,71 @@
 </script>
 <script>
   let lastValues = {x:0, y:0, z:0};
-  let speeds = [0,0,0,0];
   let text = document.getElementById('speed');
   function integrate(oldValue, newValue) {
     return newValue * newValue /2 - oldValue * oldValue /2
   }
-  function getAreaUnderTheCurve(newValues) {
-    let x = integrate(lastValues.x, newValues.x);
-    let y = integrate(lastValues.y, newValues.y);
-    let z = integrate(lastValues.z, newValues.z);
-    speeds[0] += x+y+z;
-    speeds[1] += Math.abs(x+y+z);
-    text.innerHTML = `${speeds[0].toFixed(2)} meters <br />${speeds[1].toFixed(2)} meters<br /> <br />`;
-    lastValues = newValues;
-    x = integrate(0, newValues.x);
-    y = integrate(0, newValues.y);
-    z = integrate(0, newValues.z);
-    speeds[2] += x+y+z;
-    speeds[3] += Math.abs(x+y+z);
-    text.innerHTML += `${speeds[2].toFixed(2)} meters <br />${speeds[3].toFixed(2)} meters`;
-  }
-  
   function initAccel() {
-    var speedX = 0, speedY = 0, speedZ = 0;
+    var speed = [[0,0,0], [0,0,0], [0,0,0]];
+    var velocity = [0,0,0];
+    var absVelocity1 = [0,0,0];
+    var absVelocity2 = [0,0,0];
+    var normalized = [0,0,0];
+    var normalizedAcc = [0,0,0];
+    var currentTime;
     let lastTimestamp;
     window.addEventListener('devicemotion', function(event) {
-      var currentTime = new Date().getTime();
+      currentTime = new Date().getTime();
       if (lastTimestamp === undefined) {
         lastTimestamp = new Date().getTime();
         return; //ignore first call, we need a reference time
       }
-      //  m/s² * (miliseconds - miliseconds)/1000
-      speedX += event.acceleration.x * ((currentTime - lastTimestamp)/1000);
-      speedY += event.acceleration.y * ((currentTime - lastTimestamp)/1000);
-      speedZ += event.acceleration.z * ((currentTime - lastTimestamp)/1000);
-      let speed = Math.sqrt(speedX * speedX + speedY * speedY + speedZ * speedZ);
-      text.innerHTML = `${speedX.toFixed(2)} ${speedY.toFixed(2)} ${speedZ.toFixed(2)}<br />${speed.toFixed(2)} meters per sec`;
-
+      if (currentTime - lastTimestamp < 200) {
+        return;
+      }
+      text.innerHTML = '';
+      firstApproach(event);
+      secondApproach(event);
+      thirdApproach(event);
+      lastValues = event.acceleration;
       lastTimestamp = currentTime;
     }, false);
+    
+    function getOutput(i) {
+      let speeds = speed[i];
+      normalized[i] = Math.sqrt(speeds[0] * speeds[0] + speeds[1] * speeds[1] + speeds[2] * speeds[2]);
+      normalizedAcc[i] += Math.sqrt(speeds[0] * speeds[0] + speeds[1] * speeds[1] + speeds[2] * speeds[2]);
+      velocity[i] += speeds[0] + speeds[1] + speeds[2];
+      absVelocity1[i] +=  Math.abs(speeds[0] + speeds[1] + speeds[2]);
+      absVelocity2[i] +=  Math.abs(speeds[0]) + Math.abs(speeds[1]) + Math.abs(speeds[2]);
+      text.innerHTML += `${speeds[0].toFixed(2)} ${speeds[1].toFixed(2)} ${speeds[2].toFixed(2)} <br />
+${normalized[0].toFixed(2)} ${normalizedAcc[0].toFixed(2)} ${velocity[0].toFixed(2)} ${absVelocity[0].toFixed(2)} m/s `;
+    }
+    // TODO update speeds to reset instead of summation
+    function firstApproach(event) {
+      let speeds = speed[0];
+      //  m/s² * (miliseconds - miliseconds)/1000
+      speeds[0] += event.acceleration.x * ((currentTime - lastTimestamp)/1000);
+      speeds[1] += event.acceleration.y * ((currentTime - lastTimestamp)/1000);
+      speeds[2] += event.acceleration.z * ((currentTime - lastTimestamp)/1000);
+      getOutput(0);
+    }
+    function secondApproach(event) {
+      let i = 1;
+      let speeds = speed[i];
+      speeds[0] += integrate(lastValues.x, event.acceleration.x) * ((currentTime - lastTimestamp)/1000);
+      speeds[1] += integrate(lastValues.y, event.acceleration.y)  * ((currentTime - lastTimestamp)/1000);
+      speeds[2] += integrate(lastValues.z, event.acceleration.z)  * ((currentTime - lastTimestamp)/1000);
+      getOutput(i);
+    }
+    function thirdApproach(event) {
+      let i = 1;
+      let speeds = speed[i];
+      speeds[0] += integrate(0, event.acceleration.x) * ((currentTime - lastTimestamp)/1000);
+      speeds[1] += integrate(0, event.acceleration.y)  * ((currentTime - lastTimestamp)/1000);
+      speeds[2] += integrate(0, event.acceleration.z)  * ((currentTime - lastTimestamp)/1000);
+      getOutput(i);
+    }
     // FULLTILT.getDeviceMotion()
     //   .then(
     //     function(deviceMotion) {
