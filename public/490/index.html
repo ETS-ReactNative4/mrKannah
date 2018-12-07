@@ -118,7 +118,7 @@
     var normalizedAcc = [0,0,0];
     var currentTime;
     let lastTimestamp;
-    window.addEventListener('devicemotion', function(event) {
+    function handler (event) {
       currentTime = new Date().getTime();
       if (lastTimestamp === undefined) {
         lastTimestamp = new Date().getTime();
@@ -134,7 +134,9 @@
       lastValues = event.acceleration;
       lastTimestamp = currentTime;
       container.innerHTML = text;
-    }, false);
+      console.dir(speed)
+    }
+    window.addEventListener('devicemotion', handler, false);
     
     function getOutput(i) {
       let speeds = speed[i];
@@ -143,8 +145,8 @@
       velocity[i] += speeds[0] + speeds[1] + speeds[2];
       absVelocity1[i] +=  Math.abs(speeds[0] + speeds[1] + speeds[2]);
       absVelocity2[i] +=  Math.abs(speeds[0]) + Math.abs(speeds[1]) + Math.abs(speeds[2]);
-      text += `${speeds[0].toFixed(2)} ${speeds[1].toFixed(2)} ${speeds[2].toFixed(2)} <br />
-${normalized[0].toFixed(2)} ${normalizedAcc[0].toFixed(2)} ${velocity[0].toFixed(2)} ${absVelocity[0].toFixed(2)} m/s `;
+      text += `${speeds[0].toFixed(2)}, ${speeds[1].toFixed(2)}, ${speeds[2].toFixed(2)} <br />
+${normalized[i].toFixed(2)}, ${normalizedAcc[i].toFixed(2)}, ${velocity[i].toFixed(2)}, ${absVelocity1[i].toFixed(2)}, ${absVelocity2[i].toFixed(2)} m/s <br />`;
     }
     // TODO update speeds to reset instead of summation
     function firstApproach(event) {
