@@ -152,25 +152,25 @@ ${normalized[i].toFixed(2)}, ${normalizedAcc[i].toFixed(2)}, ${velocity[i].toFix
     function firstApproach(event) {
       let speeds = speed[0];
       //  m/s² * (miliseconds - miliseconds)/1000
-      speeds[0] += event.acceleration.x * ((currentTime - lastTimestamp)/1000);
-      speeds[1] += event.acceleration.y * ((currentTime - lastTimestamp)/1000);
-      speeds[2] += event.acceleration.z * ((currentTime - lastTimestamp)/1000);
+      speeds[0] = event.acceleration.x * ((currentTime - lastTimestamp)/1000);
+      speeds[1] = event.acceleration.y * ((currentTime - lastTimestamp)/1000);
+      speeds[2] = event.acceleration.z * ((currentTime - lastTimestamp)/1000);
       getOutput(0);
     }
     function secondApproach(event) {
       let i = 1;
       let speeds = speed[i];
-      speeds[0] += integrate(lastValues.x, event.acceleration.x) * ((currentTime - lastTimestamp)/1000);
-      speeds[1] += integrate(lastValues.y, event.acceleration.y)  * ((currentTime - lastTimestamp)/1000);
-      speeds[2] += integrate(lastValues.z, event.acceleration.z)  * ((currentTime - lastTimestamp)/1000);
+      speeds[0] = integrate(lastValues.x, event.acceleration.x) * ((currentTime - lastTimestamp)/1000);
+      speeds[1] = integrate(lastValues.y, event.acceleration.y)  * ((currentTime - lastTimestamp)/1000);
+      speeds[2] = integrate(lastValues.z, event.acceleration.z)  * ((currentTime - lastTimestamp)/1000);
       getOutput(i);
     }
     function thirdApproach(event) {
       let i = 1;
       let speeds = speed[i];
-      speeds[0] += integrate(0, event.acceleration.x) * ((currentTime - lastTimestamp)/1000);
-      speeds[1] += integrate(0, event.acceleration.y)  * ((currentTime - lastTimestamp)/1000);
-      speeds[2] += integrate(0, event.acceleration.z)  * ((currentTime - lastTimestamp)/1000);
+      speeds[0] = integrate(0, event.acceleration.x) * ((currentTime - lastTimestamp)/1000);
+      speeds[1] = integrate(0, event.acceleration.y)  * ((currentTime - lastTimestamp)/1000);
+      speeds[2] = integrate(0, event.acceleration.z)  * ((currentTime - lastTimestamp)/1000);
       getOutput(i);
     }
     // FULLTILT.getDeviceMotion()
