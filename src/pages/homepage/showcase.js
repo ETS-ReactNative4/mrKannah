@@ -7,7 +7,7 @@ import SwipeableViews from 'react-swipeable-views';
 import { autoPlay } from 'react-swipeable-views-utils';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
-import Button from '@material-ui/core/Button';
+import Fab from '@material-ui/core/Fab';
 import green from '@material-ui/core/colors/green';
 import grey from '@material-ui/core/colors/grey';
 import red from '@material-ui/core/colors/red';
@@ -96,20 +96,18 @@ class Showcase extends Component {
             position: 'relative',
             top: `calc((-${slideHeight}px - 48px) / 2)`,
           }}>
-            <Button
-              variant='fab'
+            <Fab
               style={{width: this.props.mobileView ? 0 : 48, height: this.props.mobileView ? 0 : 48, transition}}
               onClick={() => this.decreaseIndex()}
             >
               <ArrowBackIcon style={{color: this.props.theme.palette.primary, width: this.props.mobileView ? 0 : 24, height: this.props.mobileView ? 0 : 24, transition}} />
-            </Button>
-            <Button
-              variant='fab'
+            </Fab>
+            <Fab
               style={{width: this.props.mobileView ? 0 : 48, height: this.props.mobileView ? 0 : 48, transition}}
               onClick={() => this.increaseIndex()}
             >
               <ArrowForwardIcon style={{color: this.props.theme.palette.primary, width: this.props.mobileView ? 0 : 24, height: this.props.mobileView ? 0 : 24, transition}} />
-            </Button>
+            </Fab>
           </div>
           <Dots id='dots' style={{margin: '5px auto 0px'}}
             index={this.state.index}
