@@ -10,7 +10,6 @@
     }
   </style>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAmjI8t-x5OZdt1JbGA76oyGWyCIqI42KA"></script>
-  <script src="./fulltilt.min.js"></script>
 </head>
 <body>
 <input type="text" placeholder="Enter destination" name="search">
@@ -106,18 +105,14 @@
 <script>
   let lastValues = {x:0, y:0, z:0};
   let container = document.getElementById('speed');
+  let speed = [[0,0,0], [0,0,0], [0,0,0]];
+  let currentTime;
+  let lastTimestamp;
+  let text;
   function integrate(oldValue, newValue) {
     return newValue * newValue /2 - oldValue * oldValue /2
   }
   function initAccel() {
-    var speed = [[0,0,0], [0,0,0], [0,0,0]];
-    var velocity = [0,0,0];
-    var absVelocity1 = [0,0,0];
-    var absVelocity2 = [0,0,0];
-    var normalized = [0,0,0];
-    var normalizedAcc = [0,0,0];
-    var currentTime;
-    let lastTimestamp;
     function handler (event) {
       currentTime = new Date().getTime();
       if (lastTimestamp === undefined) {
@@ -140,22 +135,19 @@
     
     function getOutput(i) {
       let speeds = speed[i];
-      normalized[i] = Math.sqrt(speeds[0] * speeds[0] + speeds[1] * speeds[1] + speeds[2] * speeds[2]);
-      normalizedAcc[i] += Math.sqrt(speeds[0] * speeds[0] + speeds[1] * speeds[1] + speeds[2] * speeds[2]);
-      velocity[i] += speeds[0] + speeds[1] + speeds[2];
-      absVelocity1[i] +=  Math.abs(speeds[0] + speeds[1] + speeds[2]);
-      absVelocity2[i] +=  Math.abs(speeds[0]) + Math.abs(speeds[1]) + Math.abs(speeds[2]);
+      let normalized = Math.sqrt(speeds[0] * speeds[0] + speeds[1] * speeds[1] + speeds[2] * speeds[2]);
+      let v = speeds[0]/normalized + speeds[1]/normalized + speeds[2]/normalized;
       text += `${speeds[0].toFixed(2)}, ${speeds[1].toFixed(2)}, ${speeds[2].toFixed(2)} <br />
-${normalized[i].toFixed(2)} m/s ${(normalized[i] * 2.23694).toFixed()} mile/h <br />`;
+${normalized.toFixed(2)} m/s ${(normalized * 2.23694).toFixed()} mile/h <br />
+${v.toFixed(2)} m/s ${(v * 2.23694).toFixed()} mile/h <br />`;
     }
-    // TODO update speeds to reset instead of summation
     function firstApproach(event) {
-      let speeds = speed[0];
-      //  m/s² * (miliseconds - miliseconds)/1000
+      let i = 1;
+      let speeds = speed[i];
       speeds[0] = event.acceleration.x * ((currentTime - lastTimestamp)/1000);
       speeds[1] = event.acceleration.y * ((currentTime - lastTimestamp)/1000);
       speeds[2] = event.acceleration.z * ((currentTime - lastTimestamp)/1000);
-      getOutput(0);
+      getOutput(i);
     }
     function secondApproach(event) {
       let i = 1;
@@ -173,19 +165,6 @@ ${normalized[i].toFixed(2)} m/s ${(normalized[i] * 2.23694).toFixed()} mile/h <b
       speeds[2] = integrate(0, event.acceleration.z)  * ((currentTime - lastTimestamp)/1000);
       getOutput(i);
     }
-    // FULLTILT.getDeviceMotion()
-    //   .then(
-    //     function(deviceMotion) {
-    //       setInterval(() => {
-    //         getAreaUnderTheCurve(deviceMotion.getScreenAdjustedAcceleration());
-    //       }, 100)
-    //     }
-    //   ).catch(
-    //   function(message) {
-    //     alert(message)
-    //   }
-    // );
-
   }
   initAccel();
 </script>
