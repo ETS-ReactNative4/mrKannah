@@ -109,8 +109,8 @@
   let currentTime;
   let lastTimestamp;
   let text;
-  function integrate(oldValue, newValue) {
-    return newValue * newValue /2 - oldValue * oldValue /2
+  function integrate(oldValue, newValue, timeDiff) {
+    return (oldValue + newValue)/2 * timeDiff
   }
   function initAccel() {
     function handler (event) {
@@ -142,28 +142,28 @@ ${normalized.toFixed(2)} m/s ${(normalized * 2.23694).toFixed()} mile/h <br />
 ${v.toFixed(2)} m/s ${(v * 2.23694).toFixed()} mile/h <br />`;
     }
     function firstApproach(event) {
-      let i = 1;
+      let i = 0;
       let speeds = speed[i];
       speeds[0] = event.acceleration.x * ((currentTime - lastTimestamp)/1000);
       speeds[1] = event.acceleration.y * ((currentTime - lastTimestamp)/1000);
       speeds[2] = event.acceleration.z * ((currentTime - lastTimestamp)/1000);
-      getOutput(i);
+      //getOutput(i);
     }
     function secondApproach(event) {
       let i = 1;
       let speeds = speed[i];
-      speeds[0] = integrate(lastValues.x, event.acceleration.x) * ((currentTime - lastTimestamp)/1000);
-      speeds[1] = integrate(lastValues.y, event.acceleration.y)  * ((currentTime - lastTimestamp)/1000);
-      speeds[2] = integrate(lastValues.z, event.acceleration.z)  * ((currentTime - lastTimestamp)/1000);
+      speeds[0] = integrate(lastValues.x, event.acceleration.x, ((currentTime - lastTimestamp)/1000));
+      speeds[1] = integrate(lastValues.y, event.acceleration.y, ((currentTime - lastTimestamp)/1000));
+      speeds[2] = integrate(lastValues.z, event.acceleration.z, ((currentTime - lastTimestamp)/1000));
       getOutput(i);
     }
     function thirdApproach(event) {
-      let i = 1;
+      let i = 2;
       let speeds = speed[i];
       speeds[0] = integrate(0, event.acceleration.x) * ((currentTime - lastTimestamp)/1000);
       speeds[1] = integrate(0, event.acceleration.y)  * ((currentTime - lastTimestamp)/1000);
       speeds[2] = integrate(0, event.acceleration.z)  * ((currentTime - lastTimestamp)/1000);
-      getOutput(i);
+     //  getOutput(i);
     }
   }
   initAccel();
