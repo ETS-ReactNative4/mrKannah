@@ -78,6 +78,7 @@
     // Try HTML5 geolocation.
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function(position) {
+        console.log(position)
         pos = {
           lat: position.coords.latitude,
           lng: position.coords.longitude
@@ -105,65 +106,43 @@
 <script>
   let lastValues = {x:0, y:0, z:0};
   let container = document.getElementById('speed');
-  let speed = [[0,0,0], [0,0,0], [0,0,0]];
+  let speed = [0,0,0];
+  let velocity = 0;
   let currentTime;
   let lastTimestamp;
   let text;
   function integrate(oldValue, newValue, timeDiff) {
+    // area of each trapezoid * timeDiff (dx)
     return (oldValue + newValue)/2 * timeDiff
   }
   function initAccel() {
     function handler (event) {
       currentTime = new Date().getTime();
       if (lastTimestamp === undefined) {
-        lastTimestamp = new Date().getTime();
+        lastTimestamp = currentTime;
         return; //ignore first call, we need a reference time
       }
-      if (currentTime - lastTimestamp < 200) {
-        return;
-      }
-      text = '';
-      firstApproach(event);
-      secondApproach(event);
-      thirdApproach(event);
+      text = `${event.acceleration.x.toFixed(2)}, ${event.acceleration.y.toFixed(2)}, ${event.acceleration.z.toFixed(2)}<br /><br />`;
+      calculateValues(event);
+      getOutput();
       lastValues = event.acceleration;
       lastTimestamp = currentTime;
       container.innerHTML = text;
-      console.dir(speed)
     }
     window.addEventListener('devicemotion', handler, false);
     
-    function getOutput(i) {
-      let speeds = speed[i];
-      let normalized = Math.sqrt(speeds[0] * speeds[0] + speeds[1] * speeds[1] + speeds[2] * speeds[2]);
-      let v = speeds[0]/normalized + speeds[1]/normalized + speeds[2]/normalized;
-      text += `${speeds[0].toFixed(2)}, ${speeds[1].toFixed(2)}, ${speeds[2].toFixed(2)} <br />
-${normalized.toFixed(2)} m/s ${(normalized * 2.23694).toFixed()} mile/h <br />
-${v.toFixed(2)} m/s ${(v * 2.23694).toFixed()} mile/h <br />`;
+    function getOutput() {
+      let normalized = Math.sqrt(speed[0] * speed[0] + speed[1] * speed[1] + speed[2] * speed[2]);
+      let v = speed[0]/normalized + speed[1]/normalized + speed[2]/normalized;
+      velocity = v > 0 ? velocity + normalized : velocity - normalized;
+      text += `${speed[0].toFixed(2)}, ${speed[1].toFixed(2)}, ${speed[2].toFixed(2)} <br />
+${velocity.toFixed(2)} m/s ${normalized.toFixed(2)} m/s ${(normalized * 2.23694).toFixed(2)} mile/h <br />
+${v.toFixed(2)} m/s ${(v * 2.23694).toFixed(2)} mile/h <br /><br />`;
     }
-    function firstApproach(event) {
-      let i = 0;
-      let speeds = speed[i];
-      speeds[0] = event.acceleration.x * ((currentTime - lastTimestamp)/1000);
-      speeds[1] = event.acceleration.y * ((currentTime - lastTimestamp)/1000);
-      speeds[2] = event.acceleration.z * ((currentTime - lastTimestamp)/1000);
-      //getOutput(i);
-    }
-    function secondApproach(event) {
-      let i = 1;
-      let speeds = speed[i];
-      speeds[0] += integrate(lastValues.x, event.acceleration.x, ((currentTime - lastTimestamp)/1000));
-      speeds[1] += integrate(lastValues.y, event.acceleration.y, ((currentTime - lastTimestamp)/1000));
-      speeds[2] += integrate(lastValues.z, event.acceleration.z, ((currentTime - lastTimestamp)/1000));
-      getOutput(i);
-    }
-    function thirdApproach(event) {
-      let i = 2;
-      let speeds = speed[i];
-      speeds[0] = integrate(lastValues.x, event.acceleration.x, ((currentTime - lastTimestamp)/1000));
-      speeds[1] = integrate(lastValues.y, event.acceleration.y, ((currentTime - lastTimestamp)/1000));
-      speeds[2] = integrate(lastValues.z, event.acceleration.z, ((currentTime - lastTimestamp)/1000));
-      getOutput(i);
+    function calculateValues(event) {
+      speed[0] = integrate(lastValues.x, event.acceleration.x, ((currentTime - lastTimestamp)/1000));
+      speed[1] = integrate(lastValues.y, event.acceleration.y, ((currentTime - lastTimestamp)/1000));
+      speed[2] = integrate(lastValues.z, event.acceleration.z, ((currentTime - lastTimestamp)/1000));
     }
   }
   initAccel();
