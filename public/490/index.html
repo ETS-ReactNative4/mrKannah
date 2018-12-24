@@ -106,14 +106,14 @@
 <script>
   let lastValues = {x:0, y:0, z:0};
   let container = document.getElementById('speed');
-  let speed = [0,0,0];
-  let velocity = 0;
+  let speed = [[],[],[]];
+  console.log(speed);
   let currentTime;
   let lastTimestamp;
   let text;
   function integrate(oldValue, newValue, timeDiff) {
     // area of each trapezoid * timeDiff (dx)
-    return (oldValue + newValue)/2 * timeDiff
+    return parseFloat(((oldValue + newValue)/2 * timeDiff).toFixed(2));
   }
   function initAccel() {
     function handler (event) {
@@ -132,17 +132,25 @@
     window.addEventListener('devicemotion', handler, false);
     
     function getOutput() {
-      let normalized = Math.sqrt(speed[0] * speed[0] + speed[1] * speed[1] + speed[2] * speed[2]);
-      let v = speed[0]/normalized + speed[1]/normalized + speed[2]/normalized;
-      velocity = v > 0 ? velocity + normalized : velocity - normalized;
-      text += `${speed[0].toFixed(2)}, ${speed[1].toFixed(2)}, ${speed[2].toFixed(2)} <br />
-${velocity.toFixed(2)} m/s ${normalized.toFixed(2)} m/s ${(normalized * 2.23694).toFixed(2)} mile/h <br />
-${v.toFixed(2)} m/s ${(v * 2.23694).toFixed(2)} mile/h <br /><br />`;
+      let currentSpeed = {
+        x: speed[0].reduce((acc, val) => acc + val, 0),
+        y: speed[1].reduce((acc, val) => acc + val, 0),
+        z: speed[2].reduce((acc, val) => acc + val, 0),
+      };
+      if (speed[0].length > 120) {
+        speed[0] = [currentSpeed.x];
+        speed[1] = [currentSpeed.y];
+        speed[2] = [currentSpeed.z];
+      }
+      let normalized = Math.sqrt(currentSpeed.x * currentSpeed.x + currentSpeed.y * currentSpeed.y + currentSpeed.z * currentSpeed.z);
+      text += `${currentSpeed.x.toFixed(2)}, ${currentSpeed.y.toFixed(2)}, ${currentSpeed.z.toFixed(2)} <br />
+${normalized.toFixed(2)} m/s ${(normalized * 2.23694).toFixed(2)} mile/h 
+<br /><br />`;
     }
     function calculateValues(event) {
-      speed[0] = integrate(lastValues.x, event.acceleration.x, ((currentTime - lastTimestamp)/1000));
-      speed[1] = integrate(lastValues.y, event.acceleration.y, ((currentTime - lastTimestamp)/1000));
-      speed[2] = integrate(lastValues.z, event.acceleration.z, ((currentTime - lastTimestamp)/1000));
+      speed[0].push(integrate(lastValues.x, event.acceleration.x, ((currentTime - lastTimestamp)/1000)));
+      speed[1].push(integrate(lastValues.y, event.acceleration.y, ((currentTime - lastTimestamp)/1000)));
+      speed[2].push(integrate(lastValues.z, event.acceleration.z, ((currentTime - lastTimestamp)/1000)));
     }
   }
   initAccel();
