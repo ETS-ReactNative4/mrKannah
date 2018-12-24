@@ -17,8 +17,8 @@
 <button onclick="calcRoute();" style="padding: 5px; width: 25%; border: 0px; box-shadow: 0 1px 1px #999999; border-radius: 8px; cursor: pointer; background-color: lightgreen">Navigate</button>
 <div style="height: 8px"></div>
 <div id="map"></div>
-<div style="text-align: center"><span style="font-size:20px" id="speed" onclick="toggleDebug()">11</span></div>
 <canvas id="meter" style="height: 200px; width: 400px;" onclick="toggleDebug()"></canvas>
+<div style="text-align: center"><span style="font-size:20px" id="speed" onclick="toggleDebug()">11</span></div>
 <script>
   var opts = {
     angle: -0.19, // The span of the gauge arc
@@ -181,7 +181,7 @@
         lastTimestamp = currentTime;
         return; //ignore first call, we need a reference time
       }
-      text = debug ? `${event.acceleration.x.toFixed(2)}, ${event.acceleration.y.toFixed(2)}, ${event.acceleration.z.toFixed(2)}<br /><br />`: '';
+      text = debug ? `Acceleration (x,y,z): ${event.acceleration.x.toFixed(2)}, ${event.acceleration.y.toFixed(2)}, ${event.acceleration.z.toFixed(2)}<br />`: '';
       calculateValues(event);
       getOutput();
       lastValues = event.acceleration;
@@ -202,10 +202,11 @@
         speed[2] = [currentSpeed.z];
       }
       let normalized = Math.sqrt(currentSpeed.x * currentSpeed.x + currentSpeed.y * currentSpeed.y + currentSpeed.z * currentSpeed.z);
-      gauge.set(normalized * 2.23694); // set actual value
-      text += debug ? `${currentSpeed.x.toFixed(2)}, ${currentSpeed.y.toFixed(2)}, ${currentSpeed.z.toFixed(2)} <br />
-${normalized.toFixed(2)} m/s ${(normalized * 2.23694).toFixed(2)} mile/h 
-<br /><br />` : `${(normalized * 2.23694).toFixed(2)} mile/h`;
+      let normalizedMiles = normalized * 2.23694;
+      gauge.set(normalizedMiles); // set actual value
+      text += debug ? `Speed (x,y,z): ${currentSpeed.x.toFixed(2)}, ${currentSpeed.y.toFixed(2)}, ${currentSpeed.z.toFixed(2)} <br />
+Normalized: ${normalized.toFixed(2)} m/s ${(normalizedMiles).toFixed(2)} mile/h 
+<br /><br />` : `${(normalizedMiles).toFixed(2)} mile/h`;
     }
     function calculateValues(event) {
       speed[0].push(integrate(lastValues.x, event.acceleration.x, ((currentTime - lastTimestamp)/1000)));
