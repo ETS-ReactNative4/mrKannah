@@ -2,6 +2,9 @@
 <html>
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- theme color should match manefest-->
+  <meta name="theme-color" content="#4285f4"> 
+  <link rel="manifest" href="manifest.webmanifest">
   <style>
     /* Set the size of the div element that contains the map */
     #map {
@@ -17,7 +20,7 @@
 <button onclick="calcRoute();" style="padding: 5px; width: 25%; border: 0px; box-shadow: 0 1px 1px #999999; border-radius: 8px; cursor: pointer; background-color: lightgreen">Navigate</button>
 <div style="height: 8px"></div>
 <div id="map"></div>
-<canvas id="meter" style="height: 200px; width: 400px;" onclick="toggleDebug()"></canvas>
+<canvas id="meter" style="height: 200px; width: 300px; margin: 0 auto; display: block;" onclick="toggleDebug()"></canvas>
 <div style="text-align: center"><span style="font-size:20px" id="speed" onclick="toggleDebug()">11</span></div>
 <script>
   var opts = {
