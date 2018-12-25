@@ -5,6 +5,15 @@
   <!-- theme color should match manefest-->
   <meta name="theme-color" content="#4285f4"> 
   <link rel="manifest" href="manifest.webmanifest">
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('./service-worker.js').then(function(reg) {
+        console.log('Successfully registered service worker', reg);
+      }).catch(function(err) {
+        console.warn('Error whilst registering service worker', err);
+      });
+    }
+  </script>
   <style>
     /* Set the size of the div element that contains the map */
     #map {
