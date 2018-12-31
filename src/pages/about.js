@@ -52,7 +52,7 @@ class About extends Component {
               classes={{indicator: this.props.classes.indicator}}
               onChange={(event, value) => this.navigate(value)}
               value={this.props.currentRoute}
-              centered fullWidth
+              centered variant="fullWidth"
         >
           <Tab label="Summary" value={'/about'} style = {{backgroundColor: this.props.theme.palette.secondary['500']}} />
           <Tab label="Software Development" value={'/about/softwareDevelopment'} style = {{backgroundColor: this.props.theme.palette.secondary['500']}} />
