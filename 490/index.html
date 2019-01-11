@@ -2,6 +2,18 @@
 <html>
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- theme color should match manefest-->
+  <meta name="theme-color" content="#4285f4"> 
+  <link rel="manifest" href="manifest.webmanifest">
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('./service-worker.js').then(function(reg) {
+        console.log('Successfully registered service worker', reg);
+      }).catch(function(err) {
+        console.warn('Error whilst registering service worker', err);
+      });
+    }
+  </script>
   <style>
     /* Set the size of the div element that contains the map */
     #map {
@@ -10,13 +22,61 @@
     }
   </style>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAmjI8t-x5OZdt1JbGA76oyGWyCIqI42KA"></script>
+  <script src="gauge.js"></script>
 </head>
 <body>
-<input type="text" placeholder="Enter destination" name="search">
-<button onclick="calcRoute();">Navigate</button>
+<input type="text" placeholder="Enter destination" name="search" style="padding: 5px; width: 70%; border-radius: 8px;">
+<button onclick="calcRoute();" style="padding: 5px; width: 25%; border: 0px; box-shadow: 0 1px 1px #999999; border-radius: 8px; cursor: pointer; background-color: lightgreen">Navigate</button>
 <div style="height: 8px"></div>
 <div id="map"></div>
-<div style="text-align: center"><span style="font-size:20px" id="speed">11</span></div>
+<canvas id="meter" style="height: 200px; width: 300px; margin: 0 auto; display: block;" onclick="toggleDebug()"></canvas>
+<div style="text-align: center"><span style="font-size:20px" id="speed" onclick="toggleDebug()">11</span></div>
+<script>
+  var opts = {
+    angle: -0.19, // The span of the gauge arc
+    lineWidth: 0.19, // The line thickness
+    radiusScale: 0.89, // Relative radius
+    pointer: {
+      length: 0.6, // // Relative to gauge radius
+      strokeWidth: 0.035, // The thickness
+      color: '#000000' // Fill color
+    },
+    limitMax: true,     // If false, max value increases automatically if value > maxValue
+    limitMin: true,     // If true, the min value of the gauge will be fixed
+    colorStart: '#6FADCF',   // Colors
+    colorStop: '#8FC0DA',    // just experiment with them
+    strokeColor: '#E0E0E0',  // to see which ones work best for you
+    generateGradient: true,
+    highDpiSupport: true,     // High resolution support
+    // renderTicks is Optional
+    renderTicks: {
+      divisions: 6,
+      divWidth: 1.1,
+      divLength: 0.7,
+      divColor: '#333333',
+      subDivisions: 5,
+      subLength: 0.5,
+      subWidth: 0.6,
+      subColor: '#666666'
+    },
+    staticZones: [
+      {strokeStyle: "#F03E3E", min: 25, max: 30}, // Red from 20-30
+      {strokeStyle: "#FFDD00", min: 15, max: 25}, // Yellow
+      {strokeStyle: "#30B32D", min: 0, max: 15}, // Green
+    ],
+    staticLabels: {
+      font: "10px sans-serif",  // Specifies font
+      labels: [0, 5, 10, 15, 20, 25, 30],  // Print labels at these values
+      color: "#000000",  // Optional: Label text color
+      fractionDigits: 0  // Optional: Numerical precision. 0=round off.
+    },
+  };
+  var meter = document.getElementById('meter'); // your canvas element
+  var gauge = new Gauge(meter).setOptions(opts); // create sexy gauge!
+  gauge.maxValue = 30; // set max gauge value
+  gauge.setMinValue(0);  // Prefer setter over gauge.minValue = 0
+  gauge.animationSpeed = 16; // set animation speed (32 is default value)
+</script>
 <script>
   var map, marker, pos;
   var watcher;
@@ -104,16 +164,27 @@
   }
 </script>
 <script>
+  function toggleDebug() {
+    debug = !debug;
+    if (debug) {
+      meter.style.display = 'none';
+    } else {
+      meter.style.display = 'block';
+    }
+  }
+</script>
+<script>
   let lastValues = {x:0, y:0, z:0};
   let container = document.getElementById('speed');
-  let speed = [0,0,0];
-  let velocity = 0;
+  let speed = [[],[],[]];
+  console.log(speed);
   let currentTime;
   let lastTimestamp;
   let text;
+  var debug = false;
   function integrate(oldValue, newValue, timeDiff) {
     // area of each trapezoid * timeDiff (dx)
-    return (oldValue + newValue)/2 * timeDiff
+    return parseFloat(((oldValue + newValue)/2 * timeDiff).toFixed(2));
   }
   function initAccel() {
     function handler (event) {
@@ -122,7 +193,7 @@
         lastTimestamp = currentTime;
         return; //ignore first call, we need a reference time
       }
-      text = `${event.acceleration.x.toFixed(2)}, ${event.acceleration.y.toFixed(2)}, ${event.acceleration.z.toFixed(2)}<br /><br />`;
+      text = debug ? `Acceleration (x,y,z): ${event.acceleration.x.toFixed(2)}, ${event.acceleration.y.toFixed(2)}, ${event.acceleration.z.toFixed(2)}<br />`: '';
       calculateValues(event);
       getOutput();
       lastValues = event.acceleration;
@@ -132,17 +203,27 @@
     window.addEventListener('devicemotion', handler, false);
     
     function getOutput() {
-      let normalized = Math.sqrt(speed[0] * speed[0] + speed[1] * speed[1] + speed[2] * speed[2]);
-      let v = speed[0]/normalized + speed[1]/normalized + speed[2]/normalized;
-      velocity = v > 0 ? velocity + normalized : velocity - normalized;
-      text += `${speed[0].toFixed(2)}, ${speed[1].toFixed(2)}, ${speed[2].toFixed(2)} <br />
-${velocity.toFixed(2)} m/s ${normalized.toFixed(2)} m/s ${(normalized * 2.23694).toFixed(2)} mile/h <br />
-${v.toFixed(2)} m/s ${(v * 2.23694).toFixed(2)} mile/h <br /><br />`;
+      let currentSpeed = {
+        x: speed[0].reduce((acc, val) => acc + val, 0),
+        y: speed[1].reduce((acc, val) => acc + val, 0),
+        z: speed[2].reduce((acc, val) => acc + val, 0),
+      };
+      if (speed[0].length > 120) {
+        speed[0] = [currentSpeed.x];
+        speed[1] = [currentSpeed.y];
+        speed[2] = [currentSpeed.z];
+      }
+      let normalized = Math.sqrt(currentSpeed.x * currentSpeed.x + currentSpeed.y * currentSpeed.y + currentSpeed.z * currentSpeed.z);
+      let normalizedMiles = normalized * 2.23694;
+      gauge.set(normalizedMiles); // set actual value
+      text += debug ? `Speed (x,y,z): ${currentSpeed.x.toFixed(2)}, ${currentSpeed.y.toFixed(2)}, ${currentSpeed.z.toFixed(2)} <br />
+Normalized: ${normalized.toFixed(2)} m/s ${(normalizedMiles).toFixed(2)} mile/h 
+<br /><br />` : `${(normalizedMiles).toFixed(2)} mile/h`;
     }
     function calculateValues(event) {
-      speed[0] = integrate(lastValues.x, event.acceleration.x, ((currentTime - lastTimestamp)/1000));
-      speed[1] = integrate(lastValues.y, event.acceleration.y, ((currentTime - lastTimestamp)/1000));
-      speed[2] = integrate(lastValues.z, event.acceleration.z, ((currentTime - lastTimestamp)/1000));
+      speed[0].push(integrate(lastValues.x, event.acceleration.x, ((currentTime - lastTimestamp)/1000)));
+      speed[1].push(integrate(lastValues.y, event.acceleration.y, ((currentTime - lastTimestamp)/1000)));
+      speed[2].push(integrate(lastValues.z, event.acceleration.z, ((currentTime - lastTimestamp)/1000)));
     }
   }
   initAccel();
