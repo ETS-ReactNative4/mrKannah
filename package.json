@@ -15,7 +15,7 @@
     "eslint-plugin-react": "7.12.4",
     "gh-pages": "2.0.1",
     "history": "4.7.2",
-    "prop-types": "15.6.2",
+    "prop-types": "15.7.2",
     "raven-for-redux": "1.4.0",
     "react": "16.8.1",
     "react-dom": "16.8.1",
