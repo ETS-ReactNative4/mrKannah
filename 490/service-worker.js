@@ -1,4 +1,4 @@
-var CACHE = 'cacheV1';
+var CACHE = 'cacheV2';
 const CACHE_MISS = 'cache-miss';
 var filesToCache = [
   '/490/',
