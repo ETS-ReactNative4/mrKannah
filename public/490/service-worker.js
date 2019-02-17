@@ -1,4 +1,4 @@
-var CACHE = 'cacheV2';
+var CACHE = 'v1';
 const CACHE_MISS = 'cache-miss';
 var filesToCache = [
   '/490/',
@@ -9,6 +9,7 @@ var filesToCache = [
 
 self.addEventListener('install', function(e) {
   console.log('[ServiceWorker] Install');
+  self.skipWaiting();
   e.waitUntil(precache());
 });
 
