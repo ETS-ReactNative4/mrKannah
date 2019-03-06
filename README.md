@@ -1,3 +1,5 @@
+This is the older version of mywebsite! The new one is on [fadeenk/mrKannahV2](https://github.com/fadeenk/mrKannahV2)
+
 [![Greenkeeper badge](https://badges.greenkeeper.io/fadeenk/mrKannah.svg)](https://greenkeeper.io/) 
 [![Build Status](https://travis-ci.org/fadeenk/mrKannah.svg?branch=master)](https://travis-ci.org/fadeenk/mrKannah)
 
